@@ -54,8 +54,8 @@
             // sampleToolStripMenuItem
             // 
             this.sampleToolStripMenuItem.Name = "sampleToolStripMenuItem";
-            this.sampleToolStripMenuItem.Size = new System.Drawing.Size(42, 23);
-            this.sampleToolStripMenuItem.Text = "DAP";
+            this.sampleToolStripMenuItem.Size = new System.Drawing.Size(70, 23);
+            this.sampleToolStripMenuItem.Text = "DAP Filler";
             // 
             // Form1
             // 

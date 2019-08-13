@@ -33,11 +33,27 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.DataTab = new System.Windows.Forms.TabPage();
+            this.UndoDButton = new System.Windows.Forms.Button();
+            this.CopyDButton = new System.Windows.Forms.Button();
+            this.CutDButton = new System.Windows.Forms.Button();
+            this.DeleteDButton = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.AssessmentTab = new System.Windows.Forms.TabPage();
+            this.PlanTab = new System.Windows.Forms.TabPage();
+            this.autoFillListView = new System.Windows.Forms.ListView();
+            this.PostCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.AutoFillCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Patient.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.DataTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // Patient
             // 
+            this.Patient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Patient.Controls.Add(this.button1);
             this.Patient.Controls.Add(this.radioButton2);
             this.Patient.Controls.Add(this.radioButton1);
@@ -95,16 +111,147 @@
             this.textBox1.Enter += new System.EventHandler(this.PatientName_Enter);
             this.textBox1.Leave += new System.EventHandler(this.PatientName_Leave);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.AllowDrop = true;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.Controls.Add(this.DataTab);
+            this.tabControl1.Controls.Add(this.AssessmentTab);
+            this.tabControl1.Controls.Add(this.PlanTab);
+            this.tabControl1.Location = new System.Drawing.Point(8, 57);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(763, 542);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // DataTab
+            // 
+            this.DataTab.Controls.Add(this.autoFillListView);
+            this.DataTab.Controls.Add(this.UndoDButton);
+            this.DataTab.Controls.Add(this.CopyDButton);
+            this.DataTab.Controls.Add(this.CutDButton);
+            this.DataTab.Controls.Add(this.DeleteDButton);
+            this.DataTab.Controls.Add(this.textBox2);
+            this.DataTab.Location = new System.Drawing.Point(4, 25);
+            this.DataTab.Name = "DataTab";
+            this.DataTab.Padding = new System.Windows.Forms.Padding(3);
+            this.DataTab.Size = new System.Drawing.Size(755, 513);
+            this.DataTab.TabIndex = 0;
+            this.DataTab.Text = "Data";
+            this.DataTab.UseVisualStyleBackColor = true;
+            // 
+            // UndoDButton
+            // 
+            this.UndoDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._004_undo_button;
+            this.UndoDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UndoDButton.Location = new System.Drawing.Point(107, 98);
+            this.UndoDButton.Name = "UndoDButton";
+            this.UndoDButton.Size = new System.Drawing.Size(30, 30);
+            this.UndoDButton.TabIndex = 4;
+            this.UndoDButton.UseVisualStyleBackColor = true;
+            this.UndoDButton.Click += new System.EventHandler(this.UndoDButton_Click);
+            // 
+            // CopyDButton
+            // 
+            this.CopyDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._003_copy_content;
+            this.CopyDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CopyDButton.Location = new System.Drawing.Point(71, 98);
+            this.CopyDButton.Name = "CopyDButton";
+            this.CopyDButton.Size = new System.Drawing.Size(30, 30);
+            this.CopyDButton.TabIndex = 3;
+            this.CopyDButton.UseVisualStyleBackColor = true;
+            // 
+            // CutDButton
+            // 
+            this.CutDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_scissors;
+            this.CutDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CutDButton.Location = new System.Drawing.Point(35, 98);
+            this.CutDButton.Name = "CutDButton";
+            this.CutDButton.Size = new System.Drawing.Size(30, 30);
+            this.CutDButton.TabIndex = 2;
+            this.CutDButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteDButton
+            // 
+            this.DeleteDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._001_rubbish_bin;
+            this.DeleteDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteDButton.Location = new System.Drawing.Point(0, 98);
+            this.DeleteDButton.Name = "DeleteDButton";
+            this.DeleteDButton.Size = new System.Drawing.Size(30, 30);
+            this.DeleteDButton.TabIndex = 1;
+            this.DeleteDButton.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(0, 0);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(755, 92);
+            this.textBox2.TabIndex = 0;
+            this.textBox2.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+            // 
+            // AssessmentTab
+            // 
+            this.AssessmentTab.Location = new System.Drawing.Point(4, 25);
+            this.AssessmentTab.Name = "AssessmentTab";
+            this.AssessmentTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AssessmentTab.Size = new System.Drawing.Size(755, 513);
+            this.AssessmentTab.TabIndex = 1;
+            this.AssessmentTab.Text = "Assessment";
+            this.AssessmentTab.UseVisualStyleBackColor = true;
+            // 
+            // PlanTab
+            // 
+            this.PlanTab.Location = new System.Drawing.Point(4, 25);
+            this.PlanTab.Name = "PlanTab";
+            this.PlanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PlanTab.Size = new System.Drawing.Size(755, 513);
+            this.PlanTab.TabIndex = 2;
+            this.PlanTab.Text = "Plan";
+            this.PlanTab.UseVisualStyleBackColor = true;
+            // 
+            // autoFillListView
+            // 
+            this.autoFillListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.PostCol,
+            this.AutoFillCol});
+            this.autoFillListView.GridLines = true;
+            this.autoFillListView.Location = new System.Drawing.Point(19, 144);
+            this.autoFillListView.Name = "autoFillListView";
+            this.autoFillListView.Size = new System.Drawing.Size(492, 313);
+            this.autoFillListView.TabIndex = 5;
+            this.autoFillListView.UseCompatibleStateImageBehavior = false;
+            this.autoFillListView.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
+            // 
+            // PostCol
+            // 
+            this.PostCol.Text = "Post";
+            this.PostCol.Width = 10;
+            // 
+            // AutoFillCol
+            // 
+            this.AutoFillCol.Text = "Auto Fill Entry";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(776, 450);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(776, 602);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Patient);
             this.Name = "Form1";
             this.Text = "DAP Filler";
             this.Patient.ResumeLayout(false);
             this.Patient.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.DataTab.ResumeLayout(false);
+            this.DataTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -116,6 +263,18 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage DataTab;
+        private System.Windows.Forms.TabPage AssessmentTab;
+        private System.Windows.Forms.TabPage PlanTab;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button DeleteDButton;
+        private System.Windows.Forms.Button UndoDButton;
+        private System.Windows.Forms.Button CopyDButton;
+        private System.Windows.Forms.Button CutDButton;
+        private System.Windows.Forms.ListView autoFillListView;
+        private System.Windows.Forms.ColumnHeader PostCol;
+        private System.Windows.Forms.ColumnHeader AutoFillCol;
     }
 }
 

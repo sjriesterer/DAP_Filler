@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoFillEntry.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,6 +107,39 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_copy_l.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_delete_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\001-rubbish-bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\002-scissors.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\003-copy-content.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\004-undo-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\005-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\006-pencil-edit-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\007-clipboard-paste-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\008-idea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\009-light-bulb.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

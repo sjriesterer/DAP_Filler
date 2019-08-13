@@ -11,11 +11,44 @@ using System.Windows.Forms;
 
 namespace DAP_Filler
 {
+
+
+
     public partial class Form1 : Form
     {
+        private List<AutoFillEntry> autoFillList;
+
         public Form1()
         {
             InitializeComponent();
+            autoFillList = new List<AutoFillEntry>();
+            PopulateEntries();
+            autoFillListView.View = View.Details;
+            initListView();
+        }
+
+
+        private void PopulateEntries()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                AutoFillEntry ae = new AutoFillEntry("This is autofill " + i);
+                autoFillList.Add(ae);
+            }
+        }
+
+        private void initListView()
+        {
+
+            foreach (var o in autoFillList)
+            {
+                ListViewItem lvi = new ListViewItem();
+                //lvi.Text = o.entry;
+                lvi.Tag = o;
+                lvi.SubItems.Add(o.entry);
+                autoFillListView.Items.Add(lvi);
+                
+            }
         }
 
         private void GroupBox1_Enter(object sender, EventArgs e)
@@ -72,6 +105,21 @@ namespace DAP_Filler
         }
 
         private void FemaleButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UndoDButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

@@ -24,6 +24,10 @@ namespace DAP_Filler
             autoFillList = new List<AutoFillEntry>();
             PopulateEntries();
             autoFillListView.View = View.Details;
+            var bindingList = new BindingList<AutoFillEntry>(autoFillList);
+            var source = new BindingSource(bindingList, null);
+            //dataGridView1.DataSource = autoFillList;
+            dataGridView1.DataSource = source;
             initListView();
         }
 
@@ -120,6 +124,11 @@ namespace DAP_Filler
         }
 
         private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

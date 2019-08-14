@@ -16,42 +16,66 @@ namespace DAP_Filler
 
     public partial class Form1 : Form
     {
-        private List<AutoFillEntry> autoFillList;
-
+        public List<AutoFillEntry> autoFillList;
         public Form1()
         {
             InitializeComponent();
             autoFillList = new List<AutoFillEntry>();
             PopulateEntries();
-            autoFillListView.View = View.Details;
+            initDataGridView();
+        }
+
+        private void initDataGridView()
+        {
+            //dataGridView1.AutoGenerateColumns = true;
             var bindingList = new BindingList<AutoFillEntry>(autoFillList);
-            var source = new BindingSource(bindingList, null);
-            //dataGridView1.DataSource = autoFillList;
-            dataGridView1.DataSource = source;
-            initListView();
+            dataGridView1.DataSource = bindingList;
         }
 
 
-        private void PopulateEntries()
+        private void DataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            for (int i = 0; i < 100; i++)
+            //autoFillList.AutoSortCore();
+            string strColumnName = dataGridView1.Columns[e.ColumnIndex].Name;
+
+            Console.WriteLine(strColumnName);
+            if("Post".CompareTo(strColumnName) != 0)
             {
-                AutoFillEntry ae = new AutoFillEntry("This is autofill " + i);
-                autoFillList.Add(ae);
+                SortOrder strSortOrder = getSortOrder(e.ColumnIndex);
+                if (strSortOrder == SortOrder.Ascending)
+                {
+                    autoFillList = autoFillList.OrderBy(x => typeof(AutoFillEntry).GetProperty(strColumnName).GetValue(x, null)).ToList();
+                }
+                else
+                {
+                    autoFillList = autoFillList.OrderByDescending(x => typeof(AutoFillEntry).GetProperty(strColumnName).GetValue(x, null)).ToList();
+                }
+                dataGridView1.DataSource = autoFillList;
+                dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = strSortOrder;
+            }
+
+        }
+
+        private SortOrder getSortOrder(int columnIndex)
+        {
+            if (dataGridView1.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
+                dataGridView1.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.Descending)
+            {
+                dataGridView1.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Ascending;
+                return SortOrder.Ascending;
+            }
+            else
+            {
+                dataGridView1.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Descending;
+                return SortOrder.Descending;
             }
         }
-
-        private void initListView()
+        private void PopulateEntries()
         {
-
-            foreach (var o in autoFillList)
+            for (int i = 100; i >= 0; i--)
             {
-                ListViewItem lvi = new ListViewItem();
-                //lvi.Text = o.entry;
-                lvi.Tag = o;
-                lvi.SubItems.Add(o.entry);
-                autoFillListView.Items.Add(lvi);
-                
+                AutoFillEntry ae = new AutoFillEntry("This is autofill " + i, i);
+                autoFillList.Add(ae);
             }
         }
 
@@ -59,6 +83,7 @@ namespace DAP_Filler
         {
 
         }
+
 
 
         private void PatientName_Enter(object sender, EventArgs e)
@@ -128,9 +153,12 @@ namespace DAP_Filler
 
         }
 
-        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+
+        private void DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
     }
 }

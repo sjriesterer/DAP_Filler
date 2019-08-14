@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace DAP_Filler
 {
     [Serializable]
@@ -24,6 +26,9 @@ namespace DAP_Filler
             this.entry = entry;
             this.uses = 0;
         }
+
+        public int Uses { get { return uses; } set { uses = value; } }
+        public string Entry { get { return entry; }  set { entry = value; } }
     }
 
 

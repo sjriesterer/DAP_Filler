@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Patient = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -37,9 +37,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.autoFillListView = new System.Windows.Forms.ListView();
-            this.PostCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.AutoFillCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.UndoDButton = new System.Windows.Forms.Button();
             this.CopyDButton = new System.Windows.Forms.Button();
             this.CutDButton = new System.Windows.Forms.Button();
@@ -47,14 +44,13 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.AssessmentTab = new System.Windows.Forms.TabPage();
             this.PlanTab = new System.Windows.Forms.TabPage();
-            this.autoFillEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Freq = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Post = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Uses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Entry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Patient.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.autoFillEntryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Patient
@@ -137,7 +133,6 @@
             // DataTab
             // 
             this.DataTab.Controls.Add(this.dataGridView1);
-            this.DataTab.Controls.Add(this.autoFillListView);
             this.DataTab.Controls.Add(this.UndoDButton);
             this.DataTab.Controls.Add(this.CopyDButton);
             this.DataTab.Controls.Add(this.CutDButton);
@@ -153,44 +148,23 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Freq,
-            this.Column2});
-            this.dataGridView1.DataSource = this.autoFillEntryBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(17, 311);
+            this.Post,
+            this.Uses,
+            this.Entry});
+            this.dataGridView1.Location = new System.Drawing.Point(0, 134);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(699, 191);
+            this.dataGridView1.Size = new System.Drawing.Size(755, 349);
             this.dataGridView1.TabIndex = 6;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
-            // 
-            // autoFillListView
-            // 
-            this.autoFillListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.PostCol,
-            this.AutoFillCol});
-            this.autoFillListView.GridLines = true;
-            this.autoFillListView.Location = new System.Drawing.Point(2, 134);
-            this.autoFillListView.Name = "autoFillListView";
-            this.autoFillListView.Size = new System.Drawing.Size(750, 171);
-            this.autoFillListView.TabIndex = 5;
-            this.autoFillListView.UseCompatibleStateImageBehavior = false;
-            this.autoFillListView.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
-            // 
-            // PostCol
-            // 
-            this.PostCol.Text = "Post";
-            this.PostCol.Width = 10;
-            // 
-            // AutoFillCol
-            // 
-            this.AutoFillCol.Text = "Auto Fill Entry";
-            this.AutoFillCol.Width = 600;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick_1);
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1_ColumnHeaderMouseClick);
+
+
             // 
             // UndoDButton
             // 
-            this.UndoDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._004_undo_button;
+            this.UndoDButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("UndoDButton.BackgroundImage")));
             this.UndoDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UndoDButton.Location = new System.Drawing.Point(107, 98);
             this.UndoDButton.Name = "UndoDButton";
@@ -201,7 +175,7 @@
             // 
             // CopyDButton
             // 
-            this.CopyDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._003_copy_content;
+            this.CopyDButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyDButton.BackgroundImage")));
             this.CopyDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CopyDButton.Location = new System.Drawing.Point(71, 98);
             this.CopyDButton.Name = "CopyDButton";
@@ -211,7 +185,7 @@
             // 
             // CutDButton
             // 
-            this.CutDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_scissors;
+            this.CutDButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CutDButton.BackgroundImage")));
             this.CutDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CutDButton.Location = new System.Drawing.Point(35, 98);
             this.CutDButton.Name = "CutDButton";
@@ -221,7 +195,7 @@
             // 
             // DeleteDButton
             // 
-            this.DeleteDButton.BackgroundImage = global::DAP_Filler.Properties.Resources._001_rubbish_bin;
+            this.DeleteDButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteDButton.BackgroundImage")));
             this.DeleteDButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.DeleteDButton.Location = new System.Drawing.Point(0, 98);
             this.DeleteDButton.Name = "DeleteDButton";
@@ -260,20 +234,29 @@
             this.PlanTab.Text = "Plan";
             this.PlanTab.UseVisualStyleBackColor = true;
             // 
-            // autoFillEntryBindingSource
+            // Post
             // 
-            this.autoFillEntryBindingSource.DataSource = typeof(DAP_Filler.AutoFillEntry);
+            this.Post.HeaderText = "Post";
+            this.Post.Name = "Post";
+            this.Post.ReadOnly = true;
+            this.Post.Width = 30;
             // 
-            // Freq
+            // Uses
             // 
-            this.Freq.HeaderText = "Freq";
-            this.Freq.Name = "Freq";
+            this.Uses.DataPropertyName = "uses";
+            this.Uses.HeaderText = "Uses";
+            this.Uses.Name = "Uses";
+            this.Uses.ReadOnly = true;
+            this.Uses.Width = 40;
             // 
-            // Column2
+            // Entry
             // 
-            this.Column2.HeaderText = "AutoFill";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 400;
+            this.Entry.DataPropertyName = "entry";
+            this.Entry.HeaderText = "Entry";
+            this.Entry.MaxInputLength = 300;
+            this.Entry.Name = "Entry";
+            this.Entry.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Entry.Width = 625;
             // 
             // Form1
             // 
@@ -291,7 +274,6 @@
             this.DataTab.ResumeLayout(false);
             this.DataTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.autoFillEntryBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -312,13 +294,10 @@
         private System.Windows.Forms.Button UndoDButton;
         private System.Windows.Forms.Button CopyDButton;
         private System.Windows.Forms.Button CutDButton;
-        private System.Windows.Forms.ListView autoFillListView;
-        private System.Windows.Forms.ColumnHeader PostCol;
-        private System.Windows.Forms.ColumnHeader AutoFillCol;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource autoFillEntryBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Freq;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewButtonColumn Post;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Uses;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Entry;
     }
 }
 

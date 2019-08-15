@@ -36,7 +36,11 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Post = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Uses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Entry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UndoDButton = new System.Windows.Forms.Button();
             this.CopyDButton = new System.Windows.Forms.Button();
             this.CutDButton = new System.Windows.Forms.Button();
@@ -44,9 +48,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.AssessmentTab = new System.Windows.Forms.TabPage();
             this.PlanTab = new System.Windows.Forms.TabPage();
-            this.Post = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Uses = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Entry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Patient.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
@@ -67,7 +68,6 @@
             this.Patient.TabIndex = 0;
             this.Patient.TabStop = false;
             this.Patient.Text = "Patient";
-            this.Patient.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // button1
             // 
@@ -127,11 +127,12 @@
             this.tabControl1.Location = new System.Drawing.Point(8, 57);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(763, 542);
+            this.tabControl1.Size = new System.Drawing.Size(763, 620);
             this.tabControl1.TabIndex = 1;
             // 
             // DataTab
             // 
+            this.DataTab.Controls.Add(this.button2);
             this.DataTab.Controls.Add(this.dataGridView1);
             this.DataTab.Controls.Add(this.UndoDButton);
             this.DataTab.Controls.Add(this.CopyDButton);
@@ -141,13 +142,26 @@
             this.DataTab.Location = new System.Drawing.Point(4, 25);
             this.DataTab.Name = "DataTab";
             this.DataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DataTab.Size = new System.Drawing.Size(755, 513);
+            this.DataTab.Size = new System.Drawing.Size(755, 591);
             this.DataTab.TabIndex = 0;
             this.DataTab.Text = "Data";
             this.DataTab.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(0, 561);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 30);
+            this.button2.TabIndex = 7;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.AddRowButtonClick);
+            // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Post,
@@ -155,12 +169,42 @@
             this.Entry});
             this.dataGridView1.Location = new System.Drawing.Point(0, 134);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(755, 349);
+            this.dataGridView1.Size = new System.Drawing.Size(755, 421);
             this.dataGridView1.TabIndex = 6;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick_1);
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1_ColumnHeaderMouseClick);
-
-
+            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView1_RowsAdded);
+            // 
+            // Post
+            // 
+            this.Post.HeaderText = "Post";
+            this.Post.Image = global::DAP_Filler.Properties.Resources._007_clipboard_paste_button_16;
+            this.Post.Name = "Post";
+            this.Post.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Post.ToolTipText = "Post entry to form";
+            this.Post.Width = 30;
+            // 
+            // Uses
+            // 
+            this.Uses.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Uses.DataPropertyName = "uses";
+            this.Uses.HeaderText = "Uses";
+            this.Uses.Name = "Uses";
+            this.Uses.ReadOnly = true;
+            this.Uses.ToolTipText = "Number of times this entry has been used";
+            this.Uses.Width = 56;
+            // 
+            // Entry
+            // 
+            this.Entry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Entry.DataPropertyName = "entry";
+            this.Entry.HeaderText = "Entry";
+            this.Entry.MaxInputLength = 300;
+            this.Entry.Name = "Entry";
+            this.Entry.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Entry.ToolTipText = "Autofill entry";
             // 
             // UndoDButton
             // 
@@ -234,36 +278,12 @@
             this.PlanTab.Text = "Plan";
             this.PlanTab.UseVisualStyleBackColor = true;
             // 
-            // Post
-            // 
-            this.Post.HeaderText = "Post";
-            this.Post.Name = "Post";
-            this.Post.ReadOnly = true;
-            this.Post.Width = 30;
-            // 
-            // Uses
-            // 
-            this.Uses.DataPropertyName = "uses";
-            this.Uses.HeaderText = "Uses";
-            this.Uses.Name = "Uses";
-            this.Uses.ReadOnly = true;
-            this.Uses.Width = 40;
-            // 
-            // Entry
-            // 
-            this.Entry.DataPropertyName = "entry";
-            this.Entry.HeaderText = "Entry";
-            this.Entry.MaxInputLength = 300;
-            this.Entry.Name = "Entry";
-            this.Entry.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Entry.Width = 625;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(776, 602);
+            this.ClientSize = new System.Drawing.Size(776, 680);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Patient);
             this.Name = "Form1";
@@ -295,9 +315,10 @@
         private System.Windows.Forms.Button CopyDButton;
         private System.Windows.Forms.Button CutDButton;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewButtonColumn Post;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewImageColumn Post;
         private System.Windows.Forms.DataGridViewTextBoxColumn Uses;
         private System.Windows.Forms.DataGridViewTextBoxColumn Entry;
-    }
+        }
 }
 

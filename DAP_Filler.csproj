@@ -144,5 +144,11 @@
   <ItemGroup>
     <None Include="Resources\009-light-bulb.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\007-clipboard-paste-button 16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\007-clipboard-paste-button 24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

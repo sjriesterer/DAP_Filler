@@ -133,6 +133,26 @@ namespace DAP_Filler.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _007_clipboard_paste_button_16 {
+            get {
+                object obj = ResourceManager.GetObject("007-clipboard-paste-button 16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _007_clipboard_paste_button_24 {
+            get {
+                object obj = ResourceManager.GetObject("007-clipboard-paste-button 24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _008_idea {
             get {
                 object obj = ResourceManager.GetObject("008-idea", resourceCulture);

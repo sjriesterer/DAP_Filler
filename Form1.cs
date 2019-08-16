@@ -15,9 +15,9 @@ namespace DAP_Filler
     public partial class Form1 : Form
         {
         private Tab tabData;
-        public String newCellText = "<Edit Entry>";
-        public String patientName = "";
-        public Boolean isMale = true;
+        //public String newCellText = "<Edit Entry>";
+        //public String patientName = "";
+        //public Boolean isMale = true;
 
         internal Tab TabData { get => tabData; set => tabData = value; }
 
@@ -25,7 +25,7 @@ namespace DAP_Filler
             {
             InitializeComponent();
             tabData = new Tab("Data");
-            tabData.InitTabGrid(DataGridView_D);
+            tabData.InitTab(DataGridView_D, AutoFillEntry_D);
             }
 
         private void ResetGrid(Tab tab)
@@ -45,7 +45,7 @@ namespace DAP_Filler
 
         private void PostEntry(Tab tab, int row)
             {
-            Console.WriteLine("PostEntry() : Form = " + " : [" + row + "]");
+            Console.WriteLine("PostEntry() " + tab.tabName + " : [" + row + "]");
 
             }
 
@@ -82,15 +82,15 @@ namespace DAP_Filler
 
 
         /* EVENTS */
-
         /* Patient Info */
         private void PatientName_Enter(object sender, EventArgs e)
             {
             Debug.WriteLine("PatientName_Enter : name = " + PatientNameTB.Text);
             PatientNameTB.ForeColor = Color.Black;
-            if (PatientNameTB.Text == "Enter Name")
+            if (PatientNameTB.Text == C.noNameText)
                 {
                 PatientNameTB.Text = "";
+                C.patientName = "";
                 }
             else
                 {
@@ -106,13 +106,17 @@ namespace DAP_Filler
             Console.WriteLine("PatientName_Leave : name = " + PatientNameTB.Text);
             if (PatientNameTB.Text == "")
                 {
-                PatientNameTB.Text = "Enter Name";
+                PatientNameTB.Text = C.noNameText;
+                C.patientName = C.noNameText;
                 PatientNameTB.ForeColor = Color.Gray;
                 }
             else
                 {
                 PatientNameTB.ForeColor = Color.Black;
                 }
+            C.oldPatientName = C.patientName;
+            C.patientName = PatientNameTB.Text;
+            tabData.PatientChange();
             }
 
         private void PatientName_TextChanged(object sender, EventArgs e)
@@ -123,52 +127,53 @@ namespace DAP_Filler
 
         private void NewPatient_Click(object sender, EventArgs e)
             {
-
+            C.oldPatientName = "";
+            C.patientName = "";
+            PatientNameTB.Text = "";
+            MaleRadioButton.Checked = true;
+            C.oldIsMale = true;
+            C.isMale = true;
+            tabData.ResetTab();
             }
 
         private void MaleButton_CheckedChanged(object sender, EventArgs e)
             {
-
+            C.oldIsMale = C.isMale;
+            C.isMale = MaleRadioButton.Checked;
+            tabData.PatientChange();
             }
 
         private void FemaleButton_CheckedChanged(object sender, EventArgs e)
             {
-
             }
 
         /* Data Tab */
-
         private void AutoFillEntry_TextChanged_D(object sender, EventArgs e)
             {
-
+            tabData.AutoFillEntry_TextChanged();
             }
+
         private void DeleteButton_Click_D(object sender, EventArgs e)
             {
-            AutoFillEntry_D.Text = "";
-            tabData.autoEntry = "";
+            tabData.DeleteButtonClick();
             }
 
         private void UndoButton_Click_D(object sender, EventArgs e)
             {
-
+            tabData.UndoButtonClick();
             }
 
 
         private void CutButton_Click_D(object sender, EventArgs e)
             {
-            if (tabData.autoEntry.CompareTo("") != 0)
-                {
-                System.Windows.Forms.Clipboard.SetText(tabData.autoEntry);
-                AutoFillEntry_D.Text = "";
-                tabData.autoEntry = "";
-                }
+            tabData.CutButtonClick();
             }
 
         private void CopyButton_Click_D(object sender, EventArgs e)
             {
-            if (tabData.autoEntry.CompareTo("") != 0)
-                System.Windows.Forms.Clipboard.SetText(tabData.autoEntry);
+            tabData.CopyButtonClick();
             }
+
 
         /* Data Grid View Data */
 
@@ -222,7 +227,7 @@ namespace DAP_Filler
                 {
                 tab.dataGridView.CurrentCell.Selected = false;
                 tab.dataGridView.CurrentCell = tab.dataGridView.Rows[tabData.rowSelected].Cells[tabData.colSelected];
-                PostEntry(tab, rowIndex);
+                tab.PostEntry(rowIndex);
                 }
             else
                 {
@@ -231,7 +236,7 @@ namespace DAP_Filler
                 tab.colSelected = tab.dataGridView.CurrentCell.ColumnIndex;
                 if (tab.dataGridView.CurrentCell.ColumnIndex == 2) /// If selecting the Entry column
                     {
-                    if (newCellText.CompareTo(tabData.autoFillList[tabData.rowSelected].entry) == 0) /// If entry is new and currently has placeholder
+                    if (C.newCellText.CompareTo(tabData.autoFillList[tabData.rowSelected].entry) == 0) /// If entry is new and currently has placeholder
                         {
                         /// Handle auto cell text
                         }
@@ -248,8 +253,8 @@ namespace DAP_Filler
         private void AddRowButtonClick(Tab tab)
             {
             Console.WriteLine("AddRowButtonClick() : " + tab.tabName);
-            tab.autoFillList.Add(new AutoFillEntry(newCellText));
-            tab.rowSelected = tabData.autoFillList.Count - 1;
+            tab.autoFillList.Add(new AutoFillEntry(C.newCellText));
+            tab.rowSelected = tab.autoFillList.Count - 1;
             tab.colSelected = 2;
             ResetGrid(tab);
             }

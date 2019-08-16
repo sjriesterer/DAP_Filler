@@ -15,8 +15,8 @@ namespace DAP_Filler
         public BindingList<AutoFillEntry> bindingList;
         public int rowSelected = 0;
         public int colSelected = 1;
-        public String autoEntry = "";
         public DataGridView dataGridView;
+        public TextBox autoEntryTB;
         public SortOrder[] sortOrder = new SortOrder[3];
 
         public Tab(String name)
@@ -31,8 +31,9 @@ namespace DAP_Filler
             this.bindingList = new BindingList<AutoFillEntry>(autoFillList);
             }
 
-        public void InitTabGrid(DataGridView dataGridView)
+        public void InitTab(DataGridView dataGridView, TextBox textBox)
             {
+            this.autoEntryTB = textBox;
             this.dataGridView = dataGridView;
             this.dataGridView.DataSource = bindingList;
             this.dataGridView.RowHeadersVisible = false;
@@ -55,6 +56,87 @@ namespace DAP_Filler
                 Console.WriteLine(i + " : " + autoFillList[i].entry);
                 }
             }
+
+        public void DeleteButtonClick()
+            {
+            autoEntryTB.Text = "";
+            }
+
+        public void CutButtonClick()
+            {
+            if (autoEntryTB.Text.CompareTo("") != 0)
+                {
+                System.Windows.Forms.Clipboard.SetText(autoEntryTB.Text);
+                autoEntryTB.Text = "";
+                Learn();
+                }
+            }
+
+        public void CopyButtonClick()
+            {
+            if (autoEntryTB.Text.CompareTo("") != 0)
+                {
+                System.Windows.Forms.Clipboard.SetText(autoEntryTB.Text);
+                Learn();
+                }
+            }
+
+        public void UndoButtonClick()
+            {
+
+            }
+
+        public void AutoFillEntry_TextChanged()
+            {
+
+            }
+
+        public void ResetTab()
+            {
+            autoEntryTB.Text = "";
+            }
+
+        public void PatientChange()
+            {
+            Console.WriteLine("PatientChange() : oldName = " + C.oldPatientName + "; newName = " + C.patientName + "; oldIsMale = " + C.oldIsMale + "; isMale = " + C.isMale);
+            autoEntryTB.Text = PersonalizeText(autoEntryTB.Text);
+            C.oldIsMale = C.isMale;
+            }
+
+        public void PostEntry(int rowIndex)
+            {
+            Console.WriteLine("PostEntry() " + tabName + " : ");
+            autoEntryTB.Text += PersonalizePost(dataGridView.Rows[rowIndex].Cells[2].Value.ToString() + " ");
+            }
+
+        public String PersonalizePost(String s)
+            {
+            
+
+
+            return s;
+
+            }
+
+        public String PersonalizeText(String oldString)
+            {
+
+
+            return oldString;
+            }
+
+
+        public void Learn()
+            {
+
+            }
+
+
+        /*
+         
+         <Patient> exhibits fear. <He/She> demonsrates.
+         
+         */
 
 
         }

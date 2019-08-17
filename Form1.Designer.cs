@@ -177,6 +177,9 @@
             this.DataGridView_D.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_D);
             this.DataGridView_D.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded_D);
             //this.DataGridView_D.SelectionChanged += new System.EventHandler(this.DataGridView_SelectionChanged_D);
+            this.DataGridView_D.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_D);
+            //this.DataGridView_D.MouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseDown_D);
+            
             // 
             // UndoDButton
             // 

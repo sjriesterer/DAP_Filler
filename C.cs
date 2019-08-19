@@ -8,7 +8,7 @@ namespace DAP_Filler
     {
     public static class C
         {
-        public static List<int> checkboxClicks = new List<int>();
+        public static List<int> checkboxClicks_D = new List<int>();
         public static Boolean learnMode = true;
         public static String genericPatientName = "Patient";
         public static String genericPeerName = "Peer";

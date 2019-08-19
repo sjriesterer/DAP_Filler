@@ -11,6 +11,7 @@ namespace DAP_Filler
     {
     class Tab
         {
+        public List<int> checkboxClicks;
         public String tabName = "";
         public List<AutoFillEntry> autoFillList;
         public BindingList<AutoFillEntry> bindingList;
@@ -26,6 +27,7 @@ namespace DAP_Filler
             Console.WriteLine("Init new tab : " + name);
             this.tabName = name;
             this.autoFillList = new List<AutoFillEntry>();
+            this.checkboxClicks = new List<int>();
             PopulateList();
             sortOrder[0] = SortOrder.None;
             sortOrder[1] = SortOrder.None;
@@ -33,7 +35,6 @@ namespace DAP_Filler
             this.bindingList = new BindingList<AutoFillEntry>(autoFillList);
             }
         // -------------------------------------------------------------------------------------------------
-
         public void InitTab(DataGridView dataGridView, TextBox textBox)
             {
             this.autoEntryTB = textBox;
@@ -42,7 +43,6 @@ namespace DAP_Filler
             this.dataGridView.RowHeadersVisible = false;
             }
         // -------------------------------------------------------------------------------------------------
-
         private void PopulateList()
             {
             for (int i = 10; i >= 0; i--)
@@ -110,6 +110,7 @@ namespace DAP_Filler
             rowSelected = autoFillList.Count - 1;
             colSelected = 2;
             ResetGrid();
+            recheckBoxes();
             dataGridView.BeginEdit(true); /// Auto selects new cell text
             }
         // -------------------------------------------------------------------------------------------------
@@ -127,7 +128,30 @@ namespace DAP_Filler
             dataGridView.RowHeadersVisible = false;
             SelectCurrentCell();
             }
-
+        // -------------------------------------------------------------------------------------------------
+        public void CheckboxClick(int row)
+            {
+            int index = checkboxClicks.IndexOf(row);
+            if (Convert.ToBoolean(dataGridView.Rows[row].Cells[0].EditedFormattedValue) == true)
+                {
+                Console.WriteLine("Checkbox click true: index = " + index);
+                if (index == -1)
+                    checkboxClicks.Add(row);
+                }
+            else
+                {
+                Console.WriteLine("Checkbox click false: index = " + index);
+                if (index != -1)
+                    checkboxClicks.RemoveAt(index);
+                }
+            /*
+            Console.WriteLine("Contents of checkboxClicks: ");
+            for (int i = 0; i < checkboxClicks.Count; i++)
+                Console.Write(i + " : " + checkboxClicks[i] + ", ");
+            Console.WriteLine();
+            */
+            } 
+            
         // -------------------------------------------------------------------------------------------------
         public void SelectCurrentCell()
             {
@@ -224,6 +248,7 @@ namespace DAP_Filler
                 {
                 SortOrder strSortOrder = GetSortOrder(colIndex);
                 SortList(colName, strSortOrder);
+                checkboxClicks.Clear();
                 ResetGrid();
                 }
             }
@@ -242,31 +267,28 @@ namespace DAP_Filler
             PrintList();
             }
         // -------------------------------------------------------------------------------------------------
-        public SortOrder GetSortOrder( int colIndex)
+        public SortOrder GetSortOrder( int col)
             {
-            Console.WriteLine("GetSortOrder() : order is " + dataGridView.Columns[colIndex].HeaderCell.SortGlyphDirection);
+            Console.WriteLine("GetSortOrder() : order is " + dataGridView.Columns[col].HeaderCell.SortGlyphDirection);
 
-            if (sortOrder[colIndex] == SortOrder.None || sortOrder[colIndex] == SortOrder.Descending)
+            if (sortOrder[col] == SortOrder.None || sortOrder[col] == SortOrder.Descending)
                 {
-                sortOrder[colIndex] = SortOrder.Ascending;
+                sortOrder[col] = SortOrder.Ascending;
                 return SortOrder.Ascending;
                 }
             else
                 {
-                sortOrder[colIndex] = SortOrder.Descending;
+                sortOrder[col] = SortOrder.Descending;
                 return SortOrder.Descending;
                 }
             }
 
         // -------------------------------------------------------------------------------------------------
-        public void CellClick( int rowIndex, int colIndex)
+        public void CellClick( int row, int col)
             {
-            Console.WriteLine("CellClick() " + tabName + " : [" + rowIndex + "][" + colIndex + "]");
-            if (colIndex == 0)
+            Console.WriteLine("CellClick() " + tabName + " : [" + row + "][" + col + "]");
+            if (col == 0)
                 {
-                //dataGridView.CurrentCell.Selected = false;
-                //dataGridView.CurrentCell = dataGridView.Rows[tabData.rowSelected].Cells[tabData.colSelected];
-                //PostEntry(rowIndex);
                 }
             else
                 {
@@ -283,10 +305,11 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
-        public void CellDoubleClick( int rowIndex, int colIndex)
+        public void CellDoubleClick( int row, int col)
             {
-            Console.WriteLine("CellDoubleClick() " + tabName + " : [" + rowIndex + "][" + colIndex + "]");
-            PostEntry(rowIndex);
+            Console.WriteLine("CellDoubleClick() " + tabName + " : [" + row + "][" + col + "]");
+            if(row >= 0 && col == 2)
+                PostEntry(row);
             }
         // -------------------------------------------------------------------------------------------------
         public void ResetTab()
@@ -302,18 +325,24 @@ namespace DAP_Filler
             C.oldIsMale = C.isMale;
             }
         // -------------------------------------------------------------------------------------------------
-
-        public void PostEntry(int rowIndex)
+        public void PostEntries()
+            {
+            if (checkboxClicks.Count > 0)
+                {
+                for (int i = 0; i < checkboxClicks.Count; i++)
+                    PostEntry(checkboxClicks[i]);
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void PostEntry(int row)
             {
             Console.WriteLine("PostEntry() " + tabName + " : ");
-            autoEntryTB.Text += PersonalizePost(dataGridView.Rows[rowIndex].Cells[2].Value.ToString() + " ");
+            autoEntryTB.Text += PersonalizePost(dataGridView.Rows[row].Cells[2].Value.ToString() + " ");
             }
         // -------------------------------------------------------------------------------------------------
 
         public String PersonalizePost(String s)
             {
-            
-
 
             return s;
 
@@ -335,9 +364,32 @@ namespace DAP_Filler
             Console.WriteLine("Learn() : " + tabName);
 
             }
-
         // -------------------------------------------------------------------------------------------------
+        public void recheckBoxes()
+            {
+            for (int i = 0; i < checkboxClicks.Count; i++)
+                dataGridView.Rows[checkboxClicks[i]].Cells[0].Value = true;
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void checkAll()
+            {
 
-
+            checkboxClicks.Clear();
+            for (int i = 0; i < autoFillList.Count; i++)
+                {
+                dataGridView.Rows[i].Cells[0].Value = true;
+                checkboxClicks.Add(i);
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void unCheckAll()
+            {
+            checkboxClicks.Clear();
+            for (int i = 0; i < autoFillList.Count; i++)
+                {
+                dataGridView.Rows[i].Cells[0].Value = false;
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
         }
     }

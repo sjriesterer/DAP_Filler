@@ -143,19 +143,14 @@ namespace DAP_Filler
             { tabData.AutoFillEntry_Leave(); }
         private void AutoFillEntry_TextChanged_D(object sender, EventArgs e)
             { tabData.AutoFillEntry_TextChanged(); }
-
         private void DeleteButton_Click_D(object sender, EventArgs e)
             { tabData.DeleteButtonClick(); }
-
         private void UndoButton_Click_D(object sender, EventArgs e)
             { tabData.UndoButtonClick(); }
-
         private void CutButton_Click_D(object sender, EventArgs e)
             { tabData.CutButtonClick(); }
-
         private void CopyButton_Click_D(object sender, EventArgs e)
             { tabData.CopyButtonClick(); }
-
         private void LearnButton_D_Click(object sender, EventArgs e)
             { tabData.Learn(); }
 
@@ -167,6 +162,18 @@ namespace DAP_Filler
             if (e.Button == MouseButtons.Left)
                 tabData.ColumnHeaderMouseClick(e.ColumnIndex);
             }
+        // -------------------------------------------------------------------------------------------------
+        private void DataGridView_CellValueChanged_D(object sender, DataGridViewCellEventArgs e)
+            {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+                {
+                tabData.CheckboxClick(e.RowIndex);
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void DataGridView_CellContentClick_D(object sender, DataGridViewCellEventArgs e)
+            {
+            }        
         // -------------------------------------------------------------------------------------------------
         private void DataGridView_CellClick_D(object sender, DataGridViewCellEventArgs e)
             {
@@ -189,6 +196,14 @@ namespace DAP_Filler
             //dataGridView_D.CurrentCell = dataGridView_D.Rows[tabData.rowSelected].Cells[tabData.colSelected];
             }
         // -------------------------------------------------------------------------------------------------
+        private void DataGridView_MouseUp_D(object sender, DataGridViewCellMouseEventArgs e)
+            {
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
+                {
+                tabData.dataGridView.EndEdit();
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
         private void DataGridView_MouseClick_D(object sender, DataGridViewCellMouseEventArgs e)
             {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex == 2)
@@ -204,11 +219,17 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         private void PostButton_Click_D(object sender, EventArgs e)
             {
-            if (C.checkboxClicks.Count > 0)
-                {
-
-                }
+            tabData.PostEntries();
             }
-
+        // -------------------------------------------------------------------------------------------------
+        private void CheckAll_Click_D(object sender, EventArgs e)
+            {
+            tabData.checkAll();
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void UnCheckAll_Click_D(object sender, EventArgs e)
+            {
+            tabData.unCheckAll();
+            }
         }
     }

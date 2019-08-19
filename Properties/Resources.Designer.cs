@@ -63,6 +63,16 @@ namespace DAP_Filler.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _001_check {
+            get {
+                object obj = ResourceManager.GetObject("001-check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _001_rubbish_bin {
             get {
                 object obj = ResourceManager.GetObject("001-rubbish-bin", resourceCulture);
@@ -76,6 +86,16 @@ namespace DAP_Filler.Properties {
         internal static System.Drawing.Bitmap _002_scissors {
             get {
                 object obj = ResourceManager.GetObject("002-scissors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _002_square_with_round_corners {
+            get {
+                object obj = ResourceManager.GetObject("002-square-with-round-corners", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +206,16 @@ namespace DAP_Filler.Properties {
         internal static System.Drawing.Bitmap ic_delete_black {
             get {
                 object obj = ResourceManager.GetObject("ic_delete_black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save {
+            get {
+                object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

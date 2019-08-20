@@ -21,13 +21,64 @@ namespace DAP_Filler
         public Form1()
             {
             InitializeComponent();
-            // Get persisted data
-            PatientGenericNameTB.Text = C.genericPatientName;
-            PeerGenericNameTB.Text = C.genericPeerName;
+            //TODO Get persisted data
+            genericPatientNameTB.Text = C.genericPatientName;
+            genericPeerNameTB.Text = C.genericPeerName;
             tabData = new Tab("Data");
-            tabData.InitTab(DataGridView_D, AutoFillEntry_D);
+            tabData.InitTab(DataGridView_D, EntryBox_D);
+            InitToolTips();
             }
 
+        private void InitToolTips()
+            {
+            ToolTip ToolTipNew = new ToolTip();
+            ToolTip ToolTipSave = new ToolTip();
+            ToolTip ToolTipLearnMode = new ToolTip();
+            ToolTip ToolTipGenericPatientName = new ToolTip();
+            ToolTip ToolTipGenericPeerName = new ToolTip();
+            ToolTipNew.SetToolTip(NewPatientButton, "Start a new patient");
+            ToolTipSave.SetToolTip(SaveButton, "Saves progress");
+            ToolTipLearnMode.SetToolTip(LearnModeCB, "Learn Mode will automatically create new entries based on the text in the entry box whenever cut or copy button is pressed");
+            ToolTipGenericPatientName.SetToolTip(GenericPatientNameLabel, "The name used to reference the patient in the auto entries");
+            ToolTipGenericPeerName.SetToolTip(GenericPeerNameLabel, "The name used to reference the patient's peers in the auto entries");
+
+            String entryBoxTip = "Entry Box";
+            String learnButtonTip = "Creates new entries based on the text in the entry box";
+            //String undoButtonTip = "Deletes the last line in the entry box";
+            String copyButtonTip = "Copies the text in the entry box to the clipboard";
+            String cutButtonTip = "Copies the text in the entry box to the clipboard and clears the entry box";
+            String deleteButtonTip = "Clears the entry box";
+            String checkAllButtonTip = "Checks all the autofill entries";
+            String uncheckAllButtonTip = "Unchecks all the autofill entries";
+            String postButtonTip = "Posts all the checked autofill entries to the entry box (retains the order in which the checkboxes are checked)";
+            String deleteEntryButtonTip = "Deletes all the checked autofill entries";
+            String addButtonTip = "Adds a new autofill entry";
+
+            ToolTip ToolTipEntryBox_D = new ToolTip();
+            ToolTip ToolTipLearn_D = new ToolTip();
+            //ToolTip ToolTipUndo_D = new ToolTip();
+            ToolTip ToolTipCopy_D = new ToolTip();
+            ToolTip ToolTipCut_D = new ToolTip();
+            ToolTip ToolTipDelete_D = new ToolTip();
+            ToolTip ToolTipCheckAll_D = new ToolTip();
+            ToolTip ToolTipUncheckAll_D = new ToolTip();
+            ToolTip ToolTipPost_D = new ToolTip();
+            ToolTip ToolTipDeleteEntry_D = new ToolTip();
+            ToolTip ToolTipAdd_D = new ToolTip();
+
+            ToolTipEntryBox_D.SetToolTip(EntryBox_D, entryBoxTip);
+            ToolTipLearn_D.SetToolTip(LearnButton_D, learnButtonTip);
+            //ToolTipUndo_D.SetToolTip(UndoButton_D, undoButtonTip);
+            ToolTipCopy_D.SetToolTip(CopyButton_D, copyButtonTip);
+            ToolTipCut_D.SetToolTip(CutButton_D, cutButtonTip);
+            ToolTipDelete_D.SetToolTip(DeleteButton_D, deleteButtonTip);
+            ToolTipCheckAll_D.SetToolTip(CheckAllButton_D, checkAllButtonTip);
+            ToolTipUncheckAll_D.SetToolTip(UnCheckAllButton_D, uncheckAllButtonTip);
+            ToolTipPost_D.SetToolTip(PostButton_D, postButtonTip);
+            ToolTipDeleteEntry_D.SetToolTip(DeleteRowsButton_D, deleteEntryButtonTip);
+            ToolTipAdd_D.SetToolTip(AddEntryButton_D, addButtonTip);
+
+            }
         /* ----------------------------------------------------------------------------------------*/
         /* COMMON EVENTS */
         /* ----------------------------------------------------------------------------------------*/
@@ -39,12 +90,12 @@ namespace DAP_Filler
         /* Patient Name */
         private void PatientName_Enter(object sender, EventArgs e)
             {
-            Debug.WriteLine("PatientName_Enter : name = " + PatientNameTB.Text);
+            Console.WriteLine("PatientName_Enter : TB.Text = " + PatientNameTB.Text + "; patient name = " + C.patientName);
             PatientNameTB.ForeColor = Color.Black;
-            if (PatientNameTB.Text == C.noNameText)
+            if (PatientNameTB.Text.CompareTo(C.patientNamePlaceholder) == 0)
                 {
                 PatientNameTB.Text = "";
-                C.patientName = "";
+                //C.patientName = "";
                 }
             else
                 {
@@ -57,25 +108,25 @@ namespace DAP_Filler
 
         private void PatientName_Leave(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_Leave : name = " + PatientNameTB.Text);
-            if (PatientNameTB.Text == "")
+            Console.WriteLine("PatientName_Leave : TB.Text = " + PatientNameTB.Text + "; patient name = " + C.patientName);
+            C.oldPatientName = C.patientName;
+            if (String.IsNullOrWhiteSpace(PatientNameTB.Text))
                 {
-                PatientNameTB.Text = C.noNameText;
-                C.patientName = C.noNameText;
+                PatientNameTB.Text = C.patientNamePlaceholder;
                 PatientNameTB.ForeColor = Color.Gray;
                 }
             else
                 {
                 PatientNameTB.ForeColor = Color.Black;
                 }
-            C.oldPatientName = C.patientName;
             C.patientName = PatientNameTB.Text;
-            tabData.PatientChange();
+            tabData.PatientNameChange();
             }
 
         private void PatientName_TextChanged(object sender, EventArgs e)
             {
             Console.WriteLine("PatientName_TextChanged() : name = " + PatientNameTB.Text);
+            //C.patientName = PatientNameTB.Text;
             }
 
         private void NewPatient_Click(object sender, EventArgs e)
@@ -94,7 +145,7 @@ namespace DAP_Filler
             {
             C.oldIsMale = C.isMale;
             C.isMale = MaleRadioButton.Checked;
-            tabData.PatientChange();
+            //tabData.PatientNameChange();
             }
 
         private void FemaleButton_CheckedChanged(object sender, EventArgs e)
@@ -110,27 +161,74 @@ namespace DAP_Filler
         /* Patient Generic Name TB*/
         private void PatientGenericNameTB_TextChanged(object sender, EventArgs e)
             {
-            C.genericPatientName = PatientGenericNameTB.Text;
+            //C.genericPatientName = PatientGenericNameTB.Text;
             }
         private void PatientGenericNameTB_Enter(object sender, EventArgs e)
             {
+            genericPatientNameTB.ForeColor = Color.Black;
+            if (genericPatientNameTB.Text.CompareTo(C.genericPatientNamePlaceholder) == 0)
+                {
+                genericPatientNameTB.Text = "";
+                }
+            else
+                {
+                BeginInvoke((Action)delegate
+                    {
+                    genericPatientNameTB.SelectAll();
+                    });
+                }
+
             }
         private void PatientGenericNameTB_Leave(object sender, EventArgs e)
             {
-            //TODO change all references
+            C.oldGenericPatientName = C.genericPatientName;
+            if (String.IsNullOrWhiteSpace(genericPatientNameTB.Text))
+                {
+                genericPatientNameTB.Text = C.genericPatientNamePlaceholder;
+                genericPatientNameTB.ForeColor = Color.Gray;
+                }
+            else
+                {
+                genericPatientNameTB.ForeColor = Color.Black;
+                }
+            C.genericPatientName = genericPatientNameTB.Text;
+            tabData.GenericPatientNameChange();
             }
 
         /* Peer Generic Name TB*/
         private void PeerGenericNameTB_TextChanged(object sender, EventArgs e)
             {
-            C.genericPeerName = PeerGenericNameTB.Text;
+            //C.genericPeerName = PeerGenericNameTB.Text;
             }
         private void PeerGenericNameTB_Enter(object sender, EventArgs e)
             {
+            genericPeerNameTB.ForeColor = Color.Black;
+            if (genericPeerNameTB.Text.CompareTo(C.genericPeerNamePlaceholder) == 0)
+                {
+                genericPeerNameTB.Text = "";
+                }
+            else
+                {
+                BeginInvoke((Action)delegate
+                    {
+                        genericPeerNameTB.SelectAll();
+                        });
+                }
             }
         private void PeerGenericNameTB_Leave(object sender, EventArgs e)
             {
-            //TODO change all references
+            C.oldGenericPeerName = C.genericPeerName;
+            if (String.IsNullOrWhiteSpace(genericPeerNameTB.Text))
+                {
+                genericPeerNameTB.Text = C.genericPeerNamePlaceholder;
+                genericPeerNameTB.ForeColor = Color.Gray;
+                }
+            else
+                {
+                genericPeerNameTB.ForeColor = Color.Black;
+                }
+            C.genericPeerName = genericPeerNameTB.Text;
+            tabData.GenericPeerNameChange();
             }
 
         /* ----------------------------------------------------------------------------------------*/
@@ -144,15 +242,15 @@ namespace DAP_Filler
         private void AutoFillEntry_TextChanged_D(object sender, EventArgs e)
             { tabData.AutoFillEntry_TextChanged(); }
         private void DeleteButton_Click_D(object sender, EventArgs e)
-            { tabData.DeleteButtonClick(); }
-        private void UndoButton_Click_D(object sender, EventArgs e)
-            { tabData.UndoButtonClick(); }
+            { tabData.DeleteAutFillEntry(); }
+        //private void UndoButton_Click_D(object sender, EventArgs e)
+        //    { tabData.UndoButtonClick(); }
         private void CutButton_Click_D(object sender, EventArgs e)
             { tabData.CutButtonClick(); }
         private void CopyButton_Click_D(object sender, EventArgs e)
             { tabData.CopyButtonClick(); }
         private void LearnButton_D_Click(object sender, EventArgs e)
-            { tabData.Learn(); }
+            { tabData.LearnButtonClick(); }
 
         /* ----------------------------------------------------------------------------------------*/
         /* Data Grid View Data */
@@ -214,7 +312,7 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         private void DeleteButtonRows_Click_D(object sender, EventArgs e)
             {
-
+            tabData.DeleteCheckedEntries();
             }
         // -------------------------------------------------------------------------------------------------
         private void PostButton_Click_D(object sender, EventArgs e)

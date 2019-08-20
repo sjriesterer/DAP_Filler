@@ -29,91 +29,101 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.Patient = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PeerGenericNameTB = new System.Windows.Forms.TextBox();
+            this.PatientGB = new System.Windows.Forms.GroupBox();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.GenericPeerNameLabel = new System.Windows.Forms.Label();
+            this.GenericPatientNameLabel = new System.Windows.Forms.Label();
+            this.genericPeerNameTB = new System.Windows.Forms.TextBox();
             this.LearnModeCB = new System.Windows.Forms.CheckBox();
-            this.PatientGenericNameTB = new System.Windows.Forms.TextBox();
+            this.genericPatientNameTB = new System.Windows.Forms.TextBox();
             this.NewPatientButton = new System.Windows.Forms.Button();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.PatientNameTB = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
+            this.CheckAllButton_D = new System.Windows.Forms.Button();
+            this.UnCheckAllButton_D = new System.Windows.Forms.Button();
+            this.PostButton_D = new System.Windows.Forms.Button();
+            this.DeleteRowsButton_D = new System.Windows.Forms.Button();
+            this.LearnButton_D = new System.Windows.Forms.Button();
+            this.AddEntryButton_D = new System.Windows.Forms.Button();
             this.DataGridView_D = new System.Windows.Forms.DataGridView();
             this.Post = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Uses = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Entry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AutoFillEntry_D = new System.Windows.Forms.TextBox();
-            this.AssessmentTab = new System.Windows.Forms.TabPage();
-            this.PlanTab = new System.Windows.Forms.TabPage();
-            this.CheckAll_D = new System.Windows.Forms.Button();
-            this.UnCheckAll_D = new System.Windows.Forms.Button();
-            this.PastButton_D = new System.Windows.Forms.Button();
-            this.DeleteButtonRows_D = new System.Windows.Forms.Button();
-            this.LearnButton_D = new System.Windows.Forms.Button();
-            this.AddEntryButton = new System.Windows.Forms.Button();
-            this.UndoButton_D = new System.Windows.Forms.Button();
             this.CopyButton_D = new System.Windows.Forms.Button();
             this.CutButton_D = new System.Windows.Forms.Button();
             this.DeleteButton_D = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.Patient.SuspendLayout();
+            this.EntryBox_D = new System.Windows.Forms.TextBox();
+            this.AssessmentTab = new System.Windows.Forms.TabPage();
+            this.PlanTab = new System.Windows.Forms.TabPage();
+            this.PatientGB.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_D)).BeginInit();
             this.SuspendLayout();
             // 
-            // Patient
+            // PatientGB
             // 
-            this.Patient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.PatientGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Patient.Controls.Add(this.SaveButton);
-            this.Patient.Controls.Add(this.label2);
-            this.Patient.Controls.Add(this.label1);
-            this.Patient.Controls.Add(this.PeerGenericNameTB);
-            this.Patient.Controls.Add(this.LearnModeCB);
-            this.Patient.Controls.Add(this.PatientGenericNameTB);
-            this.Patient.Controls.Add(this.NewPatientButton);
-            this.Patient.Controls.Add(this.FemaleRadioButton);
-            this.Patient.Controls.Add(this.MaleRadioButton);
-            this.Patient.Controls.Add(this.PatientNameTB);
-            this.Patient.Location = new System.Drawing.Point(5, 5);
-            this.Patient.Name = "Patient";
-            this.Patient.Size = new System.Drawing.Size(767, 71);
-            this.Patient.TabIndex = 0;
-            this.Patient.TabStop = false;
-            this.Patient.Text = "Patient";
+            this.PatientGB.Controls.Add(this.SaveButton);
+            this.PatientGB.Controls.Add(this.GenericPeerNameLabel);
+            this.PatientGB.Controls.Add(this.GenericPatientNameLabel);
+            this.PatientGB.Controls.Add(this.genericPeerNameTB);
+            this.PatientGB.Controls.Add(this.LearnModeCB);
+            this.PatientGB.Controls.Add(this.genericPatientNameTB);
+            this.PatientGB.Controls.Add(this.NewPatientButton);
+            this.PatientGB.Controls.Add(this.FemaleRadioButton);
+            this.PatientGB.Controls.Add(this.MaleRadioButton);
+            this.PatientGB.Controls.Add(this.PatientNameTB);
+            this.PatientGB.Location = new System.Drawing.Point(5, 5);
+            this.PatientGB.Name = "PatientGB";
+            this.PatientGB.Size = new System.Drawing.Size(767, 71);
+            this.PatientGB.TabIndex = 0;
+            this.PatientGB.TabStop = false;
+            this.PatientGB.Text = "Patient";
             // 
-            // label2
+            // SaveButton
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(293, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Generic Peer Name:";
+            this.SaveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
+            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveButton.Location = new System.Drawing.Point(732, 10);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(30, 30);
+            this.SaveButton.TabIndex = 15;
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // label1
+            // GenericPeerNameLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 48);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Generic Patient Name:";
+            this.GenericPeerNameLabel.AutoSize = true;
+            this.GenericPeerNameLabel.Location = new System.Drawing.Point(293, 48);
+            this.GenericPeerNameLabel.Name = "GenericPeerNameLabel";
+            this.GenericPeerNameLabel.Size = new System.Drawing.Size(103, 13);
+            this.GenericPeerNameLabel.TabIndex = 14;
+            this.GenericPeerNameLabel.Text = "Generic Peer Name:";
             // 
-            // PeerGenericNameTB
+            // GenericPatientNameLabel
             // 
-            this.PeerGenericNameTB.Location = new System.Drawing.Point(399, 45);
-            this.PeerGenericNameTB.MaxLength = 20;
-            this.PeerGenericNameTB.Name = "PeerGenericNameTB";
-            this.PeerGenericNameTB.Size = new System.Drawing.Size(150, 20);
-            this.PeerGenericNameTB.TabIndex = 12;
-            this.PeerGenericNameTB.TextChanged += new System.EventHandler(this.PeerGenericNameTB_TextChanged);
-            this.PeerGenericNameTB.Enter += new System.EventHandler(this.PeerGenericNameTB_Enter);
-            this.PeerGenericNameTB.Leave += new System.EventHandler(this.PeerGenericNameTB_Leave);
+            this.GenericPatientNameLabel.AutoSize = true;
+            this.GenericPatientNameLabel.Location = new System.Drawing.Point(11, 48);
+            this.GenericPatientNameLabel.Name = "GenericPatientNameLabel";
+            this.GenericPatientNameLabel.Size = new System.Drawing.Size(114, 13);
+            this.GenericPatientNameLabel.TabIndex = 13;
+            this.GenericPatientNameLabel.Text = "Generic Patient Name:";
+            // 
+            // genericPeerNameTB
+            // 
+            this.genericPeerNameTB.Location = new System.Drawing.Point(399, 45);
+            this.genericPeerNameTB.MaxLength = 20;
+            this.genericPeerNameTB.Name = "genericPeerNameTB";
+            this.genericPeerNameTB.Size = new System.Drawing.Size(150, 20);
+            this.genericPeerNameTB.TabIndex = 12;
+            this.genericPeerNameTB.TextChanged += new System.EventHandler(this.PeerGenericNameTB_TextChanged);
+            this.genericPeerNameTB.Enter += new System.EventHandler(this.PeerGenericNameTB_Enter);
+            this.genericPeerNameTB.Leave += new System.EventHandler(this.PeerGenericNameTB_Leave);
             // 
             // LearnModeCB
             // 
@@ -128,16 +138,16 @@
             this.LearnModeCB.UseVisualStyleBackColor = true;
             this.LearnModeCB.CheckedChanged += new System.EventHandler(this.LearnModeCB_CheckedChanged);
             // 
-            // PatientGenericNameTB
+            // genericPatientNameTB
             // 
-            this.PatientGenericNameTB.Location = new System.Drawing.Point(128, 45);
-            this.PatientGenericNameTB.MaxLength = 20;
-            this.PatientGenericNameTB.Name = "PatientGenericNameTB";
-            this.PatientGenericNameTB.Size = new System.Drawing.Size(150, 20);
-            this.PatientGenericNameTB.TabIndex = 11;
-            this.PatientGenericNameTB.TextChanged += new System.EventHandler(this.PatientGenericNameTB_TextChanged);
-            this.PatientGenericNameTB.Enter += new System.EventHandler(this.PatientGenericNameTB_Enter);
-            this.PatientGenericNameTB.Leave += new System.EventHandler(this.PatientGenericNameTB_Leave);
+            this.genericPatientNameTB.Location = new System.Drawing.Point(128, 45);
+            this.genericPatientNameTB.MaxLength = 20;
+            this.genericPatientNameTB.Name = "genericPatientNameTB";
+            this.genericPatientNameTB.Size = new System.Drawing.Size(150, 20);
+            this.genericPatientNameTB.TabIndex = 11;
+            this.genericPatientNameTB.TextChanged += new System.EventHandler(this.PatientGenericNameTB_TextChanged);
+            this.genericPatientNameTB.Enter += new System.EventHandler(this.PatientGenericNameTB_Enter);
+            this.genericPatientNameTB.Leave += new System.EventHandler(this.PatientGenericNameTB_Leave);
             // 
             // NewPatientButton
             // 
@@ -203,18 +213,17 @@
             // 
             // DataTab
             // 
-            this.DataTab.Controls.Add(this.CheckAll_D);
-            this.DataTab.Controls.Add(this.UnCheckAll_D);
-            this.DataTab.Controls.Add(this.PastButton_D);
-            this.DataTab.Controls.Add(this.DeleteButtonRows_D);
+            this.DataTab.Controls.Add(this.CheckAllButton_D);
+            this.DataTab.Controls.Add(this.UnCheckAllButton_D);
+            this.DataTab.Controls.Add(this.PostButton_D);
+            this.DataTab.Controls.Add(this.DeleteRowsButton_D);
             this.DataTab.Controls.Add(this.LearnButton_D);
-            this.DataTab.Controls.Add(this.AddEntryButton);
+            this.DataTab.Controls.Add(this.AddEntryButton_D);
             this.DataTab.Controls.Add(this.DataGridView_D);
-            this.DataTab.Controls.Add(this.UndoButton_D);
             this.DataTab.Controls.Add(this.CopyButton_D);
             this.DataTab.Controls.Add(this.CutButton_D);
             this.DataTab.Controls.Add(this.DeleteButton_D);
-            this.DataTab.Controls.Add(this.AutoFillEntry_D);
+            this.DataTab.Controls.Add(this.EntryBox_D);
             this.DataTab.Location = new System.Drawing.Point(4, 25);
             this.DataTab.Name = "DataTab";
             this.DataTab.Padding = new System.Windows.Forms.Padding(3);
@@ -222,6 +231,72 @@
             this.DataTab.TabIndex = 0;
             this.DataTab.Text = "Data";
             this.DataTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckAllButton_D
+            // 
+            this.CheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
+            this.CheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CheckAllButton_D.Location = new System.Drawing.Point(579, 98);
+            this.CheckAllButton_D.Name = "CheckAllButton_D";
+            this.CheckAllButton_D.Size = new System.Drawing.Size(30, 30);
+            this.CheckAllButton_D.TabIndex = 12;
+            this.CheckAllButton_D.UseVisualStyleBackColor = true;
+            this.CheckAllButton_D.Click += new System.EventHandler(this.CheckAll_Click_D);
+            // 
+            // UnCheckAllButton_D
+            // 
+            this.UnCheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
+            this.UnCheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UnCheckAllButton_D.Location = new System.Drawing.Point(615, 98);
+            this.UnCheckAllButton_D.Name = "UnCheckAllButton_D";
+            this.UnCheckAllButton_D.Size = new System.Drawing.Size(30, 30);
+            this.UnCheckAllButton_D.TabIndex = 11;
+            this.UnCheckAllButton_D.UseVisualStyleBackColor = true;
+            this.UnCheckAllButton_D.Click += new System.EventHandler(this.UnCheckAll_Click_D);
+            // 
+            // PostButton_D
+            // 
+            this.PostButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PostButton_D.BackgroundImage")));
+            this.PostButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PostButton_D.Location = new System.Drawing.Point(651, 98);
+            this.PostButton_D.Name = "PostButton_D";
+            this.PostButton_D.Size = new System.Drawing.Size(30, 30);
+            this.PostButton_D.TabIndex = 10;
+            this.PostButton_D.UseVisualStyleBackColor = true;
+            this.PostButton_D.Click += new System.EventHandler(this.PostButton_Click_D);
+            // 
+            // DeleteRowsButton_D
+            // 
+            this.DeleteRowsButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteRowsButton_D.BackgroundImage")));
+            this.DeleteRowsButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteRowsButton_D.Location = new System.Drawing.Point(687, 98);
+            this.DeleteRowsButton_D.Name = "DeleteRowsButton_D";
+            this.DeleteRowsButton_D.Size = new System.Drawing.Size(30, 30);
+            this.DeleteRowsButton_D.TabIndex = 9;
+            this.DeleteRowsButton_D.UseVisualStyleBackColor = true;
+            this.DeleteRowsButton_D.Click += new System.EventHandler(this.DeleteButtonRows_Click_D);
+            // 
+            // LearnButton_D
+            // 
+            this.LearnButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_D.BackgroundImage")));
+            this.LearnButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LearnButton_D.Location = new System.Drawing.Point(146, 98);
+            this.LearnButton_D.Name = "LearnButton_D";
+            this.LearnButton_D.Size = new System.Drawing.Size(30, 30);
+            this.LearnButton_D.TabIndex = 8;
+            this.LearnButton_D.UseVisualStyleBackColor = true;
+            this.LearnButton_D.Click += new System.EventHandler(this.LearnButton_D_Click);
+            // 
+            // AddEntryButton_D
+            // 
+            this.AddEntryButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton_D.BackgroundImage")));
+            this.AddEntryButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddEntryButton_D.Location = new System.Drawing.Point(719, 98);
+            this.AddEntryButton_D.Name = "AddEntryButton_D";
+            this.AddEntryButton_D.Size = new System.Drawing.Size(30, 30);
+            this.AddEntryButton_D.TabIndex = 7;
+            this.AddEntryButton_D.UseVisualStyleBackColor = true;
+            this.AddEntryButton_D.Click += new System.EventHandler(this.AddRowButtonClick_D);
             // 
             // DataGridView_D
             // 
@@ -247,10 +322,10 @@
             // 
             // Post
             // 
-            this.Post.HeaderText = "Post";
+            this.Post.HeaderText = "";
             this.Post.Name = "Post";
             this.Post.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Post.ToolTipText = "Post entry to form";
+            this.Post.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
             this.Post.Width = 30;
             // 
             // Uses
@@ -260,7 +335,7 @@
             this.Uses.HeaderText = "Uses";
             this.Uses.Name = "Uses";
             this.Uses.ReadOnly = true;
-            this.Uses.ToolTipText = "Number of times this entry has been used";
+            this.Uses.ToolTipText = "Number of times this entry has been used (Click to sort)";
             this.Uses.Width = 40;
             // 
             // Entry
@@ -271,118 +346,7 @@
             this.Entry.MaxInputLength = 300;
             this.Entry.Name = "Entry";
             this.Entry.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Entry.ToolTipText = "Autofill entry";
-            // 
-            // AutoFillEntry_D
-            // 
-            this.AutoFillEntry_D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AutoFillEntry_D.Location = new System.Drawing.Point(0, 0);
-            this.AutoFillEntry_D.MaxLength = 1000;
-            this.AutoFillEntry_D.Multiline = true;
-            this.AutoFillEntry_D.Name = "AutoFillEntry_D";
-            this.AutoFillEntry_D.Size = new System.Drawing.Size(755, 92);
-            this.AutoFillEntry_D.TabIndex = 0;
-            this.AutoFillEntry_D.TextChanged += new System.EventHandler(this.AutoFillEntry_TextChanged_D);
-            this.AutoFillEntry_D.Enter += new System.EventHandler(this.AutoFillEntry_Enter_D);
-            this.AutoFillEntry_D.Leave += new System.EventHandler(this.AutoFillEntry_Leave_D);
-            // 
-            // AssessmentTab
-            // 
-            this.AssessmentTab.Location = new System.Drawing.Point(4, 25);
-            this.AssessmentTab.Name = "AssessmentTab";
-            this.AssessmentTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AssessmentTab.Size = new System.Drawing.Size(755, 566);
-            this.AssessmentTab.TabIndex = 1;
-            this.AssessmentTab.Text = "Assessment";
-            this.AssessmentTab.UseVisualStyleBackColor = true;
-            // 
-            // PlanTab
-            // 
-            this.PlanTab.Location = new System.Drawing.Point(4, 25);
-            this.PlanTab.Name = "PlanTab";
-            this.PlanTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PlanTab.Size = new System.Drawing.Size(755, 566);
-            this.PlanTab.TabIndex = 2;
-            this.PlanTab.Text = "Plan";
-            this.PlanTab.UseVisualStyleBackColor = true;
-            // 
-            // CheckAll_D
-            // 
-            this.CheckAll_D.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
-            this.CheckAll_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CheckAll_D.Location = new System.Drawing.Point(579, 98);
-            this.CheckAll_D.Name = "CheckAll_D";
-            this.CheckAll_D.Size = new System.Drawing.Size(30, 30);
-            this.CheckAll_D.TabIndex = 12;
-            this.CheckAll_D.UseVisualStyleBackColor = true;
-            this.CheckAll_D.Click += new System.EventHandler(this.CheckAll_Click_D);
-            // 
-            // UnCheckAll_D
-            // 
-            this.UnCheckAll_D.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
-            this.UnCheckAll_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UnCheckAll_D.Location = new System.Drawing.Point(615, 98);
-            this.UnCheckAll_D.Name = "UnCheckAll_D";
-            this.UnCheckAll_D.Size = new System.Drawing.Size(30, 30);
-            this.UnCheckAll_D.TabIndex = 11;
-            this.UnCheckAll_D.UseVisualStyleBackColor = true;
-            this.UnCheckAll_D.Click += new System.EventHandler(this.UnCheckAll_Click_D);
-            // 
-            // PastButton_D
-            // 
-            this.PastButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PastButton_D.BackgroundImage")));
-            this.PastButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PastButton_D.Location = new System.Drawing.Point(651, 98);
-            this.PastButton_D.Name = "PastButton_D";
-            this.PastButton_D.Size = new System.Drawing.Size(30, 30);
-            this.PastButton_D.TabIndex = 10;
-            this.PastButton_D.UseVisualStyleBackColor = true;
-            this.PastButton_D.Click += new System.EventHandler(this.PostButton_Click_D);
-            // 
-            // DeleteButtonRows_D
-            // 
-            this.DeleteButtonRows_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButtonRows_D.BackgroundImage")));
-            this.DeleteButtonRows_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteButtonRows_D.Location = new System.Drawing.Point(687, 98);
-            this.DeleteButtonRows_D.Name = "DeleteButtonRows_D";
-            this.DeleteButtonRows_D.Size = new System.Drawing.Size(30, 30);
-            this.DeleteButtonRows_D.TabIndex = 9;
-            this.DeleteButtonRows_D.UseVisualStyleBackColor = true;
-            this.DeleteButtonRows_D.Click += new System.EventHandler(this.DeleteButtonRows_Click_D);
-            // 
-            // LearnButton_D
-            // 
-            this.LearnButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_D.BackgroundImage")));
-            this.LearnButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LearnButton_D.Location = new System.Drawing.Point(146, 98);
-            this.LearnButton_D.Name = "LearnButton_D";
-            this.LearnButton_D.Size = new System.Drawing.Size(30, 30);
-            this.LearnButton_D.TabIndex = 8;
-            this.LearnButton_D.UseVisualStyleBackColor = true;
-            this.LearnButton_D.Click += new System.EventHandler(this.LearnButton_D_Click);
-            // 
-            // AddEntryButton
-            // 
-            this.AddEntryButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton.BackgroundImage")));
-            this.AddEntryButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddEntryButton.Location = new System.Drawing.Point(719, 98);
-            this.AddEntryButton.Name = "AddEntryButton";
-            this.AddEntryButton.Size = new System.Drawing.Size(30, 30);
-            this.AddEntryButton.TabIndex = 7;
-            this.AddEntryButton.UseVisualStyleBackColor = true;
-            this.AddEntryButton.Click += new System.EventHandler(this.AddRowButtonClick_D);
-            // 
-            // UndoButton_D
-            // 
-            this.UndoButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("UndoButton_D.BackgroundImage")));
-            this.UndoButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UndoButton_D.Location = new System.Drawing.Point(110, 98);
-            this.UndoButton_D.Name = "UndoButton_D";
-            this.UndoButton_D.Size = new System.Drawing.Size(30, 30);
-            this.UndoButton_D.TabIndex = 4;
-            this.UndoButton_D.UseVisualStyleBackColor = true;
-            this.UndoButton_D.Click += new System.EventHandler(this.UndoButton_Click_D);
+            this.Entry.ToolTipText = "Autofill Entries (Click to sort)";
             // 
             // CopyButton_D
             // 
@@ -417,16 +381,39 @@
             this.DeleteButton_D.UseVisualStyleBackColor = true;
             this.DeleteButton_D.Click += new System.EventHandler(this.DeleteButton_Click_D);
             // 
-            // SaveButton
+            // EntryBox_D
             // 
-            this.SaveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
-            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SaveButton.Location = new System.Drawing.Point(732, 10);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(30, 30);
-            this.SaveButton.TabIndex = 15;
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            this.EntryBox_D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EntryBox_D.Location = new System.Drawing.Point(0, 0);
+            this.EntryBox_D.MaxLength = 1000;
+            this.EntryBox_D.Multiline = true;
+            this.EntryBox_D.Name = "EntryBox_D";
+            this.EntryBox_D.Size = new System.Drawing.Size(755, 92);
+            this.EntryBox_D.TabIndex = 0;
+            this.EntryBox_D.TextChanged += new System.EventHandler(this.AutoFillEntry_TextChanged_D);
+            this.EntryBox_D.Enter += new System.EventHandler(this.AutoFillEntry_Enter_D);
+            this.EntryBox_D.Leave += new System.EventHandler(this.AutoFillEntry_Leave_D);
+            // 
+            // AssessmentTab
+            // 
+            this.AssessmentTab.Location = new System.Drawing.Point(4, 25);
+            this.AssessmentTab.Name = "AssessmentTab";
+            this.AssessmentTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AssessmentTab.Size = new System.Drawing.Size(755, 566);
+            this.AssessmentTab.TabIndex = 1;
+            this.AssessmentTab.Text = "Assessment";
+            this.AssessmentTab.UseVisualStyleBackColor = true;
+            // 
+            // PlanTab
+            // 
+            this.PlanTab.Location = new System.Drawing.Point(4, 25);
+            this.PlanTab.Name = "PlanTab";
+            this.PlanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PlanTab.Size = new System.Drawing.Size(755, 566);
+            this.PlanTab.TabIndex = 2;
+            this.PlanTab.Text = "Plan";
+            this.PlanTab.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -435,11 +422,11 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(776, 680);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.Patient);
+            this.Controls.Add(this.PatientGB);
             this.Name = "Form1";
             this.Text = "DAP Filler";
-            this.Patient.ResumeLayout(false);
-            this.Patient.PerformLayout();
+            this.PatientGB.ResumeLayout(false);
+            this.PatientGB.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.DataTab.ResumeLayout(false);
             this.DataTab.PerformLayout();
@@ -450,7 +437,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox Patient;
+        private System.Windows.Forms.GroupBox PatientGB;
         private System.Windows.Forms.TextBox PatientNameTB;
         private System.Windows.Forms.RadioButton FemaleRadioButton;
         private System.Windows.Forms.RadioButton MaleRadioButton;
@@ -459,27 +446,26 @@
         private System.Windows.Forms.TabPage AssessmentTab;
         private System.Windows.Forms.TabPage PlanTab;
         private System.Windows.Forms.CheckBox LearnModeCB;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox PeerGenericNameTB;
-        private System.Windows.Forms.TextBox PatientGenericNameTB;
+        private System.Windows.Forms.Label GenericPeerNameLabel;
+        private System.Windows.Forms.Label GenericPatientNameLabel;
+        private System.Windows.Forms.TextBox genericPeerNameTB;
+        private System.Windows.Forms.TextBox genericPatientNameTB;
         private System.Windows.Forms.TabPage DataTab;
-        private System.Windows.Forms.Button PastButton_D;
-        private System.Windows.Forms.Button DeleteButtonRows_D;
+        private System.Windows.Forms.Button PostButton_D;
+        private System.Windows.Forms.Button DeleteRowsButton_D;
         private System.Windows.Forms.Button LearnButton_D;
-        private System.Windows.Forms.Button AddEntryButton;
+        private System.Windows.Forms.Button AddEntryButton_D;
         private System.Windows.Forms.DataGridView DataGridView_D;
-        private System.Windows.Forms.Button UndoButton_D;
         private System.Windows.Forms.Button CopyButton_D;
         private System.Windows.Forms.Button CutButton_D;
         private System.Windows.Forms.Button DeleteButton_D;
-        private System.Windows.Forms.TextBox AutoFillEntry_D;
+        private System.Windows.Forms.TextBox EntryBox_D;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button CheckAllButton_D;
+        private System.Windows.Forms.Button UnCheckAllButton_D;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Post;
         private System.Windows.Forms.DataGridViewTextBoxColumn Uses;
         private System.Windows.Forms.DataGridViewTextBoxColumn Entry;
-        private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button CheckAll_D;
-        private System.Windows.Forms.Button UnCheckAll_D;
         }
 }
 

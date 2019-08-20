@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,8 +18,8 @@ namespace DAP_Filler
         public BindingList<AutoFillEntry> bindingList;
         public int rowSelected = 0;
         public int colSelected = 1;
+        public TextBox entryBox;
         public DataGridView dataGridView;
-        public TextBox autoEntryTB;
         public SortOrder[] sortOrder = new SortOrder[3];
         // -------------------------------------------------------------------------------------------------
 
@@ -37,10 +38,16 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void InitTab(DataGridView dataGridView, TextBox textBox)
             {
-            this.autoEntryTB = textBox;
+            this.entryBox = textBox;
             this.dataGridView = dataGridView;
             this.dataGridView.DataSource = bindingList;
             this.dataGridView.RowHeadersVisible = false;
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void ResetBindingList()
+            {
+            bindingList = new BindingList<AutoFillEntry>(autoFillList);
+            dataGridView.DataSource = bindingList;
             }
         // -------------------------------------------------------------------------------------------------
         private void PopulateList()
@@ -61,33 +68,100 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
-        public void DeleteButtonClick()
+        public void DeleteAutFillEntry()
             {
-            autoEntryTB.Text = "";
+            entryBox.Text = "";
             }
         // -------------------------------------------------------------------------------------------------
         public void CutButtonClick()
             {
-            if (autoEntryTB.Text.CompareTo("") != 0)
+            //if(C.patientNamePlaceholder.Equals(C.patientName))
+            //    {
+            //    MessageBox.Show("You must enter the patient's name");
+            //    }
+            //else 
+            if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(autoEntryTB.Text);
-                autoEntryTB.Text = "";
+                System.Windows.Forms.Clipboard.SetText(entryBox.Text);
+                entryBox.Text = "";
                 Learn();
                 }
             }
+
         // -------------------------------------------------------------------------------------------------
         public void CopyButtonClick()
             {
-            if (autoEntryTB.Text.CompareTo("") != 0)
+            //if (C.patientNamePlaceholder.Equals(C.patientName))
+            //    {
+            //    MessageBox.Show("You must enter the patient's name");
+            //    }
+            //else 
+            if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(autoEntryTB.Text);
+                System.Windows.Forms.Clipboard.SetText(entryBox.Text);
                 Learn();
                 }
             }
         // -------------------------------------------------------------------------------------------------
-        public void UndoButtonClick()
+        //public void UndoButtonClick()
+        //    {
+        //    if(!String.IsNullOrWhiteSpace(entryBox.Text))
+        //        {
+        //        entryBox.Text = RemoveLastLine(entryBox.Text.ToString());
+        //        }
+        //    }
+        // -------------------------------------------------------------------------------------------------
+/*        public String RemoveLine(String s)
             {
+            Boolean b = false;
+            int lastLineIndex = -1;
+            for(int i = s.Length-1; i >= 0; i--)
+                {
+                if(!b)
+                    {
+                    if (s[i] == '.' || s[i] == '!' || s[i] == '?')
+                        b = true;
+                    }
+                else
+                    {
+                    if (s[i] == '.' || s[i] == '!' || s[i] == '?')
+                        lastLineIndex = i + 1;
+                    }
 
+                }
+            return s.Substring(0, lastLineIndex);
+            }
+        // -------------------------------------------------------------------------------------------------
+        public String RemoveLastLine(String myStr)
+            {
+            String result = "";
+            if (myStr.Length > 2)
+                {
+                // Ignore very last new-line character.
+                String temporary = myStr.Substring(0, myStr.Length - 2);
+
+                // Get the position of the last new-line character.
+                int lastNewLine = temporary.LastIndexOf("\r\n");
+
+                // If we have at least two elements separated by a new-line character.
+                if (lastNewLine != -1)
+                    {
+                    // Cut the string (starting from 0, ending at the last new-line character).
+                    result = myStr.Substring(0, lastNewLine);
+                    }
+                }
+            return (result);
+            }
+*/
+        // -------------------------------------------------------------------------------------------------
+        public void LearnButtonClick()
+            {
+            //if (C.patientNamePlaceholder .Equals(C.patientName))
+            //    {
+            //    MessageBox.Show("You must first enter the patient's name");
+            //    }
+            //else
+                Learn();
             }
         // -------------------------------------------------------------------------------------------------
         public void AutoFillEntry_Enter()
@@ -103,14 +177,26 @@ namespace DAP_Filler
 
             }
         // -------------------------------------------------------------------------------------------------
-        public void AddRowButtonClick()
+        public void DeleteCheckedEntries()
+            {
+            checkboxClicks.Sort();
+            for (int i = checkboxClicks.Count-1; i >=0; i--)
+                {
+                autoFillList.RemoveAt(checkboxClicks[i]);
+                
+                }
+            ResetBindingList();
+            unCheckAll();
+            }
+        // -------------------------------------------------------------------------------------------------
+            public void AddRowButtonClick()
             {
             Console.WriteLine("AddRowButtonClick() : " + tabName);
             autoFillList.Add(new AutoFillEntry(C.newCellText));
             rowSelected = autoFillList.Count - 1;
             colSelected = 2;
             ResetGrid();
-            recheckBoxes();
+            RecheckBoxes();
             dataGridView.BeginEdit(true); /// Auto selects new cell text
             }
         // -------------------------------------------------------------------------------------------------
@@ -169,27 +255,35 @@ namespace DAP_Filler
             {
             Console.WriteLine("RightMouseClick() " + tabName + " at point [" + p.X + "][" + p.Y + "]; row = " + row + "; col = " + col);
             ContextMenu m = new ContextMenu();
+
             MenuItem m1 = new MenuItem("Delete");
             //m1.Click += new System.EventHandler(this.MenuItemDeleteClick);
-            m1.Click += delegate (object sender, System.EventArgs e) { MenuItemDeleteClick( sender, e); };
+            m1.Click += delegate (object sender, System.EventArgs e) { MenuItemDeleteClick( row); };
             m.MenuItems.Add(m1);
 
             MenuItem m2 = new MenuItem("Edit");
-            m2.Click += delegate (object sender, System.EventArgs e) { MenuItemEditClick( sender, e); };
+            m2.Click += delegate (object sender, System.EventArgs e) { MenuItemEditClick( row); };
             m.MenuItems.Add(m2);
 
             MenuItem m3 = new MenuItem("Cut");
-            m3.Click += delegate (object sender, System.EventArgs e) { MenuItemCutClick( sender, e); };
+            m3.Click += delegate (object sender, System.EventArgs e) { MenuItemCutClick( row); };
             m.MenuItems.Add(m3);
 
             MenuItem m4 = new MenuItem("Copy");
-            m4.Click += delegate (object sender, System.EventArgs e) { MenuItemCopyClick( sender, e); };
+            m4.Click += delegate (object sender, System.EventArgs e) { MenuItemCopyClick(  row); };
             m.MenuItems.Add(m4);
 
             MenuItem m5 = new MenuItem("Paste");
-            m5.Click += delegate (object sender, System.EventArgs e) { MenuItemPasteClick( sender, e); };
+            m5.Click += delegate (object sender, System.EventArgs e) { MenuItemPasteOverClick(row); };
             m.MenuItems.Add(m5);
 
+            MenuItem m6 = new MenuItem("Paste (Append)");
+            m6.Click += delegate (object sender, System.EventArgs e) { MenuItemAddPasteClick(  row); };
+            m.MenuItems.Add(m6);
+
+            MenuItem m7 = new MenuItem("Post");
+            m7.Click += delegate (object sender, System.EventArgs e) { MenuItemAddPostClick(row); };
+            m.MenuItems.Add(m7);
 
             SelectCell(row, col);
             m.Show(dataGridView, p);
@@ -197,29 +291,50 @@ namespace DAP_Filler
             }
         // -------------------------------------------------------------------------------------------------
         /* Context Menu */
-        public void MenuItemDeleteClick( object sender, System.EventArgs e)
+        public void MenuItemDeleteClick( int row)
             {
-            Console.WriteLine("Context menu Delete click : tab = " + tabName);
-
+            Console.WriteLine("Context menu Delete click : tab = " + tabName + "; row = " + row);
+            autoFillList.RemoveAt(row);
+            ResetBindingList();
+            checkboxClicks.Remove(row);
+            for (int i = 0; i < checkboxClicks.Count; i++)
+                if (checkboxClicks[i] > row)
+                    checkboxClicks[i]--;
+            RecheckBoxes();
             }
-        public void MenuItemEditClick( object sender, System.EventArgs e)
+        public void MenuItemEditClick(int row)
             {
             Console.WriteLine("Context menu Edit click : tab = " + tabName);
+            rowSelected = row;
+            colSelected = 2;
+            dataGridView.BeginEdit(true); /// Auto selects new cell text
+
             }
-        public void MenuItemCutClick( object sender, System.EventArgs e)
+        public void MenuItemCutClick(  int row)
             {
             Console.WriteLine("Context menu Cut click : tab = " + tabName);
-
+            System.Windows.Forms.Clipboard.SetText(autoFillList[row].Entry);
+            MenuItemDeleteClick(row);
             }
-        public void MenuItemCopyClick( object sender, System.EventArgs e)
+        public void MenuItemCopyClick( int row)
             {
             Console.WriteLine("Context menu Copy click : tab = " + tabName);
-
+            System.Windows.Forms.Clipboard.SetText(autoFillList[row].Entry);
             }
-        public void MenuItemPasteClick( object sender, System.EventArgs e)
+        public void MenuItemPasteOverClick(int row)
             {
-            Console.WriteLine("Context menu Paste click : tab = " + tabName);
-
+            Console.WriteLine("Context menu Paste over click : tab = " + tabName);
+            autoFillList[row].Entry = System.Windows.Forms.Clipboard.GetText();
+            }
+        public void MenuItemAddPasteClick(  int row)
+            {
+            Console.WriteLine("Context menu add Paste click : tab = " + tabName);
+            autoFillList[row].Entry += " " + System.Windows.Forms.Clipboard.GetText();
+            }
+        public void MenuItemAddPostClick(int row)
+            {
+            Console.WriteLine("Context menu Post click : tab = " + tabName);
+            PostEntry(row);
             }
         // -------------------------------------------------------------------------------------------------
         public Point RelativePoint(DataGridViewCellMouseEventArgs e)
@@ -314,15 +429,56 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void ResetTab()
             {
-            autoEntryTB.Text = "";
+            entryBox.Text = "";
             }
         // -------------------------------------------------------------------------------------------------
-
-        public void PatientChange()
+        public void PatientNameChange()
             {
             Console.WriteLine("PatientChange() : oldName = " + C.oldPatientName + "; newName = " + C.patientName + "; oldIsMale = " + C.oldIsMale + "; isMale = " + C.isMale);
-            autoEntryTB.Text = PersonalizeText(autoEntryTB.Text);
+            if(entryBox.Text.Length > 0)
+                {
+                String[] list = { C.oldPatientName, C.patientName };
+                entryBox.Text = ReplaceWordsInString(entryBox.Text.ToString(), list);
+                }
             C.oldIsMale = C.isMale;
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void GenericPatientNameChange()
+            {
+            Console.WriteLine("GenericPatientNameChange() : oldName = " + C.oldGenericPatientName + "; newName = " + C.genericPatientName + "; list.Count = " + autoFillList.Count);
+            String[] list = { C.oldGenericPatientName, C.genericPatientName };
+            if (entryBox.Text.Length > 0)
+                {
+                entryBox.Text = ReplaceWordsInString(entryBox.Text.ToString(), list);
+                }
+            if (autoFillList.Count > 0)
+                {
+                for (int i = 0; i < autoFillList.Count; i++)
+                    {
+                    autoFillList[i].Entry = ReplaceWordsInString(autoFillList[i].Entry, list);
+                    }
+                ResetBindingList();
+                RecheckBoxes();
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void GenericPeerNameChange()
+            {
+            Console.WriteLine("GenericPeerNameChange() : oldName = " + C.oldGenericPeerName + "; newName = " + C.genericPeerName + "; list.Count = " + autoFillList.Count);
+            String[] list = { C.oldGenericPeerName, C.genericPeerName, C.oldGenericPeerName + "s", C.genericPeerName + "s" };
+            if (entryBox.Text.Length > 0)
+                {
+                entryBox.Text = ReplaceWordsInString(entryBox.Text.ToString(), list);
+                }
+            if (autoFillList.Count > 0)
+                {
+                for (int i = 0; i < autoFillList.Count; i++)
+                    {
+                    autoFillList[i].Entry = ReplaceWordsInString(autoFillList[i].Entry, list);
+                    }
+                ResetBindingList();
+                RecheckBoxes();
+                }
             }
         // -------------------------------------------------------------------------------------------------
         public void PostEntries()
@@ -337,35 +493,42 @@ namespace DAP_Filler
         public void PostEntry(int row)
             {
             Console.WriteLine("PostEntry() " + tabName + " : ");
-            autoEntryTB.Text += PersonalizePost(dataGridView.Rows[row].Cells[2].Value.ToString() + " ");
+            String[] list = { C.genericPatientName, C.patientName};
+            entryBox.Text += ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list) + " ";
             }
         // -------------------------------------------------------------------------------------------------
-
-        public String PersonalizePost(String s)
+        /* Takes a string and replaces old word with new word and returns the string. params is the array of 
+         words to replace. Takes in an even number of params in the pattern of: oldString, newString. */
+        public String ReplaceWordsInString(String s, params String[] list)
             {
+            Console.WriteLine("ReplaceWordsInString() : s = " + s + "; list[0] = " + list[0] + "; list[1] = " + list[1]);
+            int length = list.Count<String>();
+            if (length == 0 || length % 2 != 0)
+                throw new ArgumentException("Parameter list must be even number", "original");
+
+            for (int i = 0; i < length; i += 2)
+                {
+                s = ReplaceWholeWord(s, list[i], list[i + 1]);
+                }
 
             return s;
-
             }
         // -------------------------------------------------------------------------------------------------
-
-        public String PersonalizeText(String oldString)
+        public string ReplaceWholeWord(string original, string wordToFind, string replacement)
             {
-            Console.WriteLine("PersonalizeText() : " + tabName);
-
-
-            return oldString;
+            string pattern = String.Format(@"\b{0}\b", wordToFind);
+            string ret = Regex.Replace(original, pattern, replacement, RegexOptions.IgnoreCase);
+            return ret;
             }
 
         // -------------------------------------------------------------------------------------------------
-
         public void Learn()
             {
             Console.WriteLine("Learn() : " + tabName);
 
             }
         // -------------------------------------------------------------------------------------------------
-        public void recheckBoxes()
+        public void RecheckBoxes()
             {
             for (int i = 0; i < checkboxClicks.Count; i++)
                 dataGridView.Rows[checkboxClicks[i]].Cells[0].Value = true;

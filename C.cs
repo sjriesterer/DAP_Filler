@@ -8,17 +8,25 @@ namespace DAP_Filler
     {
     public static class C
         {
-        public static List<int> checkboxClicks_D = new List<int>();
+//        public static List<int> checkboxClicks_D = new List<int>();
         public static Boolean learnMode = true;
-        public static String genericPatientName = "Patient";
-        public static String genericPeerName = "Peer";
-        public static String noNameText = "Enter Name";
-        public static String defaultName = "<Patient>";
+
         public static String newCellText = "<Edit Entry>";
-        public static String defaultPronoun = "<He/She>";
-        public static String oldPatientName = "";
+
+
+        public static String patientNamePlaceholder = "PatientName";
+        public static String oldPatientName = patientNamePlaceholder;
+        public static String patientName = patientNamePlaceholder;
+
+        public static String genericPatientNamePlaceholder = "Patient";
+        public static String oldGenericPatientName = genericPatientNamePlaceholder;
+        public static String genericPatientName = genericPatientNamePlaceholder;
+
+        public static String genericPeerNamePlaceholder = "Peer";
+        public static String oldGenericPeerName = genericPeerNamePlaceholder;
+        public static String genericPeerName = genericPeerNamePlaceholder;
+
         public static Boolean oldIsMale = true;
-        public static String patientName = "";
         public static Boolean isMale = true;
 
         }

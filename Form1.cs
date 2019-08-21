@@ -86,33 +86,33 @@ namespace DAP_Filler
         /* COMMON EVENTS */
         /* ----------------------------------------------------------------------------------------*/
         /* Patient Name */
-        private void PatientName_Enter(object sender, EventArgs e)
+        private void RealName_Enter(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_Enter : TB.Text = " + patientNameTB.Text + "; patient name = " + C.patientName);
-            TextBoxEnter(patientNameTB, C.patientNamePlaceholder);
+            Console.WriteLine("PatientName_Enter : TB.Text = " + realNameTB.Text + "; patient name = " + C.realName);
+            TextBoxEnter(realNameTB, C.realNamePlaceholder);
             }
 
-        private void PatientName_Leave(object sender, EventArgs e)
+        private void RealName_Leave(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_Leave : TB.Text = " + patientNameTB.Text + "; patient name = " + C.patientName);
-            C.oldPatientName = C.patientName;
-            if (String.IsNullOrWhiteSpace(patientNameTB.Text))
+            Console.WriteLine("PatientName_Leave : TB.Text = " + realNameTB.Text + "; patient name = " + C.realName);
+            C.oldRealName = C.realName;
+            if (String.IsNullOrWhiteSpace(realNameTB.Text))
                 {
-                patientNameTB.Text = C.patientNamePlaceholder;
-                patientNameTB.ForeColor = Color.Gray;
+                realNameTB.Text = C.realNamePlaceholder;
+                realNameTB.ForeColor = Color.Gray;
                 }
             else
                 {
-
-                patientNameTB.ForeColor = Color.Black;
+                realNameTB.Text = C.Capitalize(realNameTB.Text.ToString());
+                realNameTB.ForeColor = Color.Black;
                 }
-            C.patientName = patientNameTB.Text;
-            tabData.PatientNameChange();
+            C.realName = realNameTB.Text;
+            tabData.RealNameChange();
             }
 
-        private void PatientName_TextChanged(object sender, EventArgs e)
+        private void RealName_TextChanged(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_TextChanged() : name = " + patientNameTB.Text);
+            Console.WriteLine("PatientName_TextChanged() : name = " + realNameTB.Text);
             //C.patientName = PatientNameTB.Text;
             }
 
@@ -122,7 +122,7 @@ namespace DAP_Filler
             }
         private void GenericNameTB_Enter(object sender, EventArgs e)
             {
-            TextBoxEnter(genericNameTB, C.genericNamePlaceholder);
+            TextBoxEnter(genericNameTB, C.genericRealNamePlaceholder);
 /*
             genericNameTB.ForeColor = Color.Black;
             if (genericNameTB.Text.CompareTo(C.genericNamePlaceholder) == 0)
@@ -140,7 +140,7 @@ namespace DAP_Filler
             }
         private void GenericNameTB_Leave(object sender, EventArgs e)
             {
-            TextBoxLeave(C.genericNamePlaceholder, ref C.oldGenericName, ref C.genericName, genericNameTB);
+            TextBoxLeave(C.genericRealNamePlaceholder, ref C.oldGenericName, ref C.genericName, genericNameTB);
             /*
             C.oldGenericName = C.genericName;
             if (String.IsNullOrWhiteSpace(genericNameTB.Text))
@@ -216,7 +216,7 @@ namespace DAP_Filler
                 }
             else
                 {
-                if (!newName.Equals(textBox.Text))
+                if (!newName.Equals(textBox.Text)) /// If there has been a change
                     textBox.Text = FormatGenericName(textBox.Text.ToString());
                 textBox.ForeColor = Color.Black;
                 }
@@ -230,15 +230,14 @@ namespace DAP_Filler
             if (input[input.Length - 1] != '>')
                 input = input + '>';
 
-            return "<" + Char.ToUpper(input[1]) + input.Substring(2);
+            return C.CapitalizeWithArrows(input);
             }
-
 
         private void NewPatient_Click(object sender, EventArgs e)
             {
-            C.oldPatientName = C.patientNamePlaceholder;
-            C.patientName = C.patientNamePlaceholder;
-            patientNameTB.Text = C.patientNamePlaceholder;
+            C.oldRealName = C.realNamePlaceholder;
+            C.realName = C.realNamePlaceholder;
+            realNameTB.Text = C.realNamePlaceholder;
             MaleRadioButton.Checked = true;
             C.oldIsMale = true;
             C.isMale = true;
@@ -271,16 +270,14 @@ namespace DAP_Filler
         /* Data Tab */
         /* ----------------------------------------------------------------------------------------*/
 
-        private void AutoFillEntry_Enter_D(object sender, EventArgs e)
-            { tabData.AutoFillEntry_Enter(); }
-        private void AutoFillEntry_Leave_D(object sender, EventArgs e)
-            { tabData.AutoFillEntry_Leave(); }
-        private void AutoFillEntry_TextChanged_D(object sender, EventArgs e)
-            { tabData.AutoFillEntry_TextChanged(); }
+        private void EntryBox_Enter_D(object sender, EventArgs e)
+            { tabData.EntryBox_Enter(); }
+        private void EntryBox_Leave_D(object sender, EventArgs e)
+            { tabData.EntryBox_Leave(); }
+        private void EntryBox_TextChanged_D(object sender, EventArgs e)
+            { tabData.EntryBox_TextChanged(); }
         private void DeleteButton_Click_D(object sender, EventArgs e)
             { tabData.DeleteAutFillEntry(); }
-        //private void UndoButton_Click_D(object sender, EventArgs e)
-        //    { tabData.UndoButtonClick(); }
         private void CutButton_Click_D(object sender, EventArgs e)
             { tabData.CutButtonClick(); }
         private void CopyButton_Click_D(object sender, EventArgs e)
@@ -291,6 +288,10 @@ namespace DAP_Filler
         /* ----------------------------------------------------------------------------------------*/
         /* Data Grid View Data */
         /* ----------------------------------------------------------------------------------------*/
+        private void DataGridView_RowValidated_D(object sender, DataGridViewCellEventArgs e)
+            {
+            tabData.RowValidated(e.RowIndex);
+            }
         private void DataGridView_ColumnHeaderMouseClick_D(object sender, DataGridViewCellMouseEventArgs e)
             {
             if (e.Button == MouseButtons.Left)
@@ -358,12 +359,12 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         private void CheckAll_Click_D(object sender, EventArgs e)
             {
-            tabData.checkAll();
+            tabData.CheckAll();
             }
         // -------------------------------------------------------------------------------------------------
         private void UnCheckAll_Click_D(object sender, EventArgs e)
             {
-            tabData.unCheckAll();
+            tabData.UnCheckAll();
             }
 
         }

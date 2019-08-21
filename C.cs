@@ -14,13 +14,13 @@ namespace DAP_Filler
         public static String newCellText = "<Edit Entry>";
 
 
-        public static String patientNamePlaceholder = "<Name>";
-        public static String oldPatientName = patientNamePlaceholder;
-        public static String patientName = patientNamePlaceholder;
+        public static String realNamePlaceholder = "<Name>";
+        public static String oldRealName = realNamePlaceholder;
+        public static String realName = realNamePlaceholder;
 
-        public static String genericNamePlaceholder = "<Name>";
-        public static String oldGenericName = genericNamePlaceholder;
-        public static String genericName = genericNamePlaceholder;
+        public static String genericRealNamePlaceholder = "<Name>";
+        public static String oldGenericName = genericRealNamePlaceholder;
+        public static String genericName = genericRealNamePlaceholder;
 
         public static String genericPatientNamePlaceholder = "<Patient>";
         public static String oldGenericPatientName = genericPatientNamePlaceholder;
@@ -34,6 +34,20 @@ namespace DAP_Filler
         public static Boolean isMale = true;
 
         public static String enterNameFirstText = "You must enter the patient's name before learning autofill entries";
+
+        public static String CapitalizeWithArrows(String input)
+            {
+            return "<" + Char.ToUpper(input[1]) + input.Substring(2);
+            }
+        public static String LowerCaseWithArrows(String input)
+            {
+            return "<" + Char.ToLower(input[1]) + input.Substring(2);
+            }
+        public static String Capitalize(String input)
+            {
+            return Char.ToUpper(input[0]) + input.Substring(1);
+            }
+
 
         }
     }

@@ -41,7 +41,7 @@
             this.NewPatientButton = new System.Windows.Forms.Button();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
-            this.patientNameTB = new System.Windows.Forms.TextBox();
+            this.realNameTB = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
             this.CheckAllButton_D = new System.Windows.Forms.Button();
@@ -81,7 +81,7 @@
             this.PatientGB.Controls.Add(this.NewPatientButton);
             this.PatientGB.Controls.Add(this.FemaleRadioButton);
             this.PatientGB.Controls.Add(this.MaleRadioButton);
-            this.PatientGB.Controls.Add(this.patientNameTB);
+            this.PatientGB.Controls.Add(this.realNameTB);
             this.PatientGB.Location = new System.Drawing.Point(5, 5);
             this.PatientGB.Name = "PatientGB";
             this.PatientGB.Size = new System.Drawing.Size(767, 71);
@@ -208,15 +208,15 @@
             // 
             // PatientNameTB
             // 
-            this.patientNameTB.Location = new System.Drawing.Point(6, 17);
-            this.patientNameTB.MaxLength = 30;
-            this.patientNameTB.Name = "PatientNameTB";
-            this.patientNameTB.Size = new System.Drawing.Size(303, 20);
-            this.patientNameTB.TabIndex = 0;
-            this.patientNameTB.WordWrap = false;
-            this.patientNameTB.TextChanged += new System.EventHandler(this.PatientName_TextChanged);
-            this.patientNameTB.Enter += new System.EventHandler(this.PatientName_Enter);
-            this.patientNameTB.Leave += new System.EventHandler(this.PatientName_Leave);
+            this.realNameTB.Location = new System.Drawing.Point(6, 17);
+            this.realNameTB.MaxLength = 30;
+            this.realNameTB.Name = "PatientNameTB";
+            this.realNameTB.Size = new System.Drawing.Size(303, 20);
+            this.realNameTB.TabIndex = 0;
+            this.realNameTB.WordWrap = false;
+            this.realNameTB.TextChanged += new System.EventHandler(this.RealName_TextChanged);
+            this.realNameTB.Enter += new System.EventHandler(this.RealName_Enter);
+            this.realNameTB.Leave += new System.EventHandler(this.RealName_Leave);
             // 
             // tabControl1
             // 
@@ -342,6 +342,7 @@
             this.DataGridView_D.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_D);
             this.DataGridView_D.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_D);
             this.DataGridView_D.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded_D);
+            this.DataGridView_D.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_D);
             // 
             // Post
             // 
@@ -414,9 +415,9 @@
             this.EntryBox_D.Name = "EntryBox_D";
             this.EntryBox_D.Size = new System.Drawing.Size(755, 92);
             this.EntryBox_D.TabIndex = 0;
-            this.EntryBox_D.TextChanged += new System.EventHandler(this.AutoFillEntry_TextChanged_D);
-            this.EntryBox_D.Enter += new System.EventHandler(this.AutoFillEntry_Enter_D);
-            this.EntryBox_D.Leave += new System.EventHandler(this.AutoFillEntry_Leave_D);
+            this.EntryBox_D.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_D);
+            this.EntryBox_D.Enter += new System.EventHandler(this.EntryBox_Enter_D);
+            this.EntryBox_D.Leave += new System.EventHandler(this.EntryBox_Leave_D);
             // 
             // AssessmentTab
             // 
@@ -461,7 +462,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox PatientGB;
-        private System.Windows.Forms.TextBox patientNameTB;
+        private System.Windows.Forms.TextBox realNameTB;
         private System.Windows.Forms.RadioButton FemaleRadioButton;
         private System.Windows.Forms.RadioButton MaleRadioButton;
         private System.Windows.Forms.Button NewPatientButton;

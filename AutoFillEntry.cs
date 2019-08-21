@@ -18,13 +18,14 @@ namespace DAP_Filler
 
         public AutoFillEntry()
         {
-            this.uses = 0;
+            this.entry = "";
+            this.uses = 1;
         }
 
         public AutoFillEntry(string entry)
         {
             this.entry = entry;
-            this.uses = 0;
+            this.uses = 1;
         }
 
         public int Uses { get { return uses; } set { uses = value; } }

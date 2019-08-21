@@ -24,6 +24,7 @@ namespace DAP_Filler
             //TODO Get persisted data
             genericPatientNameTB.Text = C.genericPatientName;
             genericPeerNameTB.Text = C.genericPeerName;
+            genericNameTB.Text = C.genericName;
             tabData = new Tab("Data");
             tabData.InitTab(DataGridView_D, EntryBox_D);
             InitToolTips();
@@ -34,11 +35,13 @@ namespace DAP_Filler
             ToolTip ToolTipNew = new ToolTip();
             ToolTip ToolTipSave = new ToolTip();
             ToolTip ToolTipLearnMode = new ToolTip();
+            ToolTip ToolTipGenericName = new ToolTip();
             ToolTip ToolTipGenericPatientName = new ToolTip();
             ToolTip ToolTipGenericPeerName = new ToolTip();
             ToolTipNew.SetToolTip(NewPatientButton, "Start a new patient");
             ToolTipSave.SetToolTip(SaveButton, "Saves progress");
             ToolTipLearnMode.SetToolTip(LearnModeCB, "Learn Mode will automatically create new entries based on the text in the entry box whenever cut or copy button is pressed");
+            ToolTipGenericName.SetToolTip(GenericNameLabel, "The name used to reference the patient's real name in the auto entries");
             ToolTipGenericPatientName.SetToolTip(GenericPatientNameLabel, "The name used to reference the patient in the auto entries");
             ToolTipGenericPeerName.SetToolTip(GenericPeerNameLabel, "The name used to reference the patient's peers in the auto entries");
 
@@ -117,6 +120,7 @@ namespace DAP_Filler
                 }
             else
                 {
+
                 PatientNameTB.ForeColor = Color.Black;
                 }
             C.patientName = PatientNameTB.Text;
@@ -131,9 +135,9 @@ namespace DAP_Filler
 
         private void NewPatient_Click(object sender, EventArgs e)
             {
-            C.oldPatientName = "";
-            C.patientName = "";
-            PatientNameTB.Text = "";
+            C.oldPatientName = C.patientNamePlaceholder;
+            C.patientName = C.patientNamePlaceholder;
+            PatientNameTB.Text = C.patientNamePlaceholder;
             MaleRadioButton.Checked = true;
             C.oldIsMale = true;
             C.isMale = true;
@@ -157,8 +161,47 @@ namespace DAP_Filler
             {
             C.learnMode = LearnModeCB.Checked;
             }
+        /* Generic Name TB */
+        private void GenericNameTB_TextChanged(object sender, EventArgs e)
+            {
 
-        /* Patient Generic Name TB*/
+            }
+        private void GenericNameTB_Enter(object sender, EventArgs e)
+            {
+            genericNameTB.ForeColor = Color.Black;
+            if (genericNameTB.Text.CompareTo(C.genericNamePlaceholder) == 0)
+                {
+                genericNameTB.Text = "";
+                }
+            else
+                {
+                BeginInvoke((Action)delegate
+                    {
+                        genericNameTB.SelectAll();
+                        });
+                }
+
+            }
+        private void GenericNameTB_Leave(object sender, EventArgs e)
+            {
+            C.oldGenericName = C.genericName;
+            if (String.IsNullOrWhiteSpace(genericNameTB.Text))
+                {
+                genericNameTB.Text = C.genericNamePlaceholder;
+                genericNameTB.ForeColor = Color.Gray;
+                }
+            else
+                {
+
+                genericNameTB.ForeColor = Color.Black;
+                }
+            C.genericName = genericNameTB.Text;
+            tabData.GenericNameChange();
+            }
+
+
+
+        /* Generic Patient Name TB*/
         private void PatientGenericNameTB_TextChanged(object sender, EventArgs e)
             {
             //C.genericPatientName = PatientGenericNameTB.Text;
@@ -189,13 +232,14 @@ namespace DAP_Filler
                 }
             else
                 {
+
                 genericPatientNameTB.ForeColor = Color.Black;
                 }
             C.genericPatientName = genericPatientNameTB.Text;
             tabData.GenericPatientNameChange();
             }
 
-        /* Peer Generic Name TB*/
+        /* Generic Peer Name TB*/
         private void PeerGenericNameTB_TextChanged(object sender, EventArgs e)
             {
             //C.genericPeerName = PeerGenericNameTB.Text;
@@ -329,5 +373,6 @@ namespace DAP_Filler
             {
             tabData.unCheckAll();
             }
+
         }
     }

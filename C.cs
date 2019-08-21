@@ -14,17 +14,21 @@ namespace DAP_Filler
         public static String newCellText = "<Edit Entry>";
 
 
-        public static String patientNamePlaceholder = "PatientName";
+        public static String patientNamePlaceholder = "<Name>";
         public static String oldPatientName = patientNamePlaceholder;
         public static String patientName = patientNamePlaceholder;
 
-        public static String genericPatientNamePlaceholder = "Patient";
-        public static String oldGenericPatientName = genericPatientNamePlaceholder;
-        public static String genericPatientName = genericPatientNamePlaceholder;
+        public static String genericNamePlaceholder = "<Name>";
+        public static String oldGenericName = "Name";
+        public static String genericName = "Name";
 
-        public static String genericPeerNamePlaceholder = "Peer";
-        public static String oldGenericPeerName = genericPeerNamePlaceholder;
-        public static String genericPeerName = genericPeerNamePlaceholder;
+        public static String genericPatientNamePlaceholder = "<Patient>";
+        public static String oldGenericPatientName = "Patient";
+        public static String genericPatientName = "Patient";
+
+        public static String genericPeerNamePlaceholder = "<Peer>";
+        public static String oldGenericPeerName = "Peer";
+        public static String genericPeerName = "Peer";
 
         public static Boolean oldIsMale = true;
         public static Boolean isMale = true;

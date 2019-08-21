@@ -443,6 +443,23 @@ namespace DAP_Filler
             C.oldIsMale = C.isMale;
             }
         // -------------------------------------------------------------------------------------------------
+        public void GenericNameChange()
+            {
+            Console.WriteLine("GenericNameChange() : oldName = " + C.oldGenericName + "; newName = " + C.genericName + "; list.Count = " + autoFillList.Count);
+            String[] list = { C.oldGenericName, C.genericName };
+            
+            if (autoFillList.Count > 0)
+                {
+                for (int i = 0; i < autoFillList.Count; i++)
+                    {
+                    autoFillList[i].Entry = ReplaceWordsInString(autoFillList[i].Entry, list);
+                    }
+                ResetBindingList();
+                RecheckBoxes();
+                }
+            }
+
+        // -------------------------------------------------------------------------------------------------
         public void GenericPatientNameChange()
             {
             Console.WriteLine("GenericPatientNameChange() : oldName = " + C.oldGenericPatientName + "; newName = " + C.genericPatientName + "; list.Count = " + autoFillList.Count);
@@ -493,7 +510,7 @@ namespace DAP_Filler
         public void PostEntry(int row)
             {
             Console.WriteLine("PostEntry() " + tabName + " : ");
-            String[] list = { C.genericPatientName, C.patientName};
+            String[] list = { C.patientNamePlaceholder, C.patientName, C.genericPatientNamePlaceholder, C.genericPatientName, C.genericPeerNamePlaceholder, C.genericPeerName};
             entryBox.Text += ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list) + " ";
             }
         // -------------------------------------------------------------------------------------------------
@@ -516,9 +533,10 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public string ReplaceWholeWord(string original, string wordToFind, string replacement)
             {
-            string pattern = String.Format(@"\b{0}\b", wordToFind);
-            string ret = Regex.Replace(original, pattern, replacement, RegexOptions.IgnoreCase);
-            return ret;
+            return original.Replace(wordToFind, replacement);
+            //string pattern = String.Format(@"\b{0}\b", wordToFind);
+            //string ret = Regex.Replace(original, pattern, replacement, RegexOptions.IgnoreCase);
+            //return ret;
             }
 
         // -------------------------------------------------------------------------------------------------

@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.PatientGB = new System.Windows.Forms.GroupBox();
+            this.genericNameTB = new System.Windows.Forms.TextBox();
+            this.GenericNameLabel = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.GenericPeerNameLabel = new System.Windows.Forms.Label();
             this.GenericPatientNameLabel = new System.Windows.Forms.Label();
@@ -68,6 +70,8 @@
             // 
             this.PatientGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PatientGB.Controls.Add(this.genericNameTB);
+            this.PatientGB.Controls.Add(this.GenericNameLabel);
             this.PatientGB.Controls.Add(this.SaveButton);
             this.PatientGB.Controls.Add(this.GenericPeerNameLabel);
             this.PatientGB.Controls.Add(this.GenericPatientNameLabel);
@@ -85,6 +89,25 @@
             this.PatientGB.TabStop = false;
             this.PatientGB.Text = "Patient";
             // 
+            // genericNameTB
+            // 
+            this.genericNameTB.Location = new System.Drawing.Point(95, 48);
+            this.genericNameTB.Name = "genericNameTB";
+            this.genericNameTB.Size = new System.Drawing.Size(130, 20);
+            this.genericNameTB.TabIndex = 17;
+            this.genericNameTB.TextChanged += new System.EventHandler(this.GenericNameTB_TextChanged);
+            this.genericNameTB.Enter += new System.EventHandler(this.GenericNameTB_Enter);
+            this.genericNameTB.Leave += new System.EventHandler(this.GenericNameTB_Leave);
+            // 
+            // GenericNameLabel
+            // 
+            this.GenericNameLabel.AutoSize = true;
+            this.GenericNameLabel.Location = new System.Drawing.Point(7, 51);
+            this.GenericNameLabel.Name = "GenericNameLabel";
+            this.GenericNameLabel.Size = new System.Drawing.Size(78, 13);
+            this.GenericNameLabel.TabIndex = 16;
+            this.GenericNameLabel.Text = "Generic Name:";
+            // 
             // SaveButton
             // 
             this.SaveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
@@ -99,7 +122,7 @@
             // GenericPeerNameLabel
             // 
             this.GenericPeerNameLabel.AutoSize = true;
-            this.GenericPeerNameLabel.Location = new System.Drawing.Point(293, 48);
+            this.GenericPeerNameLabel.Location = new System.Drawing.Point(523, 51);
             this.GenericPeerNameLabel.Name = "GenericPeerNameLabel";
             this.GenericPeerNameLabel.Size = new System.Drawing.Size(103, 13);
             this.GenericPeerNameLabel.TabIndex = 14;
@@ -108,7 +131,7 @@
             // GenericPatientNameLabel
             // 
             this.GenericPatientNameLabel.AutoSize = true;
-            this.GenericPatientNameLabel.Location = new System.Drawing.Point(11, 48);
+            this.GenericPatientNameLabel.Location = new System.Drawing.Point(244, 51);
             this.GenericPatientNameLabel.Name = "GenericPatientNameLabel";
             this.GenericPatientNameLabel.Size = new System.Drawing.Size(114, 13);
             this.GenericPatientNameLabel.TabIndex = 13;
@@ -116,10 +139,10 @@
             // 
             // genericPeerNameTB
             // 
-            this.genericPeerNameTB.Location = new System.Drawing.Point(399, 45);
+            this.genericPeerNameTB.Location = new System.Drawing.Point(632, 50);
             this.genericPeerNameTB.MaxLength = 20;
             this.genericPeerNameTB.Name = "genericPeerNameTB";
-            this.genericPeerNameTB.Size = new System.Drawing.Size(150, 20);
+            this.genericPeerNameTB.Size = new System.Drawing.Size(130, 20);
             this.genericPeerNameTB.TabIndex = 12;
             this.genericPeerNameTB.TextChanged += new System.EventHandler(this.PeerGenericNameTB_TextChanged);
             this.genericPeerNameTB.Enter += new System.EventHandler(this.PeerGenericNameTB_Enter);
@@ -140,10 +163,10 @@
             // 
             // genericPatientNameTB
             // 
-            this.genericPatientNameTB.Location = new System.Drawing.Point(128, 45);
+            this.genericPatientNameTB.Location = new System.Drawing.Point(364, 48);
             this.genericPatientNameTB.MaxLength = 20;
             this.genericPatientNameTB.Name = "genericPatientNameTB";
-            this.genericPatientNameTB.Size = new System.Drawing.Size(150, 20);
+            this.genericPatientNameTB.Size = new System.Drawing.Size(130, 20);
             this.genericPatientNameTB.TabIndex = 11;
             this.genericPatientNameTB.TextChanged += new System.EventHandler(this.PatientGenericNameTB_TextChanged);
             this.genericPatientNameTB.Enter += new System.EventHandler(this.PatientGenericNameTB_Enter);
@@ -185,7 +208,7 @@
             // 
             // PatientNameTB
             // 
-            this.PatientNameTB.Location = new System.Drawing.Point(9, 16);
+            this.PatientNameTB.Location = new System.Drawing.Point(6, 17);
             this.PatientNameTB.MaxLength = 30;
             this.PatientNameTB.Name = "PatientNameTB";
             this.PatientNameTB.Size = new System.Drawing.Size(303, 20);
@@ -466,6 +489,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Post;
         private System.Windows.Forms.DataGridViewTextBoxColumn Uses;
         private System.Windows.Forms.DataGridViewTextBoxColumn Entry;
+        private System.Windows.Forms.TextBox genericNameTB;
+        private System.Windows.Forms.Label GenericNameLabel;
         }
 }
 

@@ -75,15 +75,21 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void CutButtonClick()
             {
-            //if(C.patientNamePlaceholder.Equals(C.patientName))
-            //    {
-            //    MessageBox.Show("You must enter the patient's name");
-            //    }
-            //else 
             if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(entryBox.Text);
-                entryBox.Text = "";
+                System.Windows.Forms.Clipboard.SetText(StripArrows(entryBox.Text));
+                if (C.learnMode)
+                    {
+                    if (C.patientNamePlaceholder.Equals(C.patientName))
+                        {
+                        MessageBox.Show(C.enterNameFirstText);
+                        }
+                    else
+                        {
+                        entryBox.Text = "";
+                        Learn();
+                        }
+                    }
                 Learn();
                 }
             }
@@ -91,15 +97,18 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void CopyButtonClick()
             {
-            //if (C.patientNamePlaceholder.Equals(C.patientName))
-            //    {
-            //    MessageBox.Show("You must enter the patient's name");
-            //    }
-            //else 
             if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(entryBox.Text);
-                Learn();
+                System.Windows.Forms.Clipboard.SetText(StripArrows(entryBox.Text));
+                if (C.learnMode)
+                    {
+                    if (C.patientNamePlaceholder.Equals(C.patientName))
+                        {
+                        MessageBox.Show(C.enterNameFirstText);
+                        }
+                    else
+                        Learn();
+                    }
                 }
             }
         // -------------------------------------------------------------------------------------------------
@@ -111,57 +120,64 @@ namespace DAP_Filler
         //        }
         //    }
         // -------------------------------------------------------------------------------------------------
-/*        public String RemoveLine(String s)
-            {
-            Boolean b = false;
-            int lastLineIndex = -1;
-            for(int i = s.Length-1; i >= 0; i--)
-                {
-                if(!b)
+        /*        public String RemoveLine(String s)
                     {
-                    if (s[i] == '.' || s[i] == '!' || s[i] == '?')
-                        b = true;
+                    Boolean b = false;
+                    int lastLineIndex = -1;
+                    for(int i = s.Length-1; i >= 0; i--)
+                        {
+                        if(!b)
+                            {
+                            if (s[i] == '.' || s[i] == '!' || s[i] == '?')
+                                b = true;
+                            }
+                        else
+                            {
+                            if (s[i] == '.' || s[i] == '!' || s[i] == '?')
+                                lastLineIndex = i + 1;
+                            }
+
+                        }
+                    return s.Substring(0, lastLineIndex);
                     }
-                else
+                // -------------------------------------------------------------------------------------------------
+                public String RemoveLastLine(String myStr)
                     {
-                    if (s[i] == '.' || s[i] == '!' || s[i] == '?')
-                        lastLineIndex = i + 1;
+                    String result = "";
+                    if (myStr.Length > 2)
+                        {
+                        // Ignore very last new-line character.
+                        String temporary = myStr.Substring(0, myStr.Length - 2);
+
+                        // Get the position of the last new-line character.
+                        int lastNewLine = temporary.LastIndexOf("\r\n");
+
+                        // If we have at least two elements separated by a new-line character.
+                        if (lastNewLine != -1)
+                            {
+                            // Cut the string (starting from 0, ending at the last new-line character).
+                            result = myStr.Substring(0, lastNewLine);
+                            }
+                        }
+                    return (result);
                     }
-
-                }
-            return s.Substring(0, lastLineIndex);
-            }
-        // -------------------------------------------------------------------------------------------------
-        public String RemoveLastLine(String myStr)
-            {
-            String result = "";
-            if (myStr.Length > 2)
-                {
-                // Ignore very last new-line character.
-                String temporary = myStr.Substring(0, myStr.Length - 2);
-
-                // Get the position of the last new-line character.
-                int lastNewLine = temporary.LastIndexOf("\r\n");
-
-                // If we have at least two elements separated by a new-line character.
-                if (lastNewLine != -1)
-                    {
-                    // Cut the string (starting from 0, ending at the last new-line character).
-                    result = myStr.Substring(0, lastNewLine);
-                    }
-                }
-            return (result);
-            }
-*/
+        */
         // -------------------------------------------------------------------------------------------------
         public void LearnButtonClick()
             {
-            //if (C.patientNamePlaceholder .Equals(C.patientName))
-            //    {
-            //    MessageBox.Show("You must first enter the patient's name");
-            //    }
-            //else
-                Learn();
+            if (entryBox.Text.CompareTo("") != 0)
+                {
+                if (C.learnMode)
+                    {
+                    if (C.patientNamePlaceholder.Equals(C.patientName))
+                        {
+                        MessageBox.Show(C.enterNameFirstText);
+                        entryBox.Text = System.Windows.Forms.Clipboard.GetText(); /// Returns text from clipboard
+                        }
+                    else
+                        Learn();
+                    }
+                }
             }
         // -------------------------------------------------------------------------------------------------
         public void AutoFillEntry_Enter()
@@ -482,7 +498,9 @@ namespace DAP_Filler
         public void GenericPeerNameChange()
             {
             Console.WriteLine("GenericPeerNameChange() : oldName = " + C.oldGenericPeerName + "; newName = " + C.genericPeerName + "; list.Count = " + autoFillList.Count);
-            String[] list = { C.oldGenericPeerName, C.genericPeerName, C.oldGenericPeerName + "s", C.genericPeerName + "s" };
+            String oldS = C.oldGenericPeerName.Substring(0, C.oldGenericPeerName.Length - 1) + "s" + ">";
+            String newS = C.genericPeerName.Substring(0, C.genericPeerName.Length - 1) + "s" + ">";
+            String[] list = { C.oldGenericPeerName, C.genericPeerName, oldS, newS };
             if (entryBox.Text.Length > 0)
                 {
                 entryBox.Text = ReplaceWordsInString(entryBox.Text.ToString(), list);
@@ -512,6 +530,11 @@ namespace DAP_Filler
             Console.WriteLine("PostEntry() " + tabName + " : ");
             String[] list = { C.patientNamePlaceholder, C.patientName, C.genericPatientNamePlaceholder, C.genericPatientName, C.genericPeerNamePlaceholder, C.genericPeerName};
             entryBox.Text += ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list) + " ";
+            }
+        // -------------------------------------------------------------------------------------------------
+        public String StripArrows(String s)
+            {
+            return s.Replace(">", "").Replace("<", "");
             }
         // -------------------------------------------------------------------------------------------------
         /* Takes a string and replaces old word with new word and returns the string. params is the array of 

@@ -85,65 +85,170 @@ namespace DAP_Filler
         /* ----------------------------------------------------------------------------------------*/
         /* COMMON EVENTS */
         /* ----------------------------------------------------------------------------------------*/
-        private void SaveButton_Click(object sender, EventArgs e)
-            {
-            //TODO save function
-            }
-
         /* Patient Name */
         private void PatientName_Enter(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_Enter : TB.Text = " + PatientNameTB.Text + "; patient name = " + C.patientName);
-            PatientNameTB.ForeColor = Color.Black;
-            if (PatientNameTB.Text.CompareTo(C.patientNamePlaceholder) == 0)
-                {
-                PatientNameTB.Text = "";
-                //C.patientName = "";
-                }
-            else
-                {
-                BeginInvoke((Action)delegate
-                    {
-                    PatientNameTB.SelectAll();
-                    });
-                }
+            Console.WriteLine("PatientName_Enter : TB.Text = " + patientNameTB.Text + "; patient name = " + C.patientName);
+            TextBoxEnter(patientNameTB, C.patientNamePlaceholder);
             }
 
         private void PatientName_Leave(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_Leave : TB.Text = " + PatientNameTB.Text + "; patient name = " + C.patientName);
+            Console.WriteLine("PatientName_Leave : TB.Text = " + patientNameTB.Text + "; patient name = " + C.patientName);
             C.oldPatientName = C.patientName;
-            if (String.IsNullOrWhiteSpace(PatientNameTB.Text))
+            if (String.IsNullOrWhiteSpace(patientNameTB.Text))
                 {
-                PatientNameTB.Text = C.patientNamePlaceholder;
-                PatientNameTB.ForeColor = Color.Gray;
+                patientNameTB.Text = C.patientNamePlaceholder;
+                patientNameTB.ForeColor = Color.Gray;
                 }
             else
                 {
 
-                PatientNameTB.ForeColor = Color.Black;
+                patientNameTB.ForeColor = Color.Black;
                 }
-            C.patientName = PatientNameTB.Text;
+            C.patientName = patientNameTB.Text;
             tabData.PatientNameChange();
             }
 
         private void PatientName_TextChanged(object sender, EventArgs e)
             {
-            Console.WriteLine("PatientName_TextChanged() : name = " + PatientNameTB.Text);
+            Console.WriteLine("PatientName_TextChanged() : name = " + patientNameTB.Text);
             //C.patientName = PatientNameTB.Text;
             }
+
+        /* Generic Name TB */
+        private void GenericNameTB_TextChanged(object sender, EventArgs e)
+            {
+            }
+        private void GenericNameTB_Enter(object sender, EventArgs e)
+            {
+            TextBoxEnter(genericNameTB, C.genericNamePlaceholder);
+/*
+            genericNameTB.ForeColor = Color.Black;
+            if (genericNameTB.Text.CompareTo(C.genericNamePlaceholder) == 0)
+                {
+                genericNameTB.Text = "";
+                }
+            else
+                {
+                BeginInvoke((Action)delegate
+                    {
+                        genericNameTB.SelectAll();
+                        });
+                }
+                */
+            }
+        private void GenericNameTB_Leave(object sender, EventArgs e)
+            {
+            TextBoxLeave(C.genericNamePlaceholder, ref C.oldGenericName, ref C.genericName, genericNameTB);
+            /*
+            C.oldGenericName = C.genericName;
+            if (String.IsNullOrWhiteSpace(genericNameTB.Text))
+                {
+                genericNameTB.Text = C.genericNamePlaceholder;
+                genericNameTB.ForeColor = Color.Gray;
+                }
+            else
+                {
+                if (!C.genericName.Equals(genericNameTB.Text))
+                    genericNameTB.Text = AddArrows(genericNameTB.Text.ToString());
+                genericNameTB.ForeColor = Color.Black;
+                }
+            C.genericName = genericNameTB.Text;
+            */
+            tabData.GenericNameChange();
+            }
+
+        /* Generic Patient Name TB*/
+        private void PatientGenericNameTB_TextChanged(object sender, EventArgs e)
+            {
+            //C.genericPatientName = PatientGenericNameTB.Text;
+            }
+        private void PatientGenericNameTB_Enter(object sender, EventArgs e)
+            {
+            TextBoxEnter(genericPatientNameTB, C.genericPatientNamePlaceholder);
+            }
+        private void PatientGenericNameTB_Leave(object sender, EventArgs e)
+            {
+            TextBoxLeave(C.genericPatientNamePlaceholder, ref C.oldGenericPatientName, ref C.genericPatientName, genericPatientNameTB);
+            tabData.GenericPatientNameChange();
+            }
+
+        /* Generic Peer Name TB*/
+        private void PeerGenericNameTB_TextChanged(object sender, EventArgs e)
+            {
+            //C.genericPeerName = PeerGenericNameTB.Text;
+            }
+        private void PeerGenericNameTB_Enter(object sender, EventArgs e)
+            {
+            TextBoxEnter(genericPeerNameTB, C.genericPeerNamePlaceholder);
+            }
+        private void PeerGenericNameTB_Leave(object sender, EventArgs e)
+            {
+            TextBoxLeave(C.genericPeerNamePlaceholder, ref C.oldGenericPeerName, ref C.genericPeerName, genericPeerNameTB);
+            tabData.GenericPeerNameChange();
+            }
+
+        /* Generic Enter & Leave Methods */
+        private void TextBoxEnter(TextBox textBox, String placeholder)
+            {
+            textBox.ForeColor = Color.Black;
+            if (textBox.Text.CompareTo(placeholder) == 0)
+                {
+                textBox.Text = "";
+                }
+            else
+                {
+                BeginInvoke((Action)delegate
+                    {
+                        textBox.SelectAll();
+                        });
+                }
+
+            }
+        private void TextBoxLeave(String placeholder, ref String oldName, ref String newName, TextBox textBox)
+            {
+            oldName = newName;
+            if (String.IsNullOrWhiteSpace(textBox.Text))
+                {
+                textBox.Text = placeholder;
+                textBox.ForeColor = Color.Gray;
+                }
+            else
+                {
+                if (!newName.Equals(textBox.Text))
+                    textBox.Text = FormatGenericName(textBox.Text.ToString());
+                textBox.ForeColor = Color.Black;
+                }
+            newName = textBox.Text;
+            }
+
+        public String FormatGenericName(String input)
+            {
+            if (input[0] != '<')
+                input = "<" + input;
+            if (input[input.Length - 1] != '>')
+                input = input + '>';
+
+            return "<" + Char.ToUpper(input[1]) + input.Substring(2);
+            }
+
 
         private void NewPatient_Click(object sender, EventArgs e)
             {
             C.oldPatientName = C.patientNamePlaceholder;
             C.patientName = C.patientNamePlaceholder;
-            PatientNameTB.Text = C.patientNamePlaceholder;
+            patientNameTB.Text = C.patientNamePlaceholder;
             MaleRadioButton.Checked = true;
             C.oldIsMale = true;
             C.isMale = true;
             tabData.ResetTab();
             }
 
+        private void SaveButton_Click(object sender, EventArgs e)
+            {
+            //TODO save function
+            }
         /* Gender Buttons */
         private void MaleButton_CheckedChanged(object sender, EventArgs e)
             {
@@ -160,119 +265,6 @@ namespace DAP_Filler
         private void LearnModeCB_CheckedChanged(object sender, EventArgs e)
             {
             C.learnMode = LearnModeCB.Checked;
-            }
-        /* Generic Name TB */
-        private void GenericNameTB_TextChanged(object sender, EventArgs e)
-            {
-
-            }
-        private void GenericNameTB_Enter(object sender, EventArgs e)
-            {
-            genericNameTB.ForeColor = Color.Black;
-            if (genericNameTB.Text.CompareTo(C.genericNamePlaceholder) == 0)
-                {
-                genericNameTB.Text = "";
-                }
-            else
-                {
-                BeginInvoke((Action)delegate
-                    {
-                        genericNameTB.SelectAll();
-                        });
-                }
-
-            }
-        private void GenericNameTB_Leave(object sender, EventArgs e)
-            {
-            C.oldGenericName = C.genericName;
-            if (String.IsNullOrWhiteSpace(genericNameTB.Text))
-                {
-                genericNameTB.Text = C.genericNamePlaceholder;
-                genericNameTB.ForeColor = Color.Gray;
-                }
-            else
-                {
-
-                genericNameTB.ForeColor = Color.Black;
-                }
-            C.genericName = genericNameTB.Text;
-            tabData.GenericNameChange();
-            }
-
-
-
-        /* Generic Patient Name TB*/
-        private void PatientGenericNameTB_TextChanged(object sender, EventArgs e)
-            {
-            //C.genericPatientName = PatientGenericNameTB.Text;
-            }
-        private void PatientGenericNameTB_Enter(object sender, EventArgs e)
-            {
-            genericPatientNameTB.ForeColor = Color.Black;
-            if (genericPatientNameTB.Text.CompareTo(C.genericPatientNamePlaceholder) == 0)
-                {
-                genericPatientNameTB.Text = "";
-                }
-            else
-                {
-                BeginInvoke((Action)delegate
-                    {
-                    genericPatientNameTB.SelectAll();
-                    });
-                }
-
-            }
-        private void PatientGenericNameTB_Leave(object sender, EventArgs e)
-            {
-            C.oldGenericPatientName = C.genericPatientName;
-            if (String.IsNullOrWhiteSpace(genericPatientNameTB.Text))
-                {
-                genericPatientNameTB.Text = C.genericPatientNamePlaceholder;
-                genericPatientNameTB.ForeColor = Color.Gray;
-                }
-            else
-                {
-
-                genericPatientNameTB.ForeColor = Color.Black;
-                }
-            C.genericPatientName = genericPatientNameTB.Text;
-            tabData.GenericPatientNameChange();
-            }
-
-        /* Generic Peer Name TB*/
-        private void PeerGenericNameTB_TextChanged(object sender, EventArgs e)
-            {
-            //C.genericPeerName = PeerGenericNameTB.Text;
-            }
-        private void PeerGenericNameTB_Enter(object sender, EventArgs e)
-            {
-            genericPeerNameTB.ForeColor = Color.Black;
-            if (genericPeerNameTB.Text.CompareTo(C.genericPeerNamePlaceholder) == 0)
-                {
-                genericPeerNameTB.Text = "";
-                }
-            else
-                {
-                BeginInvoke((Action)delegate
-                    {
-                        genericPeerNameTB.SelectAll();
-                        });
-                }
-            }
-        private void PeerGenericNameTB_Leave(object sender, EventArgs e)
-            {
-            C.oldGenericPeerName = C.genericPeerName;
-            if (String.IsNullOrWhiteSpace(genericPeerNameTB.Text))
-                {
-                genericPeerNameTB.Text = C.genericPeerNamePlaceholder;
-                genericPeerNameTB.ForeColor = Color.Gray;
-                }
-            else
-                {
-                genericPeerNameTB.ForeColor = Color.Black;
-                }
-            C.genericPeerName = genericPeerNameTB.Text;
-            tabData.GenericPeerNameChange();
             }
 
         /* ----------------------------------------------------------------------------------------*/

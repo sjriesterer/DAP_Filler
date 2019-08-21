@@ -41,7 +41,7 @@
             this.NewPatientButton = new System.Windows.Forms.Button();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
-            this.PatientNameTB = new System.Windows.Forms.TextBox();
+            this.patientNameTB = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
             this.CheckAllButton_D = new System.Windows.Forms.Button();
@@ -81,7 +81,7 @@
             this.PatientGB.Controls.Add(this.NewPatientButton);
             this.PatientGB.Controls.Add(this.FemaleRadioButton);
             this.PatientGB.Controls.Add(this.MaleRadioButton);
-            this.PatientGB.Controls.Add(this.PatientNameTB);
+            this.PatientGB.Controls.Add(this.patientNameTB);
             this.PatientGB.Location = new System.Drawing.Point(5, 5);
             this.PatientGB.Name = "PatientGB";
             this.PatientGB.Size = new System.Drawing.Size(767, 71);
@@ -208,15 +208,15 @@
             // 
             // PatientNameTB
             // 
-            this.PatientNameTB.Location = new System.Drawing.Point(6, 17);
-            this.PatientNameTB.MaxLength = 30;
-            this.PatientNameTB.Name = "PatientNameTB";
-            this.PatientNameTB.Size = new System.Drawing.Size(303, 20);
-            this.PatientNameTB.TabIndex = 0;
-            this.PatientNameTB.WordWrap = false;
-            this.PatientNameTB.TextChanged += new System.EventHandler(this.PatientName_TextChanged);
-            this.PatientNameTB.Enter += new System.EventHandler(this.PatientName_Enter);
-            this.PatientNameTB.Leave += new System.EventHandler(this.PatientName_Leave);
+            this.patientNameTB.Location = new System.Drawing.Point(6, 17);
+            this.patientNameTB.MaxLength = 30;
+            this.patientNameTB.Name = "PatientNameTB";
+            this.patientNameTB.Size = new System.Drawing.Size(303, 20);
+            this.patientNameTB.TabIndex = 0;
+            this.patientNameTB.WordWrap = false;
+            this.patientNameTB.TextChanged += new System.EventHandler(this.PatientName_TextChanged);
+            this.patientNameTB.Enter += new System.EventHandler(this.PatientName_Enter);
+            this.patientNameTB.Leave += new System.EventHandler(this.PatientName_Leave);
             // 
             // tabControl1
             // 
@@ -461,7 +461,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox PatientGB;
-        private System.Windows.Forms.TextBox PatientNameTB;
+        private System.Windows.Forms.TextBox patientNameTB;
         private System.Windows.Forms.RadioButton FemaleRadioButton;
         private System.Windows.Forms.RadioButton MaleRadioButton;
         private System.Windows.Forms.Button NewPatientButton;

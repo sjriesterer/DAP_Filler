@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DAP_Filler
 {
-    [Serializable]
+    [Serializable()]
 
     public class AutoFillEntry
     {

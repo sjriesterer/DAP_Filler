@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -16,8 +18,10 @@ namespace DAP_Filler
         public String tabName = "";
         public List<AutoFillEntry> autoFillList;
         public BindingList<AutoFillEntry> bindingList;
+        public int autoSortIndex = 0;
         public int rowSelected = 0;
         public int colSelected = 1;
+        public ComboBox autoSortCB;
         public TextBox entryBox;
         public DataGridView dataGridView;
         public SortOrder[] sortOrder = new SortOrder[3];
@@ -27,18 +31,18 @@ namespace DAP_Filler
             {
             Console.WriteLine("Init new tab : " + name);
             this.tabName = name;
-            this.autoFillList = new List<AutoFillEntry>();
+            LoadAutoFillList();
             this.checkboxClicks = new List<int>();
-            //PopulateList();
             sortOrder[0] = SortOrder.None;
             sortOrder[1] = SortOrder.None;
             sortOrder[2] = SortOrder.None;
             this.bindingList = new BindingList<AutoFillEntry>(autoFillList);
             }
         // -------------------------------------------------------------------------------------------------
-        public void InitTab(DataGridView dataGridView, TextBox textBox)
+        public void InitTab(DataGridView dataGridView, TextBox textBox, ComboBox comboBox)
             {
             this.entryBox = textBox;
+            this.autoSortCB = comboBox;
             this.dataGridView = dataGridView;
             this.dataGridView.DataSource = bindingList;
             this.dataGridView.RowHeadersVisible = false;
@@ -68,7 +72,7 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
-        public void DeleteAutFillEntry()
+        public void DeleteAutoFillEntry()
             {
             entryBox.Text = "";
             }
@@ -77,7 +81,7 @@ namespace DAP_Filler
             {
             if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(StripArrows(entryBox.Text));
+                System.Windows.Forms.Clipboard.SetText(C.StripArrows(entryBox.Text));
                 if (C.learnMode)
                     {
                     if (C.realNamePlaceholder.Equals(C.realName)) /// If no name has been entered
@@ -98,7 +102,7 @@ namespace DAP_Filler
             {
             if (entryBox.Text.CompareTo("") != 0)
                 {
-                System.Windows.Forms.Clipboard.SetText(StripArrows(entryBox.Text));
+                System.Windows.Forms.Clipboard.SetText(C.StripArrows(entryBox.Text));
                 if (C.learnMode)
                     {
                     if (C.realNamePlaceholder.Equals(C.realName)) /// If no name has been entered
@@ -128,17 +132,16 @@ namespace DAP_Filler
             }
         // -------------------------------------------------------------------------------------------------
         public void EntryBox_Enter()
-            {
-
-            }
+            { }
         public void EntryBox_Leave()
             {
-
+            Console.WriteLine("EntryBox_Leave : " + tabName);
+            String newS = C.genericPeerName.Substring(0, C.genericPeerName.Length - 1) + "s" + ">"; /// Makes a plural version of the peer name with arrows 
+            String[] list = { C.StripArrows(C.genericName), C.genericName, C.StripArrows(C.genericPatientName), C.genericPatientName, C.StripArrows(C.genericPeerName), C.genericPeerName, C.StripArrows(C.genericPeerName)+ "s", newS };
+            entryBox.Text = ReplaceWordsInStringRegex(C.StripArrows(entryBox.Text), list); /// Strips the existing arrows from the textbox before making adjustments.
             }
         public void EntryBox_TextChanged()
-            {
-
-            }
+            { }
         // -------------------------------------------------------------------------------------------------
         public void DeleteCheckedEntries()
             {
@@ -146,8 +149,8 @@ namespace DAP_Filler
             for (int i = checkboxClicks.Count - 1; i >= 0; i--)
                 {
                 autoFillList.RemoveAt(checkboxClicks[i]);
-
                 }
+            SaveAutoFillList();
             ResetBindingList();
             UnCheckAll();
             }
@@ -175,7 +178,7 @@ namespace DAP_Filler
             dataGridView.Columns[1].ReadOnly = true;
             dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView.RowHeadersVisible = false;
-                SelectCurrentCell();
+            SelectCurrentCell();
             }
         // -------------------------------------------------------------------------------------------------
         public void CheckboxClick(int row)
@@ -259,6 +262,7 @@ namespace DAP_Filler
             {
             Console.WriteLine("Context menu Delete click : tab = " + tabName + "; row = " + row);
             autoFillList.RemoveAt(row);
+            SaveAutoFillList();
             ResetBindingList();
             checkboxClicks.Remove(row);
             for (int i = 0; i < checkboxClicks.Count; i++)
@@ -272,7 +276,6 @@ namespace DAP_Filler
             rowSelected = row;
             colSelected = 2;
             dataGridView.BeginEdit(true); /// Auto selects new cell text
-
             }
         public void MenuItemCutClick(int row)
             {
@@ -289,11 +292,13 @@ namespace DAP_Filler
             {
             Console.WriteLine("Context menu Paste over click : tab = " + tabName);
             autoFillList[row].Entry = System.Windows.Forms.Clipboard.GetText();
+            SaveAutoFillList();
             }
         public void MenuItemAddPasteClick(int row)
             {
             Console.WriteLine("Context menu add Paste click : tab = " + tabName);
             autoFillList[row].Entry += " " + System.Windows.Forms.Clipboard.GetText();
+            SaveAutoFillList();
             }
         public void MenuItemAddPostClick(int row)
             {
@@ -318,46 +323,58 @@ namespace DAP_Filler
             return new Point(x, y);
             }
         // -------------------------------------------------------------------------------------------------
-        public void ColumnHeaderMouseClick(int colIndex)
+        public void ColumnHeaderMouseClick(int col)
             {
-            string colName = dataGridView.Columns[colIndex].Name;
+            string colName = dataGridView.Columns[col].Name;
             Console.WriteLine("ColumnHeaderMouseClick() " + tabName + " : columnName = " + colName);
 
-            if ("Post".CompareTo(colName) != 0)
+            if (autoFillList.Count > 1)
                 {
-                SortOrder strSortOrder = GetSortOrder(colIndex);
-                SortList(colName, strSortOrder);
-                checkboxClicks.Clear();
-                ResetGrid();
+                if ("Post".CompareTo(colName) != 0) /// If not clicking the first column
+                    {
+                    //SortOrder strSortOrder = GetCurrentSortOrder(col);
+                    SortList(col, GetCurrentSortOrder(col));
+                    }
+                SaveAutoFillList();
                 }
             }
         // -------------------------------------------------------------------------------------------------
-        public void SortList(String colName, SortOrder sortOrder)
+        public void SortList(int col, SortOrder sortOrder)
             {
-            Console.WriteLine("SortList() : columnName = " + colName + "; sortOrder = " + sortOrder);
+            Console.WriteLine("SortList() : column = " + col + "; sortOrder = " + sortOrder);
+            this.sortOrder[col] = sortOrder; /// Records current sort order
             if (sortOrder == SortOrder.Ascending)
                 {
-                autoFillList = autoFillList.OrderBy(x => typeof(AutoFillEntry).GetProperty(colName).GetValue(x, null)).ToList();
+                if(col == 1)
+                    autoFillList = autoFillList.OrderBy(x => x.uses).ToList();
+                else
+                    autoFillList = autoFillList.OrderBy(x => x.entry).ToList();
+                //autoFillList = autoFillList.OrderBy(x => typeof(AutoFillEntry).GetPro.GetProperty(colName).GetValue(x, null)).ToList();
                 }
             else
                 {
-                autoFillList = autoFillList.OrderByDescending(x => typeof(AutoFillEntry).GetProperty(colName).GetValue(x, null)).ToList();
+                if (col == 1)
+                    autoFillList = autoFillList.OrderByDescending(x => x.uses).ToList();
+                else
+                    autoFillList = autoFillList.OrderByDescending(x => x.entry).ToList();
+                //autoFillList = autoFillList.OrderByDescending(x => typeof(AutoFillEntry).GetProperty(colName).GetValue(x, null)).ToList();
                 }
+            checkboxClicks.Clear();
+            ResetGrid();
+
             PrintList();
             }
         // -------------------------------------------------------------------------------------------------
-        public SortOrder GetSortOrder(int col)
+        public SortOrder GetCurrentSortOrder(int col)
             {
             Console.WriteLine("GetSortOrder() : order is " + dataGridView.Columns[col].HeaderCell.SortGlyphDirection);
 
             if (sortOrder[col] == SortOrder.None || sortOrder[col] == SortOrder.Descending)
                 {
-                sortOrder[col] = SortOrder.Ascending;
                 return SortOrder.Ascending;
                 }
             else
                 {
-                sortOrder[col] = SortOrder.Descending;
                 return SortOrder.Descending;
                 }
             }
@@ -447,8 +464,10 @@ namespace DAP_Filler
         public void GenericPeerNameChange()
             {
             Console.WriteLine("GenericPeerNameChange() : oldName = " + C.oldGenericPeerName + "; newName = " + C.genericPeerName + "; list.Count = " + autoFillList.Count);
+
             String oldS = C.oldGenericPeerName.Substring(0, C.oldGenericPeerName.Length - 1) + "s" + ">";
             String newS = C.genericPeerName.Substring(0, C.genericPeerName.Length - 1) + "s" + ">";
+
             String[] list = { C.oldGenericPeerName, C.genericPeerName, oldS, newS };
             if (entryBox.Text.Length > 0)
                 {
@@ -485,9 +504,21 @@ namespace DAP_Filler
                 entryBox.Text += " " + ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list);
             }
         // -------------------------------------------------------------------------------------------------
-        public String StripArrows(String s)
+        /* Takes a string and replaces old word with new word and returns the string. params is the array of 
+         words to replace. Takes in an even number of params in the pattern of: oldString, newString. */
+        public String ReplaceWordsInStringRegex(String s, params String[] list)
             {
-            return s.Replace(">", "").Replace("<", "");
+            Console.WriteLine("ReplaceWordsInString() : s = " + s + "; list[0] = " + list[0] + "; list[1] = " + list[1]);
+            int length = list.Count<String>();
+            if (length == 0 || length % 2 != 0)
+                throw new ArgumentException("Parameter list must be even number", "original");
+
+            for (int i = 0; i < length; i += 2)
+                {
+                s = ReplaceWholeWordRegex(s, list[i], list[i + 1]);
+                }
+
+            return s;
             }
         // -------------------------------------------------------------------------------------------------
         /* Takes a string and replaces old word with new word and returns the string. params is the array of 
@@ -557,13 +588,16 @@ namespace DAP_Filler
                         }
                     }
                 }
+            SaveAutoFillList();
             ResetBindingList();
             }
         // -------------------------------------------------------------------------------------------------
         public void RowValidated(int row)
             {
             Console.WriteLine("RowValidated() : " + tabName + "; row = " + row);
-            autoFillList[row].Entry = TrimSpaces(autoFillList[row].Entry);
+            if(row < autoFillList.Count)
+                autoFillList[row].Entry = TrimSpaces(autoFillList[row].Entry);
+            SaveAutoFillList();
             }
         // -------------------------------------------------------------------------------------------------
         public String TrimSpaces(String s)
@@ -583,8 +617,17 @@ namespace DAP_Filler
             checkboxClicks.Clear();
             for (int i = 0; i < autoFillList.Count; i++)
                 {
-                dataGridView.Rows[i].Cells[0].Value = true;
-                checkboxClicks.Add(i);
+                dataGridView.Rows[i].Cells[0].Value = true; /// Setting this to true will trigger cell value changed event and will add the clicks to the array from there
+                //checkboxClicks.Add(i);
+                }
+            PrintCheckBoxArray();
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void PrintCheckBoxArray()
+            {
+            for(int i =0;i<checkboxClicks.Count;i++)
+                {
+                Console.WriteLine("CheckboxClick array [" + i + "] = " + checkboxClicks[i]);
                 }
             }
         // -------------------------------------------------------------------------------------------------
@@ -597,5 +640,103 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
+        public void SetAutoSortCB()
+            {
+            autoSortCB.SelectedIndex = autoSortIndex;
+            AutoSortIndexChanged(autoSortIndex);
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void AutoSortIndexChanged(int index)
+            {
+            autoSortIndex = index;
+            if (index == C.NONE)
+                return;
+            int col = 1;
+            SortOrder so = SortOrder.Ascending;
+            if (index == C.USE_D)
+                so = SortOrder.Descending;
+            else if(index == C.ENTRY_A)
+                col = 2;
+            else if(index == C.ENTRY_D)
+                {
+                col = 2;
+                so = SortOrder.Descending;
+                }
+
+            SortList(col, so);
+            SaveAutoSort();
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void SaveAll()
+            {
+            SaveAutoSort();
+            SaveEntryBoxText();
+            SaveAutoFillList();
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void SaveEntryBoxText()
+            {
+            if (tabName.Equals(C.tab1))
+                Properties.Settings.Default.entryBoxText_D = entryBox.Text;
+            else if (tabName.Equals(C.tab2))
+                Properties.Settings.Default.entryBoxText_A = entryBox.Text;
+            else
+                Properties.Settings.Default.entryBoxText_P = entryBox.Text;
+            Properties.Settings.Default.Save();
+
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void SaveAutoSort()
+            {
+            if (tabName.Equals(C.tab1))
+                Properties.Settings.Default.autoSort_D = autoSortIndex;
+            else if (tabName.Equals(C.tab2))
+                Properties.Settings.Default.autoSort_A = autoSortIndex;
+            else
+                Properties.Settings.Default.autoSort_P = autoSortIndex;
+            Properties.Settings.Default.Save();
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void SaveAutoFillList()
+            {
+            using (MemoryStream ms = new MemoryStream())
+                {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, autoFillList);
+                ms.Position = 0;
+                byte[] buffer = new byte[(int)ms.Length];
+                ms.Read(buffer, 0, buffer.Length);
+                if(tabName.Equals(C.tab1))
+                    Properties.Settings.Default.tabData = Convert.ToBase64String(buffer);
+                else if (tabName.Equals(C.tab2))
+                    Properties.Settings.Default.tabAssessment = Convert.ToBase64String(buffer);
+                else Properties.Settings.Default.tabPlan = Convert.ToBase64String(buffer);
+
+                Properties.Settings.Default.Save();
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void LoadAutoFillList()
+            {
+            MemoryStream ms = null;
+            if (tabName.Equals(C.tab1))
+                ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabData));
+            else if (tabName.Equals(C.tab2))
+                ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabAssessment));
+            else ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabPlan));
+
+            using (ms)
+                {
+                if (ms.Length == 0)
+                    autoFillList = new List<AutoFillEntry>();
+                else
+                    {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    autoFillList = (List<AutoFillEntry>)bf.Deserialize(ms);
+                    }
+                }
+            }
         }
+
+
     }

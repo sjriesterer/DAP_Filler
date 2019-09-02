@@ -8,6 +8,7 @@ namespace DAP_Filler
     {
     public static class C
         {
+        public static int NOT_FOUND = -1;
         public static int NONE = 0;
         public static int USE_A = 1;
         public static int USE_D = 2;

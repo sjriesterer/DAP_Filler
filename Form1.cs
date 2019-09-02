@@ -57,11 +57,11 @@ namespace DAP_Filler
         private void InitTabs()
             {
             TabData = new Tab(C.tab1);
-            TabData.InitTab(DataGridView_D, EntryBox_D, autoSortCB_D);
+            TabData.InitTab(DataGridView_D, EntryBox_D, searchTB_D, autoSortCB_D);
             TabAssessment = new Tab(C.tab2);
-            TabAssessment.InitTab(DataGridView_A, EntryBox_A, autoSortCB_A);
+            TabAssessment.InitTab(DataGridView_A, EntryBox_A, searchTB_A, autoSortCB_A);
             TabPlan = new Tab(C.tab3);
-            TabPlan.InitTab(DataGridView_P, EntryBox_P, autoSortCB_P);
+            TabPlan.InitTab(DataGridView_P, EntryBox_P, searchTB_P, autoSortCB_P);
             }
         /* ----------------------------------------------------------------------------------------*/
         private void InitComponents()
@@ -189,10 +189,14 @@ namespace DAP_Filler
             if (C.learnMode)
                 {
                 LearnButton_D.Visible = false;
+                LearnButton_A.Visible = false;
+                LearnButton_P.Visible = false;
                 }
             else
                 {
                 LearnButton_D.Visible = true;
+                LearnButton_A.Visible = true;
+                LearnButton_P.Visible = true;
                 }
             }
 
@@ -832,6 +836,70 @@ namespace DAP_Filler
         private void UnCheckAll_Click_P(object sender, EventArgs e)
             {
             TabPlan.UnCheckAll();
+            }
+        // -------------------------------------------------------------------------------------------------
+
+        private void SearchTB_KeyUp_D(object sender, KeyEventArgs e)
+            {
+            if (e.KeyCode == Keys.Enter)
+                {
+                TabData.SearchGrid();
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void SearchTB_Enter_D(object sender, EventArgs e)
+            {
+            BeginInvoke((Action)delegate
+                {
+                    searchTB_D.SelectAll();
+                    });
+            }
+
+        private void SearchTB_KeyUp_A(object sender, KeyEventArgs e)
+            {
+            if (e.KeyCode == Keys.Enter)
+                {
+                TabAssessment.SearchGrid();
+                }
+            }
+
+        private void SearchTB_KeyUp_P(object sender, KeyEventArgs e)
+            {
+            if (e.KeyCode == Keys.Enter)
+                {
+                TabPlan.SearchGrid();
+                }
+            }
+
+        private void SearchTB_Enter_A(object sender, EventArgs e)
+            {
+            BeginInvoke((Action)delegate
+                {
+                    searchTB_A.SelectAll();
+                    });
+            }
+
+        private void SearchTB_Enter_P(object sender, EventArgs e)
+            {
+            BeginInvoke((Action)delegate
+                {
+                    searchTB_P.SelectAll();
+                    });
+            }
+
+        private void SearchTB_Leave_P(object sender, EventArgs e)
+            {
+            TabPlan.SearchBoxLeave();
+            }
+
+        private void SearchTB_Leave_D(object sender, EventArgs e)
+            {
+            TabData.SearchBoxLeave();
+            }
+
+        private void SearchTB_Leave_A(object sender, EventArgs e)
+            {
+            TabAssessment.SearchBoxLeave();
             }
 
 

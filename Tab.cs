@@ -23,6 +23,10 @@ namespace DAP_Filler
         public int colSelected = 1;
         public ComboBox autoSortCB;
         public TextBox entryBox;
+        public TextBox searchBox;
+        public List<int> searchHits;
+        public Boolean searchMode = false;
+        public int searchIndex = 0;
         public DataGridView dataGridView;
         public SortOrder[] sortOrder = new SortOrder[3];
         // -------------------------------------------------------------------------------------------------
@@ -32,6 +36,7 @@ namespace DAP_Filler
             Console.WriteLine("Init new tab : " + name);
             this.tabName = name;
             LoadAutoFillList();
+            this.searchHits = new List<int>();
             this.checkboxClicks = new List<int>();
             sortOrder[0] = SortOrder.None;
             sortOrder[1] = SortOrder.None;
@@ -39,10 +44,11 @@ namespace DAP_Filler
             this.bindingList = new BindingList<AutoFillEntry>(autoFillList);
             }
         // -------------------------------------------------------------------------------------------------
-        public void InitTab(DataGridView dataGridView, TextBox textBox, ComboBox comboBox)
+        public void InitTab(DataGridView dataGridView, TextBox textBox, TextBox searchBox, ComboBox comboBox)
             {
             this.entryBox = textBox;
             this.autoSortCB = comboBox;
+            this.searchBox = searchBox;
             this.dataGridView = dataGridView;
             this.dataGridView.DataSource = bindingList;
             this.dataGridView.RowHeadersVisible = false;
@@ -499,9 +505,9 @@ namespace DAP_Filler
             String[] list = { C.realNamePlaceholder, C.realName, C.genericPatientNamePlaceholder, C.genericPatientName, C.genericPeerNamePlaceholder, C.genericPeerName };
             // Appends post entry to entry box. Replaces old words with new words in list
             if (String.IsNullOrWhiteSpace(entryBox.Text))
-                entryBox.Text += ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list);
+                entryBox.AppendText(ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list));
             else
-                entryBox.Text += " " + ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list);
+                entryBox.AppendText(" " + ReplaceWordsInString(dataGridView.Rows[row].Cells[2].Value.ToString(), list));
             }
         // -------------------------------------------------------------------------------------------------
         /* Takes a string and replaces old word with new word and returns the string. params is the array of 
@@ -600,6 +606,7 @@ namespace DAP_Filler
             SaveAutoFillList();
             }
         // -------------------------------------------------------------------------------------------------
+        // Trims leading and trailing spaces
         public String TrimSpaces(String s)
             {
             Regex trimmer = new Regex(@"  +");
@@ -736,7 +743,46 @@ namespace DAP_Filler
                     }
                 }
             }
+        // -------------------------------------------------------------------------------------------------
+        public void SearchBoxLeave()
+            {
+            searchHits.Clear();
+            dataGridView.ClearSelection();
+            searchMode = false;
+            searchIndex = 0;
+            }
+        // -------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------
+        public void SearchGrid()
+            {
+            Console.WriteLine("SearchGrid() : \"" + searchBox.Text + "\"");
+            if (autoFillList.Count > 0 && searchIndex < autoFillList.Count)
+                {
+                int match = GetMatchingRow(searchIndex, TrimSpaces(searchBox.Text));
+                if (match != C.NOT_FOUND)
+                    {
+                    searchIndex = match + 1;
+                    searchHits.Add(match);
+                    if (searchMode == false)
+                        {
+                        dataGridView.ClearSelection();
+                        searchMode = true;
+                        }
+                    dataGridView.Rows[match].Selected = true;
+                    dataGridView.FirstDisplayedScrollingRowIndex = match;
+                    }
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        public int GetMatchingRow(int start, String find)
+            {
+            for(int i = start; i< autoFillList.Count; i++)
+                {
+                if (autoFillList[i].entry.IndexOf(find, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return i;
+                }
+            return C.NOT_FOUND;
+            }
+        // -------------------------------------------------------------------------------------------------
         }
-
-
     }

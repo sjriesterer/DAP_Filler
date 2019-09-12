@@ -32,11 +32,9 @@ namespace DAP_Filler
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.PatientGB = new System.Windows.Forms.GroupBox();
-            this.happyFaceButton = new System.Windows.Forms.Button();
             this.autoArrowsCB = new System.Windows.Forms.CheckBox();
             this.genericNameTB = new System.Windows.Forms.TextBox();
             this.GenericNameLabel = new System.Windows.Forms.Label();
-            this.DefaultButton = new System.Windows.Forms.Button();
             this.GenericPeerNameLabel = new System.Windows.Forms.Label();
             this.GenericPatientNameLabel = new System.Windows.Forms.Label();
             this.genericPeerNameTB = new System.Windows.Forms.TextBox();
@@ -48,24 +46,17 @@ namespace DAP_Filler
             this.realNameTB = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.DataTab = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.searchTB_D = new System.Windows.Forms.TextBox();
             this.autoSortLabel = new System.Windows.Forms.Label();
             this.autoSortCB_D = new System.Windows.Forms.ComboBox();
-            this.CheckAllButton_D = new System.Windows.Forms.Button();
-            this.UnCheckAllButton_D = new System.Windows.Forms.Button();
-            this.PostButton_D = new System.Windows.Forms.Button();
-            this.DeleteRowsButton_D = new System.Windows.Forms.Button();
-            this.LearnButton_D = new System.Windows.Forms.Button();
-            this.AddEntryButton_D = new System.Windows.Forms.Button();
             this.DataGridView_D = new System.Windows.Forms.DataGridView();
             this.CheckBoxCol_D = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Uses_D = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Entry_D = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CopyButton_D = new System.Windows.Forms.Button();
-            this.CutButton_D = new System.Windows.Forms.Button();
-            this.DeleteButton_D = new System.Windows.Forms.Button();
             this.EntryBox_D = new System.Windows.Forms.TextBox();
             this.AssessmentTab = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.searchTB_A = new System.Windows.Forms.TextBox();
             this.autoSortCB_A = new System.Windows.Forms.ComboBox();
             this.autoSort_A = new System.Windows.Forms.Label();
@@ -74,6 +65,25 @@ namespace DAP_Filler
             this.UsesCol_A = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryCol_A = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryBox_A = new System.Windows.Forms.TextBox();
+            this.PlanTab = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.searchTB_P = new System.Windows.Forms.TextBox();
+            this.autoSortCB_P = new System.Windows.Forms.ComboBox();
+            this.autoSort_P = new System.Windows.Forms.Label();
+            this.DataGridView_P = new System.Windows.Forms.DataGridView();
+            this.CheckBoxCol_P = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UsesCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EntryCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EntryBox_P = new System.Windows.Forms.TextBox();
+            this.CheckAllButton_D = new System.Windows.Forms.Button();
+            this.UnCheckAllButton_D = new System.Windows.Forms.Button();
+            this.PostButton_D = new System.Windows.Forms.Button();
+            this.DeleteRowsButton_D = new System.Windows.Forms.Button();
+            this.LearnButton_D = new System.Windows.Forms.Button();
+            this.AddEntryButton_D = new System.Windows.Forms.Button();
+            this.CopyButton_D = new System.Windows.Forms.Button();
+            this.CutButton_D = new System.Windows.Forms.Button();
+            this.DeleteButton_D = new System.Windows.Forms.Button();
             this.CheckAllButton_A = new System.Windows.Forms.Button();
             this.UnCheckAllButton_A = new System.Windows.Forms.Button();
             this.PostButton_A = new System.Windows.Forms.Button();
@@ -83,15 +93,6 @@ namespace DAP_Filler
             this.CopyButton_A = new System.Windows.Forms.Button();
             this.CutButton_A = new System.Windows.Forms.Button();
             this.DeleteButton_A = new System.Windows.Forms.Button();
-            this.PlanTab = new System.Windows.Forms.TabPage();
-            this.searchTB_P = new System.Windows.Forms.TextBox();
-            this.autoSortCB_P = new System.Windows.Forms.ComboBox();
-            this.autoSort_P = new System.Windows.Forms.Label();
-            this.DataGridView_P = new System.Windows.Forms.DataGridView();
-            this.CheckBoxCol_P = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UsesCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EntryCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EntryBox_P = new System.Windows.Forms.TextBox();
             this.CheckAllButton_P = new System.Windows.Forms.Button();
             this.UnCheckAllButton_P = new System.Windows.Forms.Button();
             this.PostButton_P = new System.Windows.Forms.Button();
@@ -101,9 +102,10 @@ namespace DAP_Filler
             this.CopyButton_P = new System.Windows.Forms.Button();
             this.CutButton_P = new System.Windows.Forms.Button();
             this.DeleteButton_P = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
+            this.happyFaceButton = new System.Windows.Forms.Button();
+            this.DefaultButton = new System.Windows.Forms.Button();
             this.PatientGB.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
@@ -118,6 +120,8 @@ namespace DAP_Filler
             // 
             this.PatientGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PatientGB.Controls.Add(this.saveButton);
+            this.PatientGB.Controls.Add(this.loadButton);
             this.PatientGB.Controls.Add(this.happyFaceButton);
             this.PatientGB.Controls.Add(this.autoArrowsCB);
             this.PatientGB.Controls.Add(this.genericNameTB);
@@ -139,23 +143,12 @@ namespace DAP_Filler
             this.PatientGB.TabStop = false;
             this.PatientGB.Text = "Patient";
             // 
-            // happyFaceButton
-            // 
-            this.happyFaceButton.BackgroundImage = global::DAP_Filler.Properties.Resources.happy;
-            this.happyFaceButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.happyFaceButton.Location = new System.Drawing.Point(742, 12);
-            this.happyFaceButton.Name = "happyFaceButton";
-            this.happyFaceButton.Size = new System.Drawing.Size(30, 30);
-            this.happyFaceButton.TabIndex = 7;
-            this.happyFaceButton.UseVisualStyleBackColor = true;
-            this.happyFaceButton.Click += new System.EventHandler(this.HappyFace_Click);
-            // 
             // autoArrowsCB
             // 
             this.autoArrowsCB.AutoSize = true;
             this.autoArrowsCB.Checked = true;
             this.autoArrowsCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoArrowsCB.Location = new System.Drawing.Point(485, 14);
+            this.autoArrowsCB.Location = new System.Drawing.Point(435, 15);
             this.autoArrowsCB.Name = "autoArrowsCB";
             this.autoArrowsCB.Size = new System.Drawing.Size(63, 17);
             this.autoArrowsCB.TabIndex = 3;
@@ -183,17 +176,6 @@ namespace DAP_Filler
             this.GenericNameLabel.Size = new System.Drawing.Size(78, 13);
             this.GenericNameLabel.TabIndex = 8;
             this.GenericNameLabel.Text = "Generic Name:";
-            // 
-            // DefaultButton
-            // 
-            this.DefaultButton.BackgroundImage = global::DAP_Filler.Properties.Resources.default1;
-            this.DefaultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DefaultButton.Location = new System.Drawing.Point(706, 12);
-            this.DefaultButton.Name = "DefaultButton";
-            this.DefaultButton.Size = new System.Drawing.Size(30, 30);
-            this.DefaultButton.TabIndex = 6;
-            this.DefaultButton.UseVisualStyleBackColor = true;
-            this.DefaultButton.Click += new System.EventHandler(this.ReturnToDefaults);
             // 
             // GenericPeerNameLabel
             // 
@@ -230,7 +212,7 @@ namespace DAP_Filler
             this.learnModeCB.AutoSize = true;
             this.learnModeCB.Checked = true;
             this.learnModeCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.learnModeCB.Location = new System.Drawing.Point(554, 14);
+            this.learnModeCB.Location = new System.Drawing.Point(507, 15);
             this.learnModeCB.Name = "learnModeCB";
             this.learnModeCB.Size = new System.Drawing.Size(83, 17);
             this.learnModeCB.TabIndex = 4;
@@ -252,18 +234,19 @@ namespace DAP_Filler
             // 
             // NewPatientButton
             // 
-            this.NewPatientButton.Location = new System.Drawing.Point(649, 12);
+            this.NewPatientButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_man_user;
+            this.NewPatientButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewPatientButton.Location = new System.Drawing.Point(600, 11);
             this.NewPatientButton.Name = "NewPatientButton";
-            this.NewPatientButton.Size = new System.Drawing.Size(50, 30);
+            this.NewPatientButton.Size = new System.Drawing.Size(30, 30);
             this.NewPatientButton.TabIndex = 5;
-            this.NewPatientButton.Text = "New";
             this.NewPatientButton.UseVisualStyleBackColor = true;
             this.NewPatientButton.Click += new System.EventHandler(this.NewPatient_Click);
             // 
             // FemaleRadioButton
             // 
             this.FemaleRadioButton.AutoSize = true;
-            this.FemaleRadioButton.Location = new System.Drawing.Point(377, 14);
+            this.FemaleRadioButton.Location = new System.Drawing.Point(301, 13);
             this.FemaleRadioButton.Name = "FemaleRadioButton";
             this.FemaleRadioButton.Size = new System.Drawing.Size(59, 17);
             this.FemaleRadioButton.TabIndex = 2;
@@ -275,7 +258,7 @@ namespace DAP_Filler
             // 
             this.MaleRadioButton.AutoSize = true;
             this.MaleRadioButton.Checked = true;
-            this.MaleRadioButton.Location = new System.Drawing.Point(323, 14);
+            this.MaleRadioButton.Location = new System.Drawing.Point(247, 13);
             this.MaleRadioButton.Name = "MaleRadioButton";
             this.MaleRadioButton.Size = new System.Drawing.Size(48, 17);
             this.MaleRadioButton.TabIndex = 1;
@@ -289,7 +272,7 @@ namespace DAP_Filler
             this.realNameTB.Location = new System.Drawing.Point(5, 14);
             this.realNameTB.MaxLength = 30;
             this.realNameTB.Name = "realNameTB";
-            this.realNameTB.Size = new System.Drawing.Size(303, 20);
+            this.realNameTB.Size = new System.Drawing.Size(214, 20);
             this.realNameTB.TabIndex = 0;
             this.realNameTB.WordWrap = false;
             this.realNameTB.TextChanged += new System.EventHandler(this.RealName_TextChanged);
@@ -338,6 +321,15 @@ namespace DAP_Filler
             this.DataTab.Text = "Data";
             this.DataTab.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(408, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Search:";
+            // 
             // searchTB_D
             // 
             this.searchTB_D.Location = new System.Drawing.Point(457, 104);
@@ -372,6 +364,330 @@ namespace DAP_Filler
             this.autoSortCB_D.Size = new System.Drawing.Size(130, 21);
             this.autoSortCB_D.TabIndex = 6;
             this.autoSortCB_D.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_D_SelectedIndexChanged);
+            // 
+            // DataGridView_D
+            // 
+            this.DataGridView_D.AllowUserToAddRows = false;
+            this.DataGridView_D.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.DataGridView_D.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridView_D.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckBoxCol_D,
+            this.Uses_D,
+            this.Entry_D});
+            this.DataGridView_D.Location = new System.Drawing.Point(0, 135);
+            this.DataGridView_D.Name = "DataGridView_D";
+            this.DataGridView_D.Size = new System.Drawing.Size(763, 513);
+            this.DataGridView_D.TabIndex = 20;
+            this.DataGridView_D.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_D);
+            this.DataGridView_D.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_D);
+            this.DataGridView_D.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_D);
+            this.DataGridView_D.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_D);
+            this.DataGridView_D.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_D);
+            this.DataGridView_D.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_D);
+            this.DataGridView_D.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_D);
+            // 
+            // CheckBoxCol_D
+            // 
+            this.CheckBoxCol_D.HeaderText = "";
+            this.CheckBoxCol_D.Name = "CheckBoxCol_D";
+            this.CheckBoxCol_D.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CheckBoxCol_D.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
+            this.CheckBoxCol_D.Width = 30;
+            // 
+            // Uses_D
+            // 
+            this.Uses_D.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Uses_D.DataPropertyName = "uses";
+            this.Uses_D.HeaderText = "Uses";
+            this.Uses_D.Name = "Uses_D";
+            this.Uses_D.ReadOnly = true;
+            this.Uses_D.ToolTipText = "Number of times this entry has been used (Click to sort)";
+            this.Uses_D.Width = 40;
+            // 
+            // Entry_D
+            // 
+            this.Entry_D.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Entry_D.DataPropertyName = "entry";
+            this.Entry_D.HeaderText = "Entry";
+            this.Entry_D.MaxInputLength = 300;
+            this.Entry_D.Name = "Entry_D";
+            this.Entry_D.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Entry_D.ToolTipText = "Autofill Entries (Click to sort)";
+            // 
+            // EntryBox_D
+            // 
+            this.EntryBox_D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EntryBox_D.Location = new System.Drawing.Point(0, 0);
+            this.EntryBox_D.MaxLength = 1000;
+            this.EntryBox_D.Multiline = true;
+            this.EntryBox_D.Name = "EntryBox_D";
+            this.EntryBox_D.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.EntryBox_D.Size = new System.Drawing.Size(763, 92);
+            this.EntryBox_D.TabIndex = 0;
+            this.EntryBox_D.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_D);
+            this.EntryBox_D.Enter += new System.EventHandler(this.EntryBox_Enter_D);
+            this.EntryBox_D.Leave += new System.EventHandler(this.EntryBox_Leave_D);
+            // 
+            // AssessmentTab
+            // 
+            this.AssessmentTab.Controls.Add(this.label2);
+            this.AssessmentTab.Controls.Add(this.searchTB_A);
+            this.AssessmentTab.Controls.Add(this.autoSortCB_A);
+            this.AssessmentTab.Controls.Add(this.autoSort_A);
+            this.AssessmentTab.Controls.Add(this.DataGridView_A);
+            this.AssessmentTab.Controls.Add(this.EntryBox_A);
+            this.AssessmentTab.Controls.Add(this.CheckAllButton_A);
+            this.AssessmentTab.Controls.Add(this.UnCheckAllButton_A);
+            this.AssessmentTab.Controls.Add(this.PostButton_A);
+            this.AssessmentTab.Controls.Add(this.DeleteRowsButton_A);
+            this.AssessmentTab.Controls.Add(this.LearnButton_A);
+            this.AssessmentTab.Controls.Add(this.AddEntryButton_A);
+            this.AssessmentTab.Controls.Add(this.CopyButton_A);
+            this.AssessmentTab.Controls.Add(this.CutButton_A);
+            this.AssessmentTab.Controls.Add(this.DeleteButton_A);
+            this.AssessmentTab.Location = new System.Drawing.Point(4, 25);
+            this.AssessmentTab.Name = "AssessmentTab";
+            this.AssessmentTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AssessmentTab.Size = new System.Drawing.Size(763, 647);
+            this.AssessmentTab.TabIndex = 1;
+            this.AssessmentTab.Text = "Assessment";
+            this.AssessmentTab.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(408, 104);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Search:";
+            // 
+            // searchTB_A
+            // 
+            this.searchTB_A.Location = new System.Drawing.Point(457, 104);
+            this.searchTB_A.MaxLength = 20;
+            this.searchTB_A.Name = "searchTB_A";
+            this.searchTB_A.Size = new System.Drawing.Size(130, 20);
+            this.searchTB_A.TabIndex = 8;
+            this.searchTB_A.Enter += new System.EventHandler(this.SearchTB_Enter_A);
+            this.searchTB_A.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp_A);
+            this.searchTB_A.Leave += new System.EventHandler(this.SearchTB_Leave_A);
+            // 
+            // autoSortCB_A
+            // 
+            this.autoSortCB_A.FormattingEnabled = true;
+            this.autoSortCB_A.Items.AddRange(new object[] {
+            "<None>",
+            "Uses (Ascending)",
+            "Uses (Descending)",
+            "Entry (Ascending)",
+            "Entry (Descending)"});
+            this.autoSortCB_A.Location = new System.Drawing.Point(268, 104);
+            this.autoSortCB_A.Name = "autoSortCB_A";
+            this.autoSortCB_A.Size = new System.Drawing.Size(130, 21);
+            this.autoSortCB_A.TabIndex = 6;
+            this.autoSortCB_A.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_A_SelectedIndexChanged);
+            // 
+            // autoSort_A
+            // 
+            this.autoSort_A.AutoSize = true;
+            this.autoSort_A.Location = new System.Drawing.Point(209, 104);
+            this.autoSort_A.Name = "autoSort_A";
+            this.autoSort_A.Size = new System.Drawing.Size(54, 13);
+            this.autoSort_A.TabIndex = 6;
+            this.autoSort_A.Text = "Auto Sort:";
+            // 
+            // DataGridView_A
+            // 
+            this.DataGridView_A.AllowUserToAddRows = false;
+            this.DataGridView_A.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.DataGridView_A.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridView_A.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckBoxCol_A,
+            this.UsesCol_A,
+            this.EntryCol_A});
+            this.DataGridView_A.Location = new System.Drawing.Point(0, 135);
+            this.DataGridView_A.Name = "DataGridView_A";
+            this.DataGridView_A.Size = new System.Drawing.Size(763, 513);
+            this.DataGridView_A.TabIndex = 20;
+            this.DataGridView_A.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_A);
+            this.DataGridView_A.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_A);
+            this.DataGridView_A.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_A);
+            this.DataGridView_A.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_A);
+            this.DataGridView_A.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_A);
+            this.DataGridView_A.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_A);
+            this.DataGridView_A.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_A);
+            // 
+            // CheckBoxCol_A
+            // 
+            this.CheckBoxCol_A.HeaderText = "";
+            this.CheckBoxCol_A.Name = "CheckBoxCol_A";
+            this.CheckBoxCol_A.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
+            this.CheckBoxCol_A.Width = 30;
+            // 
+            // UsesCol_A
+            // 
+            this.UsesCol_A.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.UsesCol_A.DataPropertyName = "uses";
+            this.UsesCol_A.HeaderText = "Uses";
+            this.UsesCol_A.Name = "UsesCol_A";
+            this.UsesCol_A.ReadOnly = true;
+            this.UsesCol_A.ToolTipText = "Number of times this entry has been used (Click to sort)";
+            this.UsesCol_A.Width = 40;
+            // 
+            // EntryCol_A
+            // 
+            this.EntryCol_A.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.EntryCol_A.DataPropertyName = "entry";
+            this.EntryCol_A.HeaderText = "Entry";
+            this.EntryCol_A.Name = "EntryCol_A";
+            this.EntryCol_A.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.EntryCol_A.ToolTipText = "Autofill Entries (Click to sort)";
+            // 
+            // EntryBox_A
+            // 
+            this.EntryBox_A.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EntryBox_A.Location = new System.Drawing.Point(0, 0);
+            this.EntryBox_A.MaxLength = 1000;
+            this.EntryBox_A.Multiline = true;
+            this.EntryBox_A.Name = "EntryBox_A";
+            this.EntryBox_A.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.EntryBox_A.Size = new System.Drawing.Size(763, 92);
+            this.EntryBox_A.TabIndex = 0;
+            this.EntryBox_A.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_A);
+            this.EntryBox_A.Enter += new System.EventHandler(this.EntryBox_Enter_A);
+            this.EntryBox_A.Leave += new System.EventHandler(this.EntryBox_Leave_A);
+            // 
+            // PlanTab
+            // 
+            this.PlanTab.Controls.Add(this.label1);
+            this.PlanTab.Controls.Add(this.searchTB_P);
+            this.PlanTab.Controls.Add(this.autoSortCB_P);
+            this.PlanTab.Controls.Add(this.autoSort_P);
+            this.PlanTab.Controls.Add(this.DataGridView_P);
+            this.PlanTab.Controls.Add(this.EntryBox_P);
+            this.PlanTab.Controls.Add(this.CheckAllButton_P);
+            this.PlanTab.Controls.Add(this.UnCheckAllButton_P);
+            this.PlanTab.Controls.Add(this.PostButton_P);
+            this.PlanTab.Controls.Add(this.DeleteRowsButton_P);
+            this.PlanTab.Controls.Add(this.LearnButton_P);
+            this.PlanTab.Controls.Add(this.AddEntryButton_P);
+            this.PlanTab.Controls.Add(this.CopyButton_P);
+            this.PlanTab.Controls.Add(this.CutButton_P);
+            this.PlanTab.Controls.Add(this.DeleteButton_P);
+            this.PlanTab.Location = new System.Drawing.Point(4, 25);
+            this.PlanTab.Name = "PlanTab";
+            this.PlanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PlanTab.Size = new System.Drawing.Size(763, 647);
+            this.PlanTab.TabIndex = 2;
+            this.PlanTab.Text = "Plan";
+            this.PlanTab.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(408, 104);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Search:";
+            // 
+            // searchTB_P
+            // 
+            this.searchTB_P.Location = new System.Drawing.Point(457, 104);
+            this.searchTB_P.MaxLength = 20;
+            this.searchTB_P.Name = "searchTB_P";
+            this.searchTB_P.Size = new System.Drawing.Size(130, 20);
+            this.searchTB_P.TabIndex = 8;
+            this.searchTB_P.Enter += new System.EventHandler(this.SearchTB_Enter_P);
+            this.searchTB_P.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp_P);
+            this.searchTB_P.Leave += new System.EventHandler(this.SearchTB_Leave_P);
+            // 
+            // autoSortCB_P
+            // 
+            this.autoSortCB_P.FormattingEnabled = true;
+            this.autoSortCB_P.Items.AddRange(new object[] {
+            "<None>",
+            "Uses (Ascending)",
+            "Uses (Descending)",
+            "Entry (Ascending)",
+            "Entry (Descending)"});
+            this.autoSortCB_P.Location = new System.Drawing.Point(268, 104);
+            this.autoSortCB_P.Name = "autoSortCB_P";
+            this.autoSortCB_P.Size = new System.Drawing.Size(130, 21);
+            this.autoSortCB_P.TabIndex = 6;
+            this.autoSortCB_P.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_P_SelectedIndexChanged);
+            // 
+            // autoSort_P
+            // 
+            this.autoSort_P.AutoSize = true;
+            this.autoSort_P.Location = new System.Drawing.Point(209, 104);
+            this.autoSort_P.Name = "autoSort_P";
+            this.autoSort_P.Size = new System.Drawing.Size(54, 13);
+            this.autoSort_P.TabIndex = 6;
+            this.autoSort_P.Text = "Auto Sort:";
+            // 
+            // DataGridView_P
+            // 
+            this.DataGridView_P.AllowUserToAddRows = false;
+            this.DataGridView_P.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataGridView_P.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridView_P.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckBoxCol_P,
+            this.UsesCol_P,
+            this.EntryCol_P});
+            this.DataGridView_P.Location = new System.Drawing.Point(0, 135);
+            this.DataGridView_P.Name = "DataGridView_P";
+            this.DataGridView_P.Size = new System.Drawing.Size(763, 513);
+            this.DataGridView_P.TabIndex = 20;
+            this.DataGridView_P.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_P);
+            this.DataGridView_P.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_P);
+            this.DataGridView_P.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_P);
+            this.DataGridView_P.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_P);
+            this.DataGridView_P.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_P);
+            this.DataGridView_P.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_P);
+            this.DataGridView_P.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_P);
+            // 
+            // CheckBoxCol_P
+            // 
+            this.CheckBoxCol_P.HeaderText = "";
+            this.CheckBoxCol_P.Name = "CheckBoxCol_P";
+            this.CheckBoxCol_P.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
+            this.CheckBoxCol_P.Width = 30;
+            // 
+            // UsesCol_P
+            // 
+            this.UsesCol_P.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.UsesCol_P.DataPropertyName = "uses";
+            this.UsesCol_P.HeaderText = "Uses";
+            this.UsesCol_P.Name = "UsesCol_P";
+            this.UsesCol_P.ReadOnly = true;
+            this.UsesCol_P.ToolTipText = "Number of times this entry has been used (Click to sort)";
+            this.UsesCol_P.Width = 40;
+            // 
+            // EntryCol_P
+            // 
+            this.EntryCol_P.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.EntryCol_P.DataPropertyName = "entry";
+            this.EntryCol_P.HeaderText = "Entry";
+            this.EntryCol_P.Name = "EntryCol_P";
+            this.EntryCol_P.ToolTipText = "Autofill Entries (Click to sort)";
+            // 
+            // EntryBox_P
+            // 
+            this.EntryBox_P.Location = new System.Drawing.Point(0, 0);
+            this.EntryBox_P.MaxLength = 1000;
+            this.EntryBox_P.Multiline = true;
+            this.EntryBox_P.Name = "EntryBox_P";
+            this.EntryBox_P.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.EntryBox_P.Size = new System.Drawing.Size(763, 92);
+            this.EntryBox_P.TabIndex = 0;
+            this.EntryBox_P.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_P);
+            this.EntryBox_P.Enter += new System.EventHandler(this.EntryBox_Enter_P);
+            this.EntryBox_P.Leave += new System.EventHandler(this.EntryBox_Leave_P);
             // 
             // CheckAllButton_D
             // 
@@ -439,57 +755,6 @@ namespace DAP_Filler
             this.AddEntryButton_D.UseVisualStyleBackColor = true;
             this.AddEntryButton_D.Click += new System.EventHandler(this.AddRowButtonClick_D);
             // 
-            // DataGridView_D
-            // 
-            this.DataGridView_D.AllowUserToAddRows = false;
-            this.DataGridView_D.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            this.DataGridView_D.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView_D.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CheckBoxCol_D,
-            this.Uses_D,
-            this.Entry_D});
-            this.DataGridView_D.Location = new System.Drawing.Point(0, 135);
-            this.DataGridView_D.Name = "DataGridView_D";
-            this.DataGridView_D.Size = new System.Drawing.Size(763, 513);
-            this.DataGridView_D.TabIndex = 20;
-            this.DataGridView_D.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_D);
-            this.DataGridView_D.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick_D);
-            this.DataGridView_D.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_D);
-            this.DataGridView_D.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_D);
-            this.DataGridView_D.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_D);
-            this.DataGridView_D.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_D);
-            this.DataGridView_D.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_D);
-            this.DataGridView_D.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded_D);
-            this.DataGridView_D.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_D);
-            // 
-            // CheckBoxCol_D
-            // 
-            this.CheckBoxCol_D.HeaderText = "";
-            this.CheckBoxCol_D.Name = "CheckBoxCol_D";
-            this.CheckBoxCol_D.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CheckBoxCol_D.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
-            this.CheckBoxCol_D.Width = 30;
-            // 
-            // Uses_D
-            // 
-            this.Uses_D.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Uses_D.DataPropertyName = "uses";
-            this.Uses_D.HeaderText = "Uses";
-            this.Uses_D.Name = "Uses_D";
-            this.Uses_D.ReadOnly = true;
-            this.Uses_D.ToolTipText = "Number of times this entry has been used (Click to sort)";
-            this.Uses_D.Width = 40;
-            // 
-            // Entry_D
-            // 
-            this.Entry_D.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Entry_D.DataPropertyName = "entry";
-            this.Entry_D.HeaderText = "Entry";
-            this.Entry_D.MaxInputLength = 300;
-            this.Entry_D.Name = "Entry_D";
-            this.Entry_D.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Entry_D.ToolTipText = "Autofill Entries (Click to sort)";
-            // 
             // CopyButton_D
             // 
             this.CopyButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyButton_D.BackgroundImage")));
@@ -522,145 +787,6 @@ namespace DAP_Filler
             this.DeleteButton_D.TabIndex = 1;
             this.DeleteButton_D.UseVisualStyleBackColor = true;
             this.DeleteButton_D.Click += new System.EventHandler(this.DeleteButton_Click_D);
-            // 
-            // EntryBox_D
-            // 
-            this.EntryBox_D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.EntryBox_D.Location = new System.Drawing.Point(0, 0);
-            this.EntryBox_D.MaxLength = 1000;
-            this.EntryBox_D.Multiline = true;
-            this.EntryBox_D.Name = "EntryBox_D";
-            this.EntryBox_D.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.EntryBox_D.Size = new System.Drawing.Size(763, 92);
-            this.EntryBox_D.TabIndex = 0;
-            this.EntryBox_D.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_D);
-            this.EntryBox_D.Enter += new System.EventHandler(this.EntryBox_Enter_D);
-            this.EntryBox_D.Leave += new System.EventHandler(this.EntryBox_Leave_D);
-            // 
-            // AssessmentTab
-            // 
-            this.AssessmentTab.Controls.Add(this.label2);
-            this.AssessmentTab.Controls.Add(this.searchTB_A);
-            this.AssessmentTab.Controls.Add(this.autoSortCB_A);
-            this.AssessmentTab.Controls.Add(this.autoSort_A);
-            this.AssessmentTab.Controls.Add(this.DataGridView_A);
-            this.AssessmentTab.Controls.Add(this.EntryBox_A);
-            this.AssessmentTab.Controls.Add(this.CheckAllButton_A);
-            this.AssessmentTab.Controls.Add(this.UnCheckAllButton_A);
-            this.AssessmentTab.Controls.Add(this.PostButton_A);
-            this.AssessmentTab.Controls.Add(this.DeleteRowsButton_A);
-            this.AssessmentTab.Controls.Add(this.LearnButton_A);
-            this.AssessmentTab.Controls.Add(this.AddEntryButton_A);
-            this.AssessmentTab.Controls.Add(this.CopyButton_A);
-            this.AssessmentTab.Controls.Add(this.CutButton_A);
-            this.AssessmentTab.Controls.Add(this.DeleteButton_A);
-            this.AssessmentTab.Location = new System.Drawing.Point(4, 25);
-            this.AssessmentTab.Name = "AssessmentTab";
-            this.AssessmentTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AssessmentTab.Size = new System.Drawing.Size(763, 647);
-            this.AssessmentTab.TabIndex = 1;
-            this.AssessmentTab.Text = "Assessment";
-            this.AssessmentTab.UseVisualStyleBackColor = true;
-            // 
-            // searchTB_A
-            // 
-            this.searchTB_A.Location = new System.Drawing.Point(457, 104);
-            this.searchTB_A.MaxLength = 20;
-            this.searchTB_A.Name = "searchTB_A";
-            this.searchTB_A.Size = new System.Drawing.Size(130, 20);
-            this.searchTB_A.TabIndex = 8;
-            this.searchTB_A.Enter += new System.EventHandler(this.SearchTB_Enter_A);
-            this.searchTB_A.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp_A);
-            this.searchTB_A.Leave += new System.EventHandler(this.SearchTB_Leave_A);
-            // 
-            // autoSortCB_A
-            // 
-            this.autoSortCB_A.FormattingEnabled = true;
-            this.autoSortCB_A.Items.AddRange(new object[] {
-            "<None>",
-            "Uses (Ascending)",
-            "Uses (Descending)",
-            "Entry (Ascending)",
-            "Entry (Descending)"});
-            this.autoSortCB_A.Location = new System.Drawing.Point(268, 104);
-            this.autoSortCB_A.Name = "autoSortCB_A";
-            this.autoSortCB_A.Size = new System.Drawing.Size(130, 21);
-            this.autoSortCB_A.TabIndex = 6;
-            this.autoSortCB_A.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_A_SelectedIndexChanged);
-            // 
-            // autoSort_A
-            // 
-            this.autoSort_A.AutoSize = true;
-            this.autoSort_A.Location = new System.Drawing.Point(209, 104);
-            this.autoSort_A.Name = "autoSort_A";
-            this.autoSort_A.Size = new System.Drawing.Size(54, 13);
-            this.autoSort_A.TabIndex = 6;
-            this.autoSort_A.Text = "Auto Sort:";
-            // 
-            // DataGridView_A
-            // 
-            this.DataGridView_A.AllowUserToAddRows = false;
-            this.DataGridView_A.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            this.DataGridView_A.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView_A.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CheckBoxCol_A,
-            this.UsesCol_A,
-            this.EntryCol_A});
-            this.DataGridView_A.Location = new System.Drawing.Point(0, 135);
-            this.DataGridView_A.Name = "DataGridView_A";
-            this.DataGridView_A.Size = new System.Drawing.Size(763, 513);
-            this.DataGridView_A.TabIndex = 20;
-            this.DataGridView_A.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_A);
-            this.DataGridView_A.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick_A);
-            this.DataGridView_A.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_A);
-            this.DataGridView_A.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_A);
-            this.DataGridView_A.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_A);
-            this.DataGridView_A.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_A);
-            this.DataGridView_A.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_A);
-            this.DataGridView_A.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded_A);
-            this.DataGridView_A.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_A);
-            // 
-            // CheckBoxCol_A
-            // 
-            this.CheckBoxCol_A.HeaderText = "";
-            this.CheckBoxCol_A.Name = "CheckBoxCol_A";
-            this.CheckBoxCol_A.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
-            this.CheckBoxCol_A.Width = 30;
-            // 
-            // UsesCol_A
-            // 
-            this.UsesCol_A.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.UsesCol_A.DataPropertyName = "uses";
-            this.UsesCol_A.HeaderText = "Uses";
-            this.UsesCol_A.Name = "UsesCol_A";
-            this.UsesCol_A.ReadOnly = true;
-            this.UsesCol_A.ToolTipText = "Number of times this entry has been used (Click to sort)";
-            this.UsesCol_A.Width = 40;
-            // 
-            // EntryCol_A
-            // 
-            this.EntryCol_A.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.EntryCol_A.DataPropertyName = "entry";
-            this.EntryCol_A.HeaderText = "Entry";
-            this.EntryCol_A.Name = "EntryCol_A";
-            this.EntryCol_A.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.EntryCol_A.ToolTipText = "Autofill Entries (Click to sort)";
-            // 
-            // EntryBox_A
-            // 
-            this.EntryBox_A.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.EntryBox_A.Location = new System.Drawing.Point(0, 0);
-            this.EntryBox_A.MaxLength = 1000;
-            this.EntryBox_A.Multiline = true;
-            this.EntryBox_A.Name = "EntryBox_A";
-            this.EntryBox_A.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.EntryBox_A.Size = new System.Drawing.Size(763, 92);
-            this.EntryBox_A.TabIndex = 0;
-            this.EntryBox_A.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_A);
-            this.EntryBox_A.Enter += new System.EventHandler(this.EntryBox_Enter_A);
-            this.EntryBox_A.Leave += new System.EventHandler(this.EntryBox_Leave_A);
             // 
             // CheckAllButton_A
             // 
@@ -761,128 +887,6 @@ namespace DAP_Filler
             this.DeleteButton_A.UseVisualStyleBackColor = true;
             this.DeleteButton_A.Click += new System.EventHandler(this.DeleteButton_Click_A);
             // 
-            // PlanTab
-            // 
-            this.PlanTab.Controls.Add(this.label1);
-            this.PlanTab.Controls.Add(this.searchTB_P);
-            this.PlanTab.Controls.Add(this.autoSortCB_P);
-            this.PlanTab.Controls.Add(this.autoSort_P);
-            this.PlanTab.Controls.Add(this.DataGridView_P);
-            this.PlanTab.Controls.Add(this.EntryBox_P);
-            this.PlanTab.Controls.Add(this.CheckAllButton_P);
-            this.PlanTab.Controls.Add(this.UnCheckAllButton_P);
-            this.PlanTab.Controls.Add(this.PostButton_P);
-            this.PlanTab.Controls.Add(this.DeleteRowsButton_P);
-            this.PlanTab.Controls.Add(this.LearnButton_P);
-            this.PlanTab.Controls.Add(this.AddEntryButton_P);
-            this.PlanTab.Controls.Add(this.CopyButton_P);
-            this.PlanTab.Controls.Add(this.CutButton_P);
-            this.PlanTab.Controls.Add(this.DeleteButton_P);
-            this.PlanTab.Location = new System.Drawing.Point(4, 25);
-            this.PlanTab.Name = "PlanTab";
-            this.PlanTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PlanTab.Size = new System.Drawing.Size(763, 647);
-            this.PlanTab.TabIndex = 2;
-            this.PlanTab.Text = "Plan";
-            this.PlanTab.UseVisualStyleBackColor = true;
-            // 
-            // searchTB_P
-            // 
-            this.searchTB_P.Location = new System.Drawing.Point(457, 104);
-            this.searchTB_P.MaxLength = 20;
-            this.searchTB_P.Name = "searchTB_P";
-            this.searchTB_P.Size = new System.Drawing.Size(130, 20);
-            this.searchTB_P.TabIndex = 8;
-            this.searchTB_P.Enter += new System.EventHandler(this.SearchTB_Enter_P);
-            this.searchTB_P.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp_P);
-            this.searchTB_P.Leave += new System.EventHandler(this.SearchTB_Leave_P);
-            // 
-            // autoSortCB_P
-            // 
-            this.autoSortCB_P.FormattingEnabled = true;
-            this.autoSortCB_P.Items.AddRange(new object[] {
-            "<None>",
-            "Uses (Ascending)",
-            "Uses (Descending)",
-            "Entry (Ascending)",
-            "Entry (Descending)"});
-            this.autoSortCB_P.Location = new System.Drawing.Point(268, 104);
-            this.autoSortCB_P.Name = "autoSortCB_P";
-            this.autoSortCB_P.Size = new System.Drawing.Size(130, 21);
-            this.autoSortCB_P.TabIndex = 6;
-            this.autoSortCB_P.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_P_SelectedIndexChanged);
-            // 
-            // autoSort_P
-            // 
-            this.autoSort_P.AutoSize = true;
-            this.autoSort_P.Location = new System.Drawing.Point(209, 104);
-            this.autoSort_P.Name = "autoSort_P";
-            this.autoSort_P.Size = new System.Drawing.Size(54, 13);
-            this.autoSort_P.TabIndex = 6;
-            this.autoSort_P.Text = "Auto Sort:";
-            // 
-            // DataGridView_P
-            // 
-            this.DataGridView_P.AllowUserToAddRows = false;
-            this.DataGridView_P.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridView_P.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView_P.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CheckBoxCol_P,
-            this.UsesCol_P,
-            this.EntryCol_P});
-            this.DataGridView_P.Location = new System.Drawing.Point(0, 135);
-            this.DataGridView_P.Name = "DataGridView_P";
-            this.DataGridView_P.Size = new System.Drawing.Size(763, 513);
-            this.DataGridView_P.TabIndex = 20;
-            this.DataGridView_P.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick_P);
-            this.DataGridView_P.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick_P);
-            this.DataGridView_P.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick_P);
-            this.DataGridView_P.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseClick_P);
-            this.DataGridView_P.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_MouseUp_P);
-            this.DataGridView_P.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged_P);
-            this.DataGridView_P.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick_P);
-            this.DataGridView_P.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded_P);
-            this.DataGridView_P.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_RowValidated_P);
-            // 
-            // CheckBoxCol_P
-            // 
-            this.CheckBoxCol_P.HeaderText = "";
-            this.CheckBoxCol_P.Name = "CheckBoxCol_P";
-            this.CheckBoxCol_P.ToolTipText = "Checkboxes (retains order in which boxes are checked)";
-            this.CheckBoxCol_P.Width = 30;
-            // 
-            // UsesCol_P
-            // 
-            this.UsesCol_P.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.UsesCol_P.DataPropertyName = "uses";
-            this.UsesCol_P.HeaderText = "Uses";
-            this.UsesCol_P.Name = "UsesCol_P";
-            this.UsesCol_P.ReadOnly = true;
-            this.UsesCol_P.ToolTipText = "Number of times this entry has been used (Click to sort)";
-            this.UsesCol_P.Width = 40;
-            // 
-            // EntryCol_P
-            // 
-            this.EntryCol_P.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.EntryCol_P.DataPropertyName = "entry";
-            this.EntryCol_P.HeaderText = "Entry";
-            this.EntryCol_P.Name = "EntryCol_P";
-            this.EntryCol_P.ToolTipText = "Autofill Entries (Click to sort)";
-            // 
-            // EntryBox_P
-            // 
-            this.EntryBox_P.Location = new System.Drawing.Point(0, 0);
-            this.EntryBox_P.MaxLength = 1000;
-            this.EntryBox_P.Multiline = true;
-            this.EntryBox_P.Name = "EntryBox_P";
-            this.EntryBox_P.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.EntryBox_P.Size = new System.Drawing.Size(763, 92);
-            this.EntryBox_P.TabIndex = 0;
-            this.EntryBox_P.TextChanged += new System.EventHandler(this.EntryBox_TextChanged_P);
-            this.EntryBox_P.Enter += new System.EventHandler(this.EntryBox_Enter_P);
-            this.EntryBox_P.Leave += new System.EventHandler(this.EntryBox_Leave_P);
-            // 
             // CheckAllButton_P
             // 
             this.CheckAllButton_P.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
@@ -982,32 +986,49 @@ namespace DAP_Filler
             this.DeleteButton_P.UseVisualStyleBackColor = true;
             this.DeleteButton_P.Click += new System.EventHandler(this.DeleteButton_Click_P);
             // 
-            // label1
+            // saveButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(408, 104);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Search:";
+            this.saveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
+            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.saveButton.Location = new System.Drawing.Point(635, 11);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(30, 30);
+            this.saveButton.TabIndex = 15;
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // label2
+            // loadButton
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(408, 104);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Search:";
+            this.loadButton.BackgroundImage = global::DAP_Filler.Properties.Resources._001_open_folder;
+            this.loadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.loadButton.Location = new System.Drawing.Point(671, 11);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(30, 30);
+            this.loadButton.TabIndex = 14;
+            this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.LoadButton_Click);
             // 
-            // label3
+            // happyFaceButton
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(408, 104);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Search:";
+            this.happyFaceButton.BackgroundImage = global::DAP_Filler.Properties.Resources.happy;
+            this.happyFaceButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.happyFaceButton.Location = new System.Drawing.Point(742, 11);
+            this.happyFaceButton.Name = "happyFaceButton";
+            this.happyFaceButton.Size = new System.Drawing.Size(30, 30);
+            this.happyFaceButton.TabIndex = 7;
+            this.happyFaceButton.UseVisualStyleBackColor = true;
+            this.happyFaceButton.Click += new System.EventHandler(this.HappyFace_Click);
+            // 
+            // DefaultButton
+            // 
+            this.DefaultButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_repairing_service;
+            this.DefaultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DefaultButton.Location = new System.Drawing.Point(706, 11);
+            this.DefaultButton.Name = "DefaultButton";
+            this.DefaultButton.Size = new System.Drawing.Size(30, 30);
+            this.DefaultButton.TabIndex = 6;
+            this.DefaultButton.UseVisualStyleBackColor = true;
+            this.DefaultButton.Click += new System.EventHandler(this.ReturnToDefaults);
             // 
             // Form1
             // 
@@ -1110,6 +1131,8 @@ namespace DAP_Filler
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button loadButton;
         }
 }
 

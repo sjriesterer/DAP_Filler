@@ -8,7 +8,11 @@ namespace DAP_Filler
     {
     public static class C
         {
-        public static int NOT_FOUND = -1;
+
+
+  
+
+    public static int NOT_FOUND = -1;
         public static int NONE = 0;
         public static int USE_A = 1;
         public static int USE_D = 2;
@@ -21,6 +25,9 @@ namespace DAP_Filler
         public static String tab1 = "Data";
         public static String tab2 = "Assessment";
         public static String tab3 = "Plan";
+
+        public static String settingsFilename = "config.json";
+        public static String settingsFilenameBackup = "configBackup.json";
 
         public static Boolean learnMode = true;
         public static Boolean autoArrows = true;
@@ -80,6 +87,7 @@ namespace DAP_Filler
             {
             return Char.ToUpper(input[0]) + input.Substring(1);
             }
+        // -------------------------------------------------------------------------------------------------
 
 
         }

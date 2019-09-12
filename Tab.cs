@@ -14,28 +14,34 @@ namespace DAP_Filler
     {
     class Tab
         {
-        public List<int> checkboxClicks;
-        public String tabName = "";
         public List<AutoFillEntry> autoFillList;
         public BindingList<AutoFillEntry> bindingList;
-        public int autoSortIndex = 0;
-        public int rowSelected = 0;
-        public int colSelected = 1;
         public ComboBox autoSortCB;
         public TextBox entryBox;
         public TextBox searchBox;
-        public List<int> searchHits;
-        public Boolean searchMode = false;
-        public int searchIndex = 0;
         public DataGridView dataGridView;
-        public SortOrder[] sortOrder = new SortOrder[3];
+        public List<int> checkboxClicks; /// Records the order of checkboxes clicked
+        public String tabName = ""; /// The name of the tab
+        public int autoSortIndex = 0;
+        public int rowSelected = 0;
+        public int colSelected = 1;
+        public List<int> searchHits; /// Records the sequence of search hits when searching
+        public Boolean searchMode = false; /// True if focus is on search texbox
+        public int searchIndex = 0; /// The current index of search results displayed (pressing <Enter> displays the next search hit)
+        public SortOrder[] sortOrder = new SortOrder[3]; /// Records the current sort order for each sortable column (index 0 is not used)
         // -------------------------------------------------------------------------------------------------
-
         public Tab(String name)
             {
-            Console.WriteLine("Init new tab : " + name);
+            Console.WriteLine("New tab constructor: " + name);
             this.tabName = name;
+            TabReset();
+            }
+        // -------------------------------------------------------------------------------------------------
+        public void TabReset()
+            {
+            Console.WriteLine("InitTab() : " + tabName);
             LoadAutoFillList();
+            LoadSettings();
             this.searchHits = new List<int>();
             this.checkboxClicks = new List<int>();
             sortOrder[0] = SortOrder.None;
@@ -44,8 +50,9 @@ namespace DAP_Filler
             this.bindingList = new BindingList<AutoFillEntry>(autoFillList);
             }
         // -------------------------------------------------------------------------------------------------
-        public void InitTab(DataGridView dataGridView, TextBox textBox, TextBox searchBox, ComboBox comboBox)
+        public void InitTabComponents(DataGridView dataGridView, TextBox textBox, TextBox searchBox, ComboBox comboBox)
             {
+            Console.WriteLine("InitTabComponents() : " + tabName);
             this.entryBox = textBox;
             this.autoSortCB = comboBox;
             this.searchBox = searchBox;
@@ -54,19 +61,26 @@ namespace DAP_Filler
             this.dataGridView.RowHeadersVisible = false;
             }
         // -------------------------------------------------------------------------------------------------
-        public void ResetBindingList()
+        public void ResetTabComponents()
             {
-            bindingList = new BindingList<AutoFillEntry>(autoFillList);
-            dataGridView.DataSource = bindingList;
+            Console.WriteLine("ResetTabComponents() : " + tabName);
+            autoSortCB.SelectedIndex = autoSortIndex;
+            ResetBindingList();
+            if (tabName.Equals(C.tab1))
+                entryBox.Text = Form1.Settings.entryBoxText_D;
+            else if (tabName.Equals(C.tab2))
+                entryBox.Text = Form1.Settings.entryBoxText_A;
+            else
+                entryBox.Text = Form1.Settings.entryBoxText_P;
+
             }
         // -------------------------------------------------------------------------------------------------
-        private void PopulateList()
+        public void ResetBindingList()
             {
-            for (int i = 10; i >= 0; i--)
-                {
-                AutoFillEntry ae = new AutoFillEntry("This is autofill " + i + ".", i);
-                autoFillList.Add(ae);
-                }
+            Console.WriteLine("ResetBindingList() : " + tabName);
+            SetAutoSortCB();
+            bindingList = new BindingList<AutoFillEntry>(autoFillList);
+            dataGridView.DataSource = bindingList;
             }
         // -------------------------------------------------------------------------------------------------
         public void PrintList()
@@ -141,10 +155,11 @@ namespace DAP_Filler
             { }
         public void EntryBox_Leave()
             {
-            Console.WriteLine("EntryBox_Leave : " + tabName);
+            Console.WriteLine("EntryBox_Leave() : " + tabName);
             String newS = C.genericPeerName.Substring(0, C.genericPeerName.Length - 1) + "s" + ">"; /// Makes a plural version of the peer name with arrows 
             String[] list = { C.StripArrows(C.genericName), C.genericName, C.StripArrows(C.genericPatientName), C.genericPatientName, C.StripArrows(C.genericPeerName), C.genericPeerName, C.StripArrows(C.genericPeerName)+ "s", newS };
             entryBox.Text = ReplaceWordsInStringRegex(C.StripArrows(entryBox.Text), list); /// Strips the existing arrows from the textbox before making adjustments.
+            SaveEntryBoxText();
             }
         public void EntryBox_TextChanged()
             { }
@@ -174,7 +189,7 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void ResetGrid()
             {
-            Console.WriteLine("ResetGrid()");
+            Console.WriteLine("ResetGrid() : " + tabName);
             dataGridView.DataSource = null;
             bindingList = new BindingList<AutoFillEntry>(autoFillList);
             dataGridView.DataSource = bindingList;
@@ -368,7 +383,7 @@ namespace DAP_Filler
             checkboxClicks.Clear();
             ResetGrid();
 
-            PrintList();
+            //PrintList();
             }
         // -------------------------------------------------------------------------------------------------
         public SortOrder GetCurrentSortOrder(int col)
@@ -606,21 +621,24 @@ namespace DAP_Filler
             SaveAutoFillList();
             }
         // -------------------------------------------------------------------------------------------------
-        // Trims leading and trailing spaces
+        // Trims leading and trailing spaces of string
         public String TrimSpaces(String s)
             {
             Regex trimmer = new Regex(@"  +");
             return trimmer.Replace(s, " ").Trim(' ');
             }
         // -------------------------------------------------------------------------------------------------
+        /// Rechecks all the grid data rows checkboxes (in the event the grid is changed, this method is needed)
         public void RecheckBoxes()
             {
+            Console.WriteLine("RecheckBoxes() : " + tabName);
             for (int i = 0; i < checkboxClicks.Count; i++)
                 dataGridView.Rows[checkboxClicks[i]].Cells[0].Value = true;
             }
         // -------------------------------------------------------------------------------------------------
         public void CheckAll()
             {
+            Console.WriteLine("CheckAll() : " + tabName);
             checkboxClicks.Clear();
             for (int i = 0; i < autoFillList.Count; i++)
                 {
@@ -640,6 +658,7 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         public void UnCheckAll()
             {
+            Console.WriteLine("UnCheckAll() : " + tabName);
             checkboxClicks.Clear();
             for (int i = 0; i < autoFillList.Count; i++)
                 {
@@ -647,14 +666,17 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
+        /// Sets the auto sort combobox to the current setting
         public void SetAutoSortCB()
             {
+            Console.WriteLine("SetAutoSortCB() : " + tabName);
             autoSortCB.SelectedIndex = autoSortIndex;
             AutoSortIndexChanged(autoSortIndex);
             }
         // -------------------------------------------------------------------------------------------------
         public void AutoSortIndexChanged(int index)
             {
+            Console.WriteLine("AutoSortIndexChanged() : " + tabName);
             autoSortIndex = index;
             if (index == C.NONE)
                 return;
@@ -681,31 +703,37 @@ namespace DAP_Filler
             SaveAutoFillList();
             }
         // -------------------------------------------------------------------------------------------------
+        /// Saves the entry box text to settings
         public void SaveEntryBoxText()
             {
+            Console.WriteLine("SaveEntryBoxText() : " + tabName);
             if (tabName.Equals(C.tab1))
-                Properties.Settings.Default.entryBoxText_D = entryBox.Text;
+                Form1.Settings.entryBoxText_D = entryBox.Text;
             else if (tabName.Equals(C.tab2))
-                Properties.Settings.Default.entryBoxText_A = entryBox.Text;
+                Form1.Settings.entryBoxText_A = entryBox.Text;
             else
-                Properties.Settings.Default.entryBoxText_P = entryBox.Text;
-            Properties.Settings.Default.Save();
+                Form1.Settings.entryBoxText_P = entryBox.Text;
+            Form1.Settings.Save();
 
             }
         // -------------------------------------------------------------------------------------------------
+        /// Saves the auto sort index to settings
         public void SaveAutoSort()
             {
+            Console.WriteLine("SaveAutoSort() : " + tabName);
             if (tabName.Equals(C.tab1))
-                Properties.Settings.Default.autoSort_D = autoSortIndex;
+                Form1.Settings.autoSort_D = autoSortIndex;
             else if (tabName.Equals(C.tab2))
-                Properties.Settings.Default.autoSort_A = autoSortIndex;
+                Form1.Settings.autoSort_A = autoSortIndex;
             else
-                Properties.Settings.Default.autoSort_P = autoSortIndex;
-            Properties.Settings.Default.Save();
+                Form1.Settings.autoSort_P = autoSortIndex;
+            Form1.Settings.Save();
             }
         // -------------------------------------------------------------------------------------------------
+        /// Saves the auto fill list to settings
         public void SaveAutoFillList()
             {
+            Console.WriteLine("SaveAutoFillList() : " + tabName);
             using (MemoryStream ms = new MemoryStream())
                 {
                 BinaryFormatter bf = new BinaryFormatter();
@@ -713,29 +741,37 @@ namespace DAP_Filler
                 ms.Position = 0;
                 byte[] buffer = new byte[(int)ms.Length];
                 ms.Read(buffer, 0, buffer.Length);
-                if(tabName.Equals(C.tab1))
-                    Properties.Settings.Default.tabData = Convert.ToBase64String(buffer);
-                else if (tabName.Equals(C.tab2))
-                    Properties.Settings.Default.tabAssessment = Convert.ToBase64String(buffer);
-                else Properties.Settings.Default.tabPlan = Convert.ToBase64String(buffer);
 
-                Properties.Settings.Default.Save();
+                if (tabName.Equals(C.tab1))
+                    Form1.Settings.gridEntries_D = Convert.ToBase64String(buffer);
+                else if (tabName.Equals(C.tab2))
+                    Form1.Settings.gridEntries_A = Convert.ToBase64String(buffer);
+                else
+                    Form1.Settings.gridEntries_P = Convert.ToBase64String(buffer);
+
+                Form1.Settings.Save();
                 }
             }
         // -------------------------------------------------------------------------------------------------
+        /// Loads the auto fill list from settings
         public void LoadAutoFillList()
             {
+            Console.WriteLine("LoadAutoFillList() : " + tabName);
             MemoryStream ms = null;
+
             if (tabName.Equals(C.tab1))
-                ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabData));
+                ms = new MemoryStream(Convert.FromBase64String(Form1.Settings.gridEntries_D));
             else if (tabName.Equals(C.tab2))
-                ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabAssessment));
-            else ms = new MemoryStream(Convert.FromBase64String(Properties.Settings.Default.tabPlan));
+                ms = new MemoryStream(Convert.FromBase64String(Form1.Settings.gridEntries_A));
+            else ms = new MemoryStream(Convert.FromBase64String(Form1.Settings.gridEntries_P));
 
             using (ms)
                 {
                 if (ms.Length == 0)
+                    {
+                    Console.WriteLine("LoadAutoFillList() : memory stream is empty");
                     autoFillList = new List<AutoFillEntry>();
+                    }
                 else
                     {
                     BinaryFormatter bf = new BinaryFormatter();
@@ -744,14 +780,25 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
+        public void LoadSettings()
+            {
+            Console.WriteLine("LoadSettings() : " + tabName);
+            if (tabName.Equals(C.tab1))
+                autoSortIndex = Form1.Settings.autoSort_D;
+            else if (tabName.Equals(C.tab2))
+                autoSortIndex = Form1.Settings.autoSort_A;
+            else
+                autoSortIndex = Form1.Settings.autoSort_P;
+            }
+        // -------------------------------------------------------------------------------------------------
         public void SearchBoxLeave()
             {
+            Console.WriteLine("SearchBoxLeave() : " + tabName);
             searchHits.Clear();
             dataGridView.ClearSelection();
             searchMode = false;
             searchIndex = 0;
             }
-        // -------------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------------
         public void SearchGrid()
             {

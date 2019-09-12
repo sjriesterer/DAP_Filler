@@ -98,12 +98,12 @@ namespace DAP_Filler.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string tabData {
+        public string gridEntries_D {
             get {
-                return ((string)(this["tabData"]));
+                return ((string)(this["gridEntries_D"]));
             }
             set {
-                this["tabData"] = value;
+                this["gridEntries_D"] = value;
             }
         }
         
@@ -146,24 +146,24 @@ namespace DAP_Filler.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string tabAssessment {
+        public string gridEntries_A {
             get {
-                return ((string)(this["tabAssessment"]));
+                return ((string)(this["gridEntries_A"]));
             }
             set {
-                this["tabAssessment"] = value;
+                this["gridEntries_A"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string tabPlan {
+        public string gridEntries_P {
             get {
-                return ((string)(this["tabPlan"]));
+                return ((string)(this["gridEntries_P"]));
             }
             set {
-                this["tabPlan"] = value;
+                this["gridEntries_P"] = value;
             }
         }
         

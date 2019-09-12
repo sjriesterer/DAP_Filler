@@ -73,9 +73,49 @@ namespace DAP_Filler.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _001_open_folder {
+            get {
+                object obj = ResourceManager.GetObject("001-open-folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _001_rubbish_bin {
             get {
                 object obj = ResourceManager.GetObject("001-rubbish-bin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _001_settings_gears {
+            get {
+                object obj = ResourceManager.GetObject("001-settings-gears", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _002_man_user {
+            get {
+                object obj = ResourceManager.GetObject("002-man-user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _002_repairing_service {
+            get {
+                object obj = ResourceManager.GetObject("002-repairing-service", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

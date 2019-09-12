@@ -20,7 +20,7 @@
     <Setting Name="genericPeerName" Type="System.String" Scope="User">
       <Value Profile="(Default)">&lt;Peer&gt;</Value>
     </Setting>
-    <Setting Name="tabData" Type="System.String" Scope="User">
+    <Setting Name="gridEntries_D" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="entryBoxText_D" Type="System.String" Scope="User">
@@ -32,10 +32,10 @@
     <Setting Name="entryBoxText_P" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="tabAssessment" Type="System.String" Scope="User">
+    <Setting Name="gridEntries_A" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="tabPlan" Type="System.String" Scope="User">
+    <Setting Name="gridEntries_P" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="autoArrows" Type="System.Boolean" Scope="User">

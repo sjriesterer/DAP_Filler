@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
+using System.Runtime.Serialization.Formatters.Binary;
 using nucs.JsonSettings;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,13 @@ namespace DAP_Filler
         private static Tab tabAssessment;
         private static Tab tabPlan;
         private static MySettings settings;
+        private static List<Patient> patientList;
 
         internal static Tab TabData { get => tabData; set => tabData = value; }
         internal static Tab TabAssessment { get => tabAssessment; set => tabAssessment = value; }
         internal static Tab TabPlan { get => tabPlan; set => tabPlan = value; }
         internal static MySettings Settings { get => settings; set => settings = value; }
+        internal static List<Patient> PatientList { get => patientList; set => patientList = value; }
 
         public Form1()
             {
@@ -39,14 +42,13 @@ namespace DAP_Filler
             InitializeComponent();
             InitTabs();
             InitComponents();
+            LoadPatientList();
             InitToolTips();
             SetLearnButtonVisibility();
             }
         // -------------------------------------------------------------------------------------------------
         // INIT METHODS 
         // -------------------------------------------------------------------------------------------------
-
-        /* ----------------------------------------------------------------------------------------*/
         private void InitComponents()
             {
             realNameTB.Text = C.realName;
@@ -76,7 +78,6 @@ namespace DAP_Filler
             {
             if (File.Exists(GetSettingsFilePath(C.settingsFilename)))
                 {
-                Settings = VerifySettingsFile(GetSettingsFilePath(C.settingsFilename));
                 if (Settings == null) /// Settings file is invalid
                     {
                     //TODO
@@ -113,6 +114,11 @@ namespace DAP_Filler
             TabPlan.TabReset();
             }
         /* ----------------------------------------------------------------------------------------*/
+        private void InitPatientList()
+            {
+
+            }
+        /* ----------------------------------------------------------------------------------------*/
         private void InitToolTips()
             {
             ToolTip ToolTipNew = new ToolTip();
@@ -125,6 +131,7 @@ namespace DAP_Filler
             ToolTip ToolTipHappyFace = new ToolTip();
             ToolTip ToolTipSave = new ToolTip();
             ToolTip ToolTipLoad = new ToolTip();
+            ToolTip ToolTipSavedHistory = new ToolTip();
 
             ToolTipNew.SetToolTip(NewPatientButton, "Start a new patient");
             ToolTipDefaults.SetToolTip(DefaultButton, "Returns to defaults");
@@ -136,6 +143,7 @@ namespace DAP_Filler
             ToolTipHappyFace.SetToolTip(happyFaceButton, "Click me");
             ToolTipSave.SetToolTip(saveButton, "Saves form and settings to external file");
             ToolTipLoad.SetToolTip(loadButton, "Loads form and settings from an external file");
+            ToolTipSavedHistory.SetToolTip(SavedHistoryButton, "Load a previous patient");
 
             String entryBoxTip = "Entry Box";
             String learnButtonTip = "Creates new entries based on the text in the entry box";
@@ -232,6 +240,41 @@ namespace DAP_Filler
                 LearnButton_D.Visible = true;
                 LearnButton_A.Visible = true;
                 LearnButton_P.Visible = true;
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void LoadPatientList()
+            {
+            Console.WriteLine("LoadPatientList()");
+            MemoryStream ms = null;
+            ms = new MemoryStream(Convert.FromBase64String(Form1.Settings.patientList));
+            using (ms)
+                {
+                if (ms.Length == 0)
+                    {
+                    Console.WriteLine("LoadPatientList() : memory stream is empty");
+                    PatientList = new List<Patient>();
+                    }
+                else
+                    {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    PatientList = (List<Patient>)bf.Deserialize(ms);
+                    }
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void SavePatientList()
+            {
+            Console.WriteLine("SavePatientList()");
+            using (MemoryStream ms = new MemoryStream())
+                {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, PatientList);
+                ms.Position = 0;
+                byte[] buffer = new byte[(int)ms.Length];
+                ms.Read(buffer, 0, buffer.Length);
+                Settings.patientList = Convert.ToBase64String(buffer);
+                Settings.Save();
                 }
             }
         // -------------------------------------------------------------------------------------------------
@@ -517,6 +560,7 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         // HAPPY FACE BUTTON
         // -------------------------------------------------------------------------------------------------
+        /// Displays a random quote
         private void HappyFace_Click(object sender, EventArgs e)
             {
             Random random = new Random();
@@ -537,7 +581,10 @@ namespace DAP_Filler
             saveFileDialog.FilterIndex = 1;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                /// Makes a new string from the filename (strips any valid extension and adds the .json extension):
                 String destination = Path.GetDirectoryName(saveFileDialog.FileName) + "/" + Path.GetFileNameWithoutExtension(saveFileDialog.FileName) + ".json";
+                if (!File.Exists(GetSettingsFilePath(C.settingsFilename))) /// If config.json file does not exist for some reason
+                    ReconstructSettingsFromFile();
                 if (!CopyFile(GetSettingsFilePath(C.settingsFilename), destination))
                     {
                     MessageBox.Show("Unable to save settings file \"" + destination + "\".", "Error");
@@ -573,13 +620,44 @@ namespace DAP_Filler
                 }
             }
         // -------------------------------------------------------------------------------------------------
+        private void ReconstructSettingsFromFile()
+            {
+            Settings = JsonSettings.Load<MySettings>(C.settingsFilename);
+            Settings.isMale = C.isMale;
+            Settings.oldIsMale = C.isMale;
+            Settings.realName = C.realName;
+            Settings.oldRealName = C.realName;
+            Settings.genericName = C.genericName;
+            Settings.oldGenericName = C.genericName;
+            Settings.genericPatientName = C.genericPatientName;
+            Settings.oldGenericPatientName = C.genericPatientName;
+            Settings.genericPeerName = C.genericPeerName;
+            Settings.oldGenericPeerName = C.genericPeerName;
+            Settings.learnMode = C.learnMode;
+            Settings.autoArrows = C.autoArrows;
+
+            Settings.entryBoxText_D = TabData.entryBox.Text;
+            Settings.autoSort_D = TabData.autoSortIndex;
+            TabData.SaveAutoFillList();
+
+            Settings.entryBoxText_A = TabAssessment.entryBox.Text;
+            Settings.autoSort_A = TabAssessment.autoSortIndex;
+            TabAssessment.SaveAutoFillList();
+
+            Settings.entryBoxText_P = TabPlan.entryBox.Text;
+            Settings.autoSort_P = TabPlan.autoSortIndex;
+            TabPlan.SaveAutoFillList();
+
+            //Settings.Save(); // No need to save because SaveAutoFillList() saves settings
+            }
+        // -------------------------------------------------------------------------------------------------
         private MySettings VerifySettingsFile(String filename)
             {
             JSchemaGenerator generator = new JSchemaGenerator();
             JSchema schema = generator.Generate(typeof(MySettings)); /// Generate schema from MySettings object
             using (StreamReader r = new StreamReader(filename))
                 {
-                string json = r.ReadToEnd();
+                string json = r.ReadToEnd(); /// Makes a string from the file contents
                 MySettings m = TryParseJson<MySettings>(json, schema);
                 return m;
                 }
@@ -662,15 +740,18 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         private void NewPatient_Click(object sender, EventArgs e)
             {
-            C.oldRealName = C.realNamePlaceholder;
+            SavePatient();
+
             C.realName = C.realNamePlaceholder;
-            realNameTB.Text = C.realNamePlaceholder;
-            MaleRadioButton.Checked = true;
-            C.oldIsMale = true;
+            C.oldRealName = C.realName;
+            realNameTB.Text = C.realName;
             C.isMale = true;
-            TabData.ResetTab();
-            TabAssessment.ResetTab();
-            TabPlan.ResetTab();
+            C.oldIsMale = true;
+            MaleRadioButton.Checked = true;
+            FemaleRadioButton.Checked = false;
+            TabData.ResetTab("");
+            TabAssessment.ResetTab("");
+            TabPlan.ResetTab("");
 
             Settings.realName = C.realName;
             Settings.isMale = C.isMale;
@@ -678,6 +759,63 @@ namespace DAP_Filler
             Settings.entryBoxText_A = TabAssessment.entryBox.Text;
             Settings.entryBoxText_P = TabPlan.entryBox.Text;
             Settings.Save();
+            }
+        // -------------------------------------------------------------------------------------------------
+        // SAVED HISTORY BUTTON (SAVE/LOAD PATIENT)
+        // -------------------------------------------------------------------------------------------------
+        private void SavedHistoryButton_Click(object sender, EventArgs e)
+            {
+            int index = LoadPatientForm.ShowDialog();
+            if (index >= 0) /// -1 is returned if user cancels load or closes form
+                {
+                Console.WriteLine("loading patient " + index);
+                LoadPatient(index);
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void LoadPatient(int index)
+            {
+            PrintPatientList();
+
+            C.realName = PatientList[index].name;
+            C.oldRealName = C.realName;
+            realNameTB.Text = C.realName;
+            C.isMale = PatientList[index].isMale;
+            C.oldIsMale = C.isMale;
+            MaleRadioButton.Checked = C.isMale;
+            FemaleRadioButton.Checked = !C.isMale;
+            TabData.ResetTab(PatientList[index].entryBoxText_D);
+            TabAssessment.ResetTab(PatientList[index].entryBoxText_A);
+            TabPlan.ResetTab(PatientList[index].entryBoxText_P);
+
+            Settings.realName = C.realName;
+            Settings.isMale = C.isMale;
+            Settings.entryBoxText_D = TabData.entryBox.Text;
+            Settings.entryBoxText_A = TabAssessment.entryBox.Text;
+            Settings.entryBoxText_P = TabPlan.entryBox.Text;
+            Settings.Save();
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void SavePatient()
+            {
+            Console.WriteLine("SavePatient()");
+            Patient p = new Patient(C.realName, C.isMale, TabData.entryBox.Text, TabAssessment.entryBox.Text, TabPlan.entryBox.Text);
+            if(PatientList.Count == C.maxSavedHistory)
+                {
+                PatientList.RemoveAt(C.maxSavedHistory - 1);
+                }
+            PatientList.Insert(0, p);
+            SavePatientList();
+            //PrintPatientList();
+            }
+        // -------------------------------------------------------------------------------------------------
+        private void PrintPatientList()
+            {
+            Console.WriteLine("PatientList : ");
+            foreach(var p in PatientList)
+                {
+                Console.WriteLine(p.name + ", Male: " + p.isMale + ", D: " + p.entryBoxText_D + ", A: " + p.entryBoxText_A + ", P: " + p.entryBoxText_P);
+                }
             }
         // -------------------------------------------------------------------------------------------------
         // ENTRY BOX
@@ -950,6 +1088,5 @@ namespace DAP_Filler
             { TabAssessment.AddRowButtonClick(); }
         private void AddRowButtonClick_P(object sender, EventArgs e)
             { TabPlan.AddRowButtonClick(); }
-
         }
     }

@@ -426,9 +426,9 @@ namespace DAP_Filler
                 PostEntry(row);
             }
         // -------------------------------------------------------------------------------------------------
-        public void ResetTab()
+        public void ResetTab(String text)
             {
-            entryBox.Text = "";
+            entryBox.Text = text;
             }
         // -------------------------------------------------------------------------------------------------
         public void RealNameChange()
@@ -559,14 +559,15 @@ namespace DAP_Filler
             return s;
             }
         // -------------------------------------------------------------------------------------------------
+        /// Replaces any occurance of wordToFind with replacement in the string original. Will ignore special
+        /// characters in the swap (e.g. replaces 
         public string ReplaceWholeWord(string original, string wordToFind, string replacement)
             {
             return original.Replace(wordToFind, replacement);
-            //string pattern = String.Format(@"\b{0}\b", wordToFind);
-            //string ret = Regex.Replace(original, pattern, replacement, RegexOptions.IgnoreCase);
-            //return ret;
             }
         // -------------------------------------------------------------------------------------------------
+        /// Replaces any occurance of wordToFind with replacement in the string original (uses Regex for the
+        /// swap: this will replace only whole word matches (e.g. will not replace car in racecar))
         public string ReplaceWholeWordRegex(string original, string wordToFind, string replacement)
             {
             string pattern = String.Format(@"\b{0}\b", wordToFind);
@@ -574,37 +575,37 @@ namespace DAP_Filler
             }
 
         // -------------------------------------------------------------------------------------------------
+        /// Analyzes sentences in entry box. If sentence is found in the auto fill list, it increments its use
+        /// variable. Else it adds it to the list of entries.
+        /// Also replaces real name with a generic one.
         public void Learn()
             {
             Console.WriteLine("Learn() : " + tabName);
             Boolean matchFound = true;
             entryBox.Text = TrimSpaces(entryBox.Text.ToString()) + " "; /// Trims extra spaces in entry box
-            string[] sentences = Regex.Split(entryBox.Text.ToString(), @"(?<=[\.!\?])\s+"); /// Splits sentences
-                                                                                            /// Loops through all the sentences and compares each one to the entries in the autoFillList:
+            string[] sentences = Regex.Split(entryBox.Text.ToString(), @"(?<=[\.!\?])\s+"); /// Splits sentences into array
+            /// Loops through all the sentences and compares each one to the entries in the autoFillList:
             for (int i = 0; i < sentences.Count<String>(); i++)
                 {
                 if (!String.IsNullOrWhiteSpace(sentences[i])) /// If not an empty string
                     {
-                    matchFound = false;
+                    matchFound = false; /// Assumes a match is not found
                     sentences[i] = ReplaceWholeWord(sentences[i], C.realName, C.genericName); /// Replaces real name with a generic one
-                    Console.WriteLine("\nsentence[" + i + "] = \"" + sentences[i] + "\"");
-                    foreach (var j in autoFillList)
+                    //Console.WriteLine("\nsentence[" + i + "] = \"" + sentences[i] + "\"");
+                    foreach (var j in autoFillList) /// Loops through the auto fill list:
                         {
-                        Console.WriteLine("autofill[] = \"" + j.Entry + "\"");
+                        //Console.WriteLine("autofill[] = \"" + j.Entry + "\"");
                         if (j.Entry.Equals(sentences[i])) /// Match found in list
                             {
                             j.Uses++;
                             matchFound = true;
                             break;
                             }
-                        else
-                            {
-                            matchFound = false;
-                            }
                         }
                     if (!matchFound) /// Looped through entire list, no match found
                         {
-                        AutoFillEntry ae = new AutoFillEntry(sentences[i]);
+                        /// Adds sentence to list:
+                        AutoFillEntry ae = new AutoFillEntry(sentences[i]); 
                         autoFillList.Add(ae);
                         }
                     }

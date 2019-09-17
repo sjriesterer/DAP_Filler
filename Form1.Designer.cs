@@ -40,7 +40,6 @@ namespace DAP_Filler
             this.genericPeerNameTB = new System.Windows.Forms.TextBox();
             this.learnModeCB = new System.Windows.Forms.CheckBox();
             this.genericPatientNameTB = new System.Windows.Forms.TextBox();
-            this.NewPatientButton = new System.Windows.Forms.Button();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.realNameTB = new System.Windows.Forms.TextBox();
@@ -102,10 +101,12 @@ namespace DAP_Filler
             this.CopyButton_P = new System.Windows.Forms.Button();
             this.CutButton_P = new System.Windows.Forms.Button();
             this.DeleteButton_P = new System.Windows.Forms.Button();
+            this.SavedHistoryButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.happyFaceButton = new System.Windows.Forms.Button();
             this.DefaultButton = new System.Windows.Forms.Button();
+            this.NewPatientButton = new System.Windows.Forms.Button();
             this.PatientGB.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
@@ -120,6 +121,7 @@ namespace DAP_Filler
             // 
             this.PatientGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PatientGB.Controls.Add(this.SavedHistoryButton);
             this.PatientGB.Controls.Add(this.saveButton);
             this.PatientGB.Controls.Add(this.loadButton);
             this.PatientGB.Controls.Add(this.happyFaceButton);
@@ -148,7 +150,7 @@ namespace DAP_Filler
             this.autoArrowsCB.AutoSize = true;
             this.autoArrowsCB.Checked = true;
             this.autoArrowsCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoArrowsCB.Location = new System.Drawing.Point(435, 15);
+            this.autoArrowsCB.Location = new System.Drawing.Point(400, 15);
             this.autoArrowsCB.Name = "autoArrowsCB";
             this.autoArrowsCB.Size = new System.Drawing.Size(63, 17);
             this.autoArrowsCB.TabIndex = 3;
@@ -212,7 +214,7 @@ namespace DAP_Filler
             this.learnModeCB.AutoSize = true;
             this.learnModeCB.Checked = true;
             this.learnModeCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.learnModeCB.Location = new System.Drawing.Point(507, 15);
+            this.learnModeCB.Location = new System.Drawing.Point(472, 15);
             this.learnModeCB.Name = "learnModeCB";
             this.learnModeCB.Size = new System.Drawing.Size(83, 17);
             this.learnModeCB.TabIndex = 4;
@@ -231,17 +233,6 @@ namespace DAP_Filler
             this.genericPatientNameTB.Enter += new System.EventHandler(this.PatientGenericNameTB_Enter);
             this.genericPatientNameTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GenericPatientNameTB_KeyUp);
             this.genericPatientNameTB.Leave += new System.EventHandler(this.PatientGenericNameTB_Leave);
-            // 
-            // NewPatientButton
-            // 
-            this.NewPatientButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_man_user;
-            this.NewPatientButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewPatientButton.Location = new System.Drawing.Point(600, 11);
-            this.NewPatientButton.Name = "NewPatientButton";
-            this.NewPatientButton.Size = new System.Drawing.Size(30, 30);
-            this.NewPatientButton.TabIndex = 5;
-            this.NewPatientButton.UseVisualStyleBackColor = true;
-            this.NewPatientButton.Click += new System.EventHandler(this.NewPatient_Click);
             // 
             // FemaleRadioButton
             // 
@@ -986,6 +977,17 @@ namespace DAP_Filler
             this.DeleteButton_P.UseVisualStyleBackColor = true;
             this.DeleteButton_P.Click += new System.EventHandler(this.DeleteButton_Click_P);
             // 
+            // SavedHistoryButton
+            // 
+            this.SavedHistoryButton.BackgroundImage = global::DAP_Filler.Properties.Resources.group;
+            this.SavedHistoryButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SavedHistoryButton.Location = new System.Drawing.Point(565, 11);
+            this.SavedHistoryButton.Name = "SavedHistoryButton";
+            this.SavedHistoryButton.Size = new System.Drawing.Size(30, 30);
+            this.SavedHistoryButton.TabIndex = 16;
+            this.SavedHistoryButton.UseVisualStyleBackColor = true;
+            this.SavedHistoryButton.Click += new System.EventHandler(this.SavedHistoryButton_Click);
+            // 
             // saveButton
             // 
             this.saveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
@@ -1029,6 +1031,17 @@ namespace DAP_Filler
             this.DefaultButton.TabIndex = 6;
             this.DefaultButton.UseVisualStyleBackColor = true;
             this.DefaultButton.Click += new System.EventHandler(this.ReturnToDefaults);
+            // 
+            // NewPatientButton
+            // 
+            this.NewPatientButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_man_user;
+            this.NewPatientButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewPatientButton.Location = new System.Drawing.Point(600, 11);
+            this.NewPatientButton.Name = "NewPatientButton";
+            this.NewPatientButton.Size = new System.Drawing.Size(30, 30);
+            this.NewPatientButton.TabIndex = 5;
+            this.NewPatientButton.UseVisualStyleBackColor = true;
+            this.NewPatientButton.Click += new System.EventHandler(this.NewPatient_Click);
             // 
             // Form1
             // 
@@ -1133,6 +1146,7 @@ namespace DAP_Filler
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.Button SavedHistoryButton;
         }
 }
 

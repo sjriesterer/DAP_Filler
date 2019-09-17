@@ -44,6 +44,8 @@ namespace DAP_Filler
         [Required] public string gridEntries_A { get; set; } = "";
         [Required] public string gridEntries_P { get; set; } = "";
 
+        public string patientList { get; set; } = "";
+
         #endregion
         //Step 3: Override parent's constructors
         public MySettings() { }

@@ -49,6 +49,15 @@ namespace DAP_Filler
         // -------------------------------------------------------------------------------------------------
         // INIT METHODS 
         // -------------------------------------------------------------------------------------------------
+        private void Form1_Load(object sender, EventArgs e)
+            {
+            PasswordForm frm = new PasswordForm();
+            if (!frm.ShowDialog())
+                {
+                this.Close();
+                }
+            }
+        // -------------------------------------------------------------------------------------------------
         private void InitComponents()
             {
             realNameTB.Text = C.realName;

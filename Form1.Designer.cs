@@ -32,14 +32,20 @@ namespace DAP_Filler
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.PatientGB = new System.Windows.Forms.GroupBox();
+            this.SavedHistoryButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
+            this.happyFaceButton = new System.Windows.Forms.Button();
             this.autoArrowsCB = new System.Windows.Forms.CheckBox();
             this.genericNameTB = new System.Windows.Forms.TextBox();
             this.GenericNameLabel = new System.Windows.Forms.Label();
+            this.DefaultButton = new System.Windows.Forms.Button();
             this.GenericPeerNameLabel = new System.Windows.Forms.Label();
             this.GenericPatientNameLabel = new System.Windows.Forms.Label();
             this.genericPeerNameTB = new System.Windows.Forms.TextBox();
             this.learnModeCB = new System.Windows.Forms.CheckBox();
             this.genericPatientNameTB = new System.Windows.Forms.TextBox();
+            this.NewPatientButton = new System.Windows.Forms.Button();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.realNameTB = new System.Windows.Forms.TextBox();
@@ -49,10 +55,19 @@ namespace DAP_Filler
             this.searchTB_D = new System.Windows.Forms.TextBox();
             this.autoSortLabel = new System.Windows.Forms.Label();
             this.autoSortCB_D = new System.Windows.Forms.ComboBox();
+            this.CheckAllButton_D = new System.Windows.Forms.Button();
+            this.UnCheckAllButton_D = new System.Windows.Forms.Button();
+            this.PostButton_D = new System.Windows.Forms.Button();
+            this.DeleteRowsButton_D = new System.Windows.Forms.Button();
+            this.LearnButton_D = new System.Windows.Forms.Button();
+            this.AddEntryButton_D = new System.Windows.Forms.Button();
             this.DataGridView_D = new System.Windows.Forms.DataGridView();
             this.CheckBoxCol_D = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Uses_D = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Entry_D = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CopyButton_D = new System.Windows.Forms.Button();
+            this.CutButton_D = new System.Windows.Forms.Button();
+            this.DeleteButton_D = new System.Windows.Forms.Button();
             this.EntryBox_D = new System.Windows.Forms.TextBox();
             this.AssessmentTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,6 +79,15 @@ namespace DAP_Filler
             this.UsesCol_A = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryCol_A = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryBox_A = new System.Windows.Forms.TextBox();
+            this.CheckAllButton_A = new System.Windows.Forms.Button();
+            this.UnCheckAllButton_A = new System.Windows.Forms.Button();
+            this.PostButton_A = new System.Windows.Forms.Button();
+            this.DeleteRowsButton_A = new System.Windows.Forms.Button();
+            this.LearnButton_A = new System.Windows.Forms.Button();
+            this.AddEntryButton_A = new System.Windows.Forms.Button();
+            this.CopyButton_A = new System.Windows.Forms.Button();
+            this.CutButton_A = new System.Windows.Forms.Button();
+            this.DeleteButton_A = new System.Windows.Forms.Button();
             this.PlanTab = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.searchTB_P = new System.Windows.Forms.TextBox();
@@ -74,24 +98,6 @@ namespace DAP_Filler
             this.UsesCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryCol_P = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryBox_P = new System.Windows.Forms.TextBox();
-            this.CheckAllButton_D = new System.Windows.Forms.Button();
-            this.UnCheckAllButton_D = new System.Windows.Forms.Button();
-            this.PostButton_D = new System.Windows.Forms.Button();
-            this.DeleteRowsButton_D = new System.Windows.Forms.Button();
-            this.LearnButton_D = new System.Windows.Forms.Button();
-            this.AddEntryButton_D = new System.Windows.Forms.Button();
-            this.CopyButton_D = new System.Windows.Forms.Button();
-            this.CutButton_D = new System.Windows.Forms.Button();
-            this.DeleteButton_D = new System.Windows.Forms.Button();
-            this.CheckAllButton_A = new System.Windows.Forms.Button();
-            this.UnCheckAllButton_A = new System.Windows.Forms.Button();
-            this.PostButton_A = new System.Windows.Forms.Button();
-            this.DeleteRowsButton_A = new System.Windows.Forms.Button();
-            this.LearnButton_A = new System.Windows.Forms.Button();
-            this.AddEntryButton_A = new System.Windows.Forms.Button();
-            this.CopyButton_A = new System.Windows.Forms.Button();
-            this.CutButton_A = new System.Windows.Forms.Button();
-            this.DeleteButton_A = new System.Windows.Forms.Button();
             this.CheckAllButton_P = new System.Windows.Forms.Button();
             this.UnCheckAllButton_P = new System.Windows.Forms.Button();
             this.PostButton_P = new System.Windows.Forms.Button();
@@ -101,12 +107,6 @@ namespace DAP_Filler
             this.CopyButton_P = new System.Windows.Forms.Button();
             this.CutButton_P = new System.Windows.Forms.Button();
             this.DeleteButton_P = new System.Windows.Forms.Button();
-            this.SavedHistoryButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.loadButton = new System.Windows.Forms.Button();
-            this.happyFaceButton = new System.Windows.Forms.Button();
-            this.DefaultButton = new System.Windows.Forms.Button();
-            this.NewPatientButton = new System.Windows.Forms.Button();
             this.PatientGB.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.DataTab.SuspendLayout();
@@ -145,6 +145,50 @@ namespace DAP_Filler
             this.PatientGB.TabStop = false;
             this.PatientGB.Text = "Patient";
             // 
+            // SavedHistoryButton
+            // 
+            this.SavedHistoryButton.BackgroundImage = global::DAP_Filler.Properties.Resources.group;
+            this.SavedHistoryButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SavedHistoryButton.Location = new System.Drawing.Point(565, 11);
+            this.SavedHistoryButton.Name = "SavedHistoryButton";
+            this.SavedHistoryButton.Size = new System.Drawing.Size(30, 30);
+            this.SavedHistoryButton.TabIndex = 16;
+            this.SavedHistoryButton.UseVisualStyleBackColor = true;
+            this.SavedHistoryButton.Click += new System.EventHandler(this.SavedHistoryButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
+            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.saveButton.Location = new System.Drawing.Point(635, 11);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(30, 30);
+            this.saveButton.TabIndex = 15;
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // loadButton
+            // 
+            this.loadButton.BackgroundImage = global::DAP_Filler.Properties.Resources._001_open_folder;
+            this.loadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.loadButton.Location = new System.Drawing.Point(671, 11);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(30, 30);
+            this.loadButton.TabIndex = 14;
+            this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.LoadButton_Click);
+            // 
+            // happyFaceButton
+            // 
+            this.happyFaceButton.BackgroundImage = global::DAP_Filler.Properties.Resources.happy;
+            this.happyFaceButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.happyFaceButton.Location = new System.Drawing.Point(742, 11);
+            this.happyFaceButton.Name = "happyFaceButton";
+            this.happyFaceButton.Size = new System.Drawing.Size(30, 30);
+            this.happyFaceButton.TabIndex = 7;
+            this.happyFaceButton.UseVisualStyleBackColor = true;
+            this.happyFaceButton.Click += new System.EventHandler(this.HappyFace_Click);
+            // 
             // autoArrowsCB
             // 
             this.autoArrowsCB.AutoSize = true;
@@ -178,6 +222,17 @@ namespace DAP_Filler
             this.GenericNameLabel.Size = new System.Drawing.Size(78, 13);
             this.GenericNameLabel.TabIndex = 8;
             this.GenericNameLabel.Text = "Generic Name:";
+            // 
+            // DefaultButton
+            // 
+            this.DefaultButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_repairing_service;
+            this.DefaultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DefaultButton.Location = new System.Drawing.Point(706, 11);
+            this.DefaultButton.Name = "DefaultButton";
+            this.DefaultButton.Size = new System.Drawing.Size(30, 30);
+            this.DefaultButton.TabIndex = 6;
+            this.DefaultButton.UseVisualStyleBackColor = true;
+            this.DefaultButton.Click += new System.EventHandler(this.ReturnToDefaults);
             // 
             // GenericPeerNameLabel
             // 
@@ -233,6 +288,17 @@ namespace DAP_Filler
             this.genericPatientNameTB.Enter += new System.EventHandler(this.PatientGenericNameTB_Enter);
             this.genericPatientNameTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GenericPatientNameTB_KeyUp);
             this.genericPatientNameTB.Leave += new System.EventHandler(this.PatientGenericNameTB_Leave);
+            // 
+            // NewPatientButton
+            // 
+            this.NewPatientButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_man_user;
+            this.NewPatientButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewPatientButton.Location = new System.Drawing.Point(600, 11);
+            this.NewPatientButton.Name = "NewPatientButton";
+            this.NewPatientButton.Size = new System.Drawing.Size(30, 30);
+            this.NewPatientButton.TabIndex = 5;
+            this.NewPatientButton.UseVisualStyleBackColor = true;
+            this.NewPatientButton.Click += new System.EventHandler(this.NewPatient_Click);
             // 
             // FemaleRadioButton
             // 
@@ -356,6 +422,72 @@ namespace DAP_Filler
             this.autoSortCB_D.TabIndex = 6;
             this.autoSortCB_D.SelectedIndexChanged += new System.EventHandler(this.AutoSortCB_D_SelectedIndexChanged);
             // 
+            // CheckAllButton_D
+            // 
+            this.CheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
+            this.CheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CheckAllButton_D.Location = new System.Drawing.Point(593, 98);
+            this.CheckAllButton_D.Name = "CheckAllButton_D";
+            this.CheckAllButton_D.Size = new System.Drawing.Size(30, 30);
+            this.CheckAllButton_D.TabIndex = 10;
+            this.CheckAllButton_D.UseVisualStyleBackColor = true;
+            this.CheckAllButton_D.Click += new System.EventHandler(this.CheckAll_Click_D);
+            // 
+            // UnCheckAllButton_D
+            // 
+            this.UnCheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
+            this.UnCheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UnCheckAllButton_D.Location = new System.Drawing.Point(628, 98);
+            this.UnCheckAllButton_D.Name = "UnCheckAllButton_D";
+            this.UnCheckAllButton_D.Size = new System.Drawing.Size(30, 30);
+            this.UnCheckAllButton_D.TabIndex = 11;
+            this.UnCheckAllButton_D.UseVisualStyleBackColor = true;
+            this.UnCheckAllButton_D.Click += new System.EventHandler(this.UnCheckAll_Click_D);
+            // 
+            // PostButton_D
+            // 
+            this.PostButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PostButton_D.BackgroundImage")));
+            this.PostButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PostButton_D.Location = new System.Drawing.Point(663, 98);
+            this.PostButton_D.Name = "PostButton_D";
+            this.PostButton_D.Size = new System.Drawing.Size(30, 30);
+            this.PostButton_D.TabIndex = 12;
+            this.PostButton_D.UseVisualStyleBackColor = true;
+            this.PostButton_D.Click += new System.EventHandler(this.PostButton_Click_D);
+            // 
+            // DeleteRowsButton_D
+            // 
+            this.DeleteRowsButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteRowsButton_D.BackgroundImage")));
+            this.DeleteRowsButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteRowsButton_D.Location = new System.Drawing.Point(698, 98);
+            this.DeleteRowsButton_D.Name = "DeleteRowsButton_D";
+            this.DeleteRowsButton_D.Size = new System.Drawing.Size(30, 30);
+            this.DeleteRowsButton_D.TabIndex = 13;
+            this.DeleteRowsButton_D.UseVisualStyleBackColor = true;
+            this.DeleteRowsButton_D.Click += new System.EventHandler(this.DeleteButtonRows_Click_D);
+            // 
+            // LearnButton_D
+            // 
+            this.LearnButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_D.BackgroundImage")));
+            this.LearnButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LearnButton_D.Location = new System.Drawing.Point(105, 98);
+            this.LearnButton_D.Name = "LearnButton_D";
+            this.LearnButton_D.Size = new System.Drawing.Size(30, 30);
+            this.LearnButton_D.TabIndex = 4;
+            this.LearnButton_D.UseVisualStyleBackColor = true;
+            this.LearnButton_D.Click += new System.EventHandler(this.LearnButton_D_Click);
+            // 
+            // AddEntryButton_D
+            // 
+            this.AddEntryButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton_D.BackgroundImage")));
+            this.AddEntryButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddEntryButton_D.Location = new System.Drawing.Point(733, 98);
+            this.AddEntryButton_D.Name = "AddEntryButton_D";
+            this.AddEntryButton_D.Size = new System.Drawing.Size(30, 30);
+            this.AddEntryButton_D.TabIndex = 14;
+            this.AddEntryButton_D.UseVisualStyleBackColor = true;
+            this.AddEntryButton_D.Click += new System.EventHandler(this.AddRowButtonClick_D);
+            // 
             // DataGridView_D
             // 
             this.DataGridView_D.AllowUserToAddRows = false;
@@ -404,6 +536,39 @@ namespace DAP_Filler
             this.Entry_D.Name = "Entry_D";
             this.Entry_D.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Entry_D.ToolTipText = "Autofill Entries (Click to sort)";
+            // 
+            // CopyButton_D
+            // 
+            this.CopyButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyButton_D.BackgroundImage")));
+            this.CopyButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CopyButton_D.Location = new System.Drawing.Point(70, 98);
+            this.CopyButton_D.Name = "CopyButton_D";
+            this.CopyButton_D.Size = new System.Drawing.Size(30, 30);
+            this.CopyButton_D.TabIndex = 3;
+            this.CopyButton_D.UseVisualStyleBackColor = true;
+            this.CopyButton_D.Click += new System.EventHandler(this.CopyButton_Click_D);
+            // 
+            // CutButton_D
+            // 
+            this.CutButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CutButton_D.BackgroundImage")));
+            this.CutButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CutButton_D.Location = new System.Drawing.Point(35, 98);
+            this.CutButton_D.Name = "CutButton_D";
+            this.CutButton_D.Size = new System.Drawing.Size(30, 30);
+            this.CutButton_D.TabIndex = 2;
+            this.CutButton_D.UseVisualStyleBackColor = true;
+            this.CutButton_D.Click += new System.EventHandler(this.CutButton_Click_D);
+            // 
+            // DeleteButton_D
+            // 
+            this.DeleteButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton_D.BackgroundImage")));
+            this.DeleteButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteButton_D.Location = new System.Drawing.Point(0, 98);
+            this.DeleteButton_D.Name = "DeleteButton_D";
+            this.DeleteButton_D.Size = new System.Drawing.Size(30, 30);
+            this.DeleteButton_D.TabIndex = 1;
+            this.DeleteButton_D.UseVisualStyleBackColor = true;
+            this.DeleteButton_D.Click += new System.EventHandler(this.DeleteButton_Click_D);
             // 
             // EntryBox_D
             // 
@@ -551,6 +716,105 @@ namespace DAP_Filler
             this.EntryBox_A.Enter += new System.EventHandler(this.EntryBox_Enter_A);
             this.EntryBox_A.Leave += new System.EventHandler(this.EntryBox_Leave_A);
             // 
+            // CheckAllButton_A
+            // 
+            this.CheckAllButton_A.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
+            this.CheckAllButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CheckAllButton_A.Location = new System.Drawing.Point(593, 98);
+            this.CheckAllButton_A.Name = "CheckAllButton_A";
+            this.CheckAllButton_A.Size = new System.Drawing.Size(30, 30);
+            this.CheckAllButton_A.TabIndex = 5;
+            this.CheckAllButton_A.UseVisualStyleBackColor = true;
+            this.CheckAllButton_A.Click += new System.EventHandler(this.CheckAll_Click_A);
+            // 
+            // UnCheckAllButton_A
+            // 
+            this.UnCheckAllButton_A.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
+            this.UnCheckAllButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UnCheckAllButton_A.Location = new System.Drawing.Point(628, 98);
+            this.UnCheckAllButton_A.Name = "UnCheckAllButton_A";
+            this.UnCheckAllButton_A.Size = new System.Drawing.Size(30, 30);
+            this.UnCheckAllButton_A.TabIndex = 6;
+            this.UnCheckAllButton_A.UseVisualStyleBackColor = true;
+            this.UnCheckAllButton_A.Click += new System.EventHandler(this.UnCheckAll_Click_A);
+            // 
+            // PostButton_A
+            // 
+            this.PostButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PostButton_A.BackgroundImage")));
+            this.PostButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PostButton_A.Location = new System.Drawing.Point(663, 98);
+            this.PostButton_A.Name = "PostButton_A";
+            this.PostButton_A.Size = new System.Drawing.Size(30, 30);
+            this.PostButton_A.TabIndex = 7;
+            this.PostButton_A.UseVisualStyleBackColor = true;
+            this.PostButton_A.Click += new System.EventHandler(this.PostButton_Click_A);
+            // 
+            // DeleteRowsButton_A
+            // 
+            this.DeleteRowsButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteRowsButton_A.BackgroundImage")));
+            this.DeleteRowsButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteRowsButton_A.Location = new System.Drawing.Point(698, 98);
+            this.DeleteRowsButton_A.Name = "DeleteRowsButton_A";
+            this.DeleteRowsButton_A.Size = new System.Drawing.Size(30, 30);
+            this.DeleteRowsButton_A.TabIndex = 8;
+            this.DeleteRowsButton_A.UseVisualStyleBackColor = true;
+            this.DeleteRowsButton_A.Click += new System.EventHandler(this.DeleteButtonRows_Click_A);
+            // 
+            // LearnButton_A
+            // 
+            this.LearnButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_A.BackgroundImage")));
+            this.LearnButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LearnButton_A.Location = new System.Drawing.Point(105, 98);
+            this.LearnButton_A.Name = "LearnButton_A";
+            this.LearnButton_A.Size = new System.Drawing.Size(30, 30);
+            this.LearnButton_A.TabIndex = 4;
+            this.LearnButton_A.UseVisualStyleBackColor = true;
+            this.LearnButton_A.Click += new System.EventHandler(this.LearnButton_A_Click);
+            // 
+            // AddEntryButton_A
+            // 
+            this.AddEntryButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton_A.BackgroundImage")));
+            this.AddEntryButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddEntryButton_A.Location = new System.Drawing.Point(733, 98);
+            this.AddEntryButton_A.Name = "AddEntryButton_A";
+            this.AddEntryButton_A.Size = new System.Drawing.Size(30, 30);
+            this.AddEntryButton_A.TabIndex = 9;
+            this.AddEntryButton_A.UseVisualStyleBackColor = true;
+            this.AddEntryButton_A.Click += new System.EventHandler(this.AddRowButtonClick_A);
+            // 
+            // CopyButton_A
+            // 
+            this.CopyButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyButton_A.BackgroundImage")));
+            this.CopyButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CopyButton_A.Location = new System.Drawing.Point(70, 98);
+            this.CopyButton_A.Name = "CopyButton_A";
+            this.CopyButton_A.Size = new System.Drawing.Size(30, 30);
+            this.CopyButton_A.TabIndex = 3;
+            this.CopyButton_A.UseVisualStyleBackColor = true;
+            this.CopyButton_A.Click += new System.EventHandler(this.CopyButton_Click_A);
+            // 
+            // CutButton_A
+            // 
+            this.CutButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CutButton_A.BackgroundImage")));
+            this.CutButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CutButton_A.Location = new System.Drawing.Point(35, 98);
+            this.CutButton_A.Name = "CutButton_A";
+            this.CutButton_A.Size = new System.Drawing.Size(30, 30);
+            this.CutButton_A.TabIndex = 2;
+            this.CutButton_A.UseVisualStyleBackColor = true;
+            this.CutButton_A.Click += new System.EventHandler(this.CutButton_Click_A);
+            // 
+            // DeleteButton_A
+            // 
+            this.DeleteButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton_A.BackgroundImage")));
+            this.DeleteButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteButton_A.Location = new System.Drawing.Point(0, 98);
+            this.DeleteButton_A.Name = "DeleteButton_A";
+            this.DeleteButton_A.Size = new System.Drawing.Size(30, 30);
+            this.DeleteButton_A.TabIndex = 1;
+            this.DeleteButton_A.UseVisualStyleBackColor = true;
+            this.DeleteButton_A.Click += new System.EventHandler(this.DeleteButton_Click_A);
+            // 
             // PlanTab
             // 
             this.PlanTab.Controls.Add(this.label1);
@@ -680,204 +944,6 @@ namespace DAP_Filler
             this.EntryBox_P.Enter += new System.EventHandler(this.EntryBox_Enter_P);
             this.EntryBox_P.Leave += new System.EventHandler(this.EntryBox_Leave_P);
             // 
-            // CheckAllButton_D
-            // 
-            this.CheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
-            this.CheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CheckAllButton_D.Location = new System.Drawing.Point(593, 98);
-            this.CheckAllButton_D.Name = "CheckAllButton_D";
-            this.CheckAllButton_D.Size = new System.Drawing.Size(30, 30);
-            this.CheckAllButton_D.TabIndex = 10;
-            this.CheckAllButton_D.UseVisualStyleBackColor = true;
-            this.CheckAllButton_D.Click += new System.EventHandler(this.CheckAll_Click_D);
-            // 
-            // UnCheckAllButton_D
-            // 
-            this.UnCheckAllButton_D.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
-            this.UnCheckAllButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UnCheckAllButton_D.Location = new System.Drawing.Point(628, 98);
-            this.UnCheckAllButton_D.Name = "UnCheckAllButton_D";
-            this.UnCheckAllButton_D.Size = new System.Drawing.Size(30, 30);
-            this.UnCheckAllButton_D.TabIndex = 11;
-            this.UnCheckAllButton_D.UseVisualStyleBackColor = true;
-            this.UnCheckAllButton_D.Click += new System.EventHandler(this.UnCheckAll_Click_D);
-            // 
-            // PostButton_D
-            // 
-            this.PostButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PostButton_D.BackgroundImage")));
-            this.PostButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PostButton_D.Location = new System.Drawing.Point(663, 98);
-            this.PostButton_D.Name = "PostButton_D";
-            this.PostButton_D.Size = new System.Drawing.Size(30, 30);
-            this.PostButton_D.TabIndex = 12;
-            this.PostButton_D.UseVisualStyleBackColor = true;
-            this.PostButton_D.Click += new System.EventHandler(this.PostButton_Click_D);
-            // 
-            // DeleteRowsButton_D
-            // 
-            this.DeleteRowsButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteRowsButton_D.BackgroundImage")));
-            this.DeleteRowsButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteRowsButton_D.Location = new System.Drawing.Point(698, 98);
-            this.DeleteRowsButton_D.Name = "DeleteRowsButton_D";
-            this.DeleteRowsButton_D.Size = new System.Drawing.Size(30, 30);
-            this.DeleteRowsButton_D.TabIndex = 13;
-            this.DeleteRowsButton_D.UseVisualStyleBackColor = true;
-            this.DeleteRowsButton_D.Click += new System.EventHandler(this.DeleteButtonRows_Click_D);
-            // 
-            // LearnButton_D
-            // 
-            this.LearnButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_D.BackgroundImage")));
-            this.LearnButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LearnButton_D.Location = new System.Drawing.Point(105, 98);
-            this.LearnButton_D.Name = "LearnButton_D";
-            this.LearnButton_D.Size = new System.Drawing.Size(30, 30);
-            this.LearnButton_D.TabIndex = 4;
-            this.LearnButton_D.UseVisualStyleBackColor = true;
-            this.LearnButton_D.Click += new System.EventHandler(this.LearnButton_D_Click);
-            // 
-            // AddEntryButton_D
-            // 
-            this.AddEntryButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton_D.BackgroundImage")));
-            this.AddEntryButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddEntryButton_D.Location = new System.Drawing.Point(733, 98);
-            this.AddEntryButton_D.Name = "AddEntryButton_D";
-            this.AddEntryButton_D.Size = new System.Drawing.Size(30, 30);
-            this.AddEntryButton_D.TabIndex = 14;
-            this.AddEntryButton_D.UseVisualStyleBackColor = true;
-            this.AddEntryButton_D.Click += new System.EventHandler(this.AddRowButtonClick_D);
-            // 
-            // CopyButton_D
-            // 
-            this.CopyButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyButton_D.BackgroundImage")));
-            this.CopyButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CopyButton_D.Location = new System.Drawing.Point(70, 98);
-            this.CopyButton_D.Name = "CopyButton_D";
-            this.CopyButton_D.Size = new System.Drawing.Size(30, 30);
-            this.CopyButton_D.TabIndex = 3;
-            this.CopyButton_D.UseVisualStyleBackColor = true;
-            this.CopyButton_D.Click += new System.EventHandler(this.CopyButton_Click_D);
-            // 
-            // CutButton_D
-            // 
-            this.CutButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CutButton_D.BackgroundImage")));
-            this.CutButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CutButton_D.Location = new System.Drawing.Point(35, 98);
-            this.CutButton_D.Name = "CutButton_D";
-            this.CutButton_D.Size = new System.Drawing.Size(30, 30);
-            this.CutButton_D.TabIndex = 2;
-            this.CutButton_D.UseVisualStyleBackColor = true;
-            this.CutButton_D.Click += new System.EventHandler(this.CutButton_Click_D);
-            // 
-            // DeleteButton_D
-            // 
-            this.DeleteButton_D.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton_D.BackgroundImage")));
-            this.DeleteButton_D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteButton_D.Location = new System.Drawing.Point(0, 98);
-            this.DeleteButton_D.Name = "DeleteButton_D";
-            this.DeleteButton_D.Size = new System.Drawing.Size(30, 30);
-            this.DeleteButton_D.TabIndex = 1;
-            this.DeleteButton_D.UseVisualStyleBackColor = true;
-            this.DeleteButton_D.Click += new System.EventHandler(this.DeleteButton_Click_D);
-            // 
-            // CheckAllButton_A
-            // 
-            this.CheckAllButton_A.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
-            this.CheckAllButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CheckAllButton_A.Location = new System.Drawing.Point(593, 98);
-            this.CheckAllButton_A.Name = "CheckAllButton_A";
-            this.CheckAllButton_A.Size = new System.Drawing.Size(30, 30);
-            this.CheckAllButton_A.TabIndex = 5;
-            this.CheckAllButton_A.UseVisualStyleBackColor = true;
-            this.CheckAllButton_A.Click += new System.EventHandler(this.CheckAll_Click_A);
-            // 
-            // UnCheckAllButton_A
-            // 
-            this.UnCheckAllButton_A.BackgroundImage = global::DAP_Filler.Properties.Resources._002_square_with_round_corners;
-            this.UnCheckAllButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UnCheckAllButton_A.Location = new System.Drawing.Point(628, 98);
-            this.UnCheckAllButton_A.Name = "UnCheckAllButton_A";
-            this.UnCheckAllButton_A.Size = new System.Drawing.Size(30, 30);
-            this.UnCheckAllButton_A.TabIndex = 6;
-            this.UnCheckAllButton_A.UseVisualStyleBackColor = true;
-            this.UnCheckAllButton_A.Click += new System.EventHandler(this.UnCheckAll_Click_A);
-            // 
-            // PostButton_A
-            // 
-            this.PostButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PostButton_A.BackgroundImage")));
-            this.PostButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PostButton_A.Location = new System.Drawing.Point(663, 98);
-            this.PostButton_A.Name = "PostButton_A";
-            this.PostButton_A.Size = new System.Drawing.Size(30, 30);
-            this.PostButton_A.TabIndex = 7;
-            this.PostButton_A.UseVisualStyleBackColor = true;
-            this.PostButton_A.Click += new System.EventHandler(this.PostButton_Click_A);
-            // 
-            // DeleteRowsButton_A
-            // 
-            this.DeleteRowsButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteRowsButton_A.BackgroundImage")));
-            this.DeleteRowsButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteRowsButton_A.Location = new System.Drawing.Point(698, 98);
-            this.DeleteRowsButton_A.Name = "DeleteRowsButton_A";
-            this.DeleteRowsButton_A.Size = new System.Drawing.Size(30, 30);
-            this.DeleteRowsButton_A.TabIndex = 8;
-            this.DeleteRowsButton_A.UseVisualStyleBackColor = true;
-            this.DeleteRowsButton_A.Click += new System.EventHandler(this.DeleteButtonRows_Click_A);
-            // 
-            // LearnButton_A
-            // 
-            this.LearnButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LearnButton_A.BackgroundImage")));
-            this.LearnButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LearnButton_A.Location = new System.Drawing.Point(105, 98);
-            this.LearnButton_A.Name = "LearnButton_A";
-            this.LearnButton_A.Size = new System.Drawing.Size(30, 30);
-            this.LearnButton_A.TabIndex = 4;
-            this.LearnButton_A.UseVisualStyleBackColor = true;
-            this.LearnButton_A.Click += new System.EventHandler(this.LearnButton_A_Click);
-            // 
-            // AddEntryButton_A
-            // 
-            this.AddEntryButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddEntryButton_A.BackgroundImage")));
-            this.AddEntryButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddEntryButton_A.Location = new System.Drawing.Point(733, 98);
-            this.AddEntryButton_A.Name = "AddEntryButton_A";
-            this.AddEntryButton_A.Size = new System.Drawing.Size(30, 30);
-            this.AddEntryButton_A.TabIndex = 9;
-            this.AddEntryButton_A.UseVisualStyleBackColor = true;
-            this.AddEntryButton_A.Click += new System.EventHandler(this.AddRowButtonClick_A);
-            // 
-            // CopyButton_A
-            // 
-            this.CopyButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CopyButton_A.BackgroundImage")));
-            this.CopyButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CopyButton_A.Location = new System.Drawing.Point(70, 98);
-            this.CopyButton_A.Name = "CopyButton_A";
-            this.CopyButton_A.Size = new System.Drawing.Size(30, 30);
-            this.CopyButton_A.TabIndex = 3;
-            this.CopyButton_A.UseVisualStyleBackColor = true;
-            this.CopyButton_A.Click += new System.EventHandler(this.CopyButton_Click_A);
-            // 
-            // CutButton_A
-            // 
-            this.CutButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CutButton_A.BackgroundImage")));
-            this.CutButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CutButton_A.Location = new System.Drawing.Point(35, 98);
-            this.CutButton_A.Name = "CutButton_A";
-            this.CutButton_A.Size = new System.Drawing.Size(30, 30);
-            this.CutButton_A.TabIndex = 2;
-            this.CutButton_A.UseVisualStyleBackColor = true;
-            this.CutButton_A.Click += new System.EventHandler(this.CutButton_Click_A);
-            // 
-            // DeleteButton_A
-            // 
-            this.DeleteButton_A.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton_A.BackgroundImage")));
-            this.DeleteButton_A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteButton_A.Location = new System.Drawing.Point(0, 98);
-            this.DeleteButton_A.Name = "DeleteButton_A";
-            this.DeleteButton_A.Size = new System.Drawing.Size(30, 30);
-            this.DeleteButton_A.TabIndex = 1;
-            this.DeleteButton_A.UseVisualStyleBackColor = true;
-            this.DeleteButton_A.Click += new System.EventHandler(this.DeleteButton_Click_A);
-            // 
             // CheckAllButton_P
             // 
             this.CheckAllButton_P.BackgroundImage = global::DAP_Filler.Properties.Resources._001_check;
@@ -977,72 +1043,6 @@ namespace DAP_Filler
             this.DeleteButton_P.UseVisualStyleBackColor = true;
             this.DeleteButton_P.Click += new System.EventHandler(this.DeleteButton_Click_P);
             // 
-            // SavedHistoryButton
-            // 
-            this.SavedHistoryButton.BackgroundImage = global::DAP_Filler.Properties.Resources.group;
-            this.SavedHistoryButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SavedHistoryButton.Location = new System.Drawing.Point(565, 11);
-            this.SavedHistoryButton.Name = "SavedHistoryButton";
-            this.SavedHistoryButton.Size = new System.Drawing.Size(30, 30);
-            this.SavedHistoryButton.TabIndex = 16;
-            this.SavedHistoryButton.UseVisualStyleBackColor = true;
-            this.SavedHistoryButton.Click += new System.EventHandler(this.SavedHistoryButton_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.BackgroundImage = global::DAP_Filler.Properties.Resources.save;
-            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.saveButton.Location = new System.Drawing.Point(635, 11);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(30, 30);
-            this.saveButton.TabIndex = 15;
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // loadButton
-            // 
-            this.loadButton.BackgroundImage = global::DAP_Filler.Properties.Resources._001_open_folder;
-            this.loadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.loadButton.Location = new System.Drawing.Point(671, 11);
-            this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(30, 30);
-            this.loadButton.TabIndex = 14;
-            this.loadButton.UseVisualStyleBackColor = true;
-            this.loadButton.Click += new System.EventHandler(this.LoadButton_Click);
-            // 
-            // happyFaceButton
-            // 
-            this.happyFaceButton.BackgroundImage = global::DAP_Filler.Properties.Resources.happy;
-            this.happyFaceButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.happyFaceButton.Location = new System.Drawing.Point(742, 11);
-            this.happyFaceButton.Name = "happyFaceButton";
-            this.happyFaceButton.Size = new System.Drawing.Size(30, 30);
-            this.happyFaceButton.TabIndex = 7;
-            this.happyFaceButton.UseVisualStyleBackColor = true;
-            this.happyFaceButton.Click += new System.EventHandler(this.HappyFace_Click);
-            // 
-            // DefaultButton
-            // 
-            this.DefaultButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_repairing_service;
-            this.DefaultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DefaultButton.Location = new System.Drawing.Point(706, 11);
-            this.DefaultButton.Name = "DefaultButton";
-            this.DefaultButton.Size = new System.Drawing.Size(30, 30);
-            this.DefaultButton.TabIndex = 6;
-            this.DefaultButton.UseVisualStyleBackColor = true;
-            this.DefaultButton.Click += new System.EventHandler(this.ReturnToDefaults);
-            // 
-            // NewPatientButton
-            // 
-            this.NewPatientButton.BackgroundImage = global::DAP_Filler.Properties.Resources._002_man_user;
-            this.NewPatientButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewPatientButton.Location = new System.Drawing.Point(600, 11);
-            this.NewPatientButton.Name = "NewPatientButton";
-            this.NewPatientButton.Size = new System.Drawing.Size(30, 30);
-            this.NewPatientButton.TabIndex = 5;
-            this.NewPatientButton.UseVisualStyleBackColor = true;
-            this.NewPatientButton.Click += new System.EventHandler(this.NewPatient_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1053,6 +1053,7 @@ namespace DAP_Filler
             this.Controls.Add(this.PatientGB);
             this.Name = "Form1";
             this.Text = "DAP Filler";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.PatientGB.ResumeLayout(false);
             this.PatientGB.PerformLayout();
             this.tabControl1.ResumeLayout(false);

@@ -93,6 +93,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="MySettings.cs" />
+    <Compile Include="PasswordForm.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="LoadPatientForm.cs" />
